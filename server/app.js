@@ -10,7 +10,7 @@ app.use(morgan("combined"))
 app.use(bodyParser.json())
 app.use(cors())
 
-
+require("../server/src/routes")(app);
 // force: true will drop all tables
 sequelize.sync({ force: false })
     .then(() => {

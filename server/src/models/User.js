@@ -2,7 +2,10 @@ const bcrypt = require("bcrypt");
 
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define("User", {
-        privilegeLevel: DataTypes.INTEGER,
+        privilegeLevel: {
+            type: DataTypes.INTEGER,
+            defaultValue: 1
+        },
 
         username: {
             type: DataTypes.STRING,
@@ -19,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
 
     }, {
         hooks: {
-            beforeCreate() {
+            beforeCreate: (user) => {
                 const salt = bcrypt.genSaltSync();
                 user.password = bcrypt.hashSync(user.password, salt)
             },
