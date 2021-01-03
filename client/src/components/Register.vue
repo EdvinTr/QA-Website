@@ -6,13 +6,26 @@
         <p class="h4 text-center py-4">Sign up</p>
         <div class="grey-text">
           <mdb-input
-            label="Your name"
+            label="First name"
             icon="user"
             group
             type="text"
             validate
             error="wrong"
             success="right"
+            required
+            v-model="formData.firstname"
+          />
+          <mdb-input
+            label="Last name"
+            icon="user"
+            group
+            type="text"
+            validate
+            error="wrong"
+            success="right"
+            required
+            v-model="formData.lastname"
           />
           <mdb-input
             label="Your email"
@@ -22,6 +35,7 @@
             validate
             error="wrong"
             success="right"
+            required
           />
           <mdb-input
             label="Confirm your email"
@@ -31,6 +45,19 @@
             validate
             error="wrong"
             success="right"
+            required
+            v-model="formData.email"
+          />
+          <mdb-input
+            label="Your username"
+            icon="file-signature"
+            group
+            type="text"
+            validate
+            error="wrong"
+            success="right"
+            required
+            v-model="formData.username"
           />
           <mdb-input
             label="Your password"
@@ -38,10 +65,21 @@
             group
             type="password"
             validate
+            required
+            v-model="formData.password"
+          />
+          <mdb-input
+            label="Admin Level"
+            icon="tools"
+            group
+            type="text"
+            validate
+            required
+            v-model="formData.privilegeLevel"
           />
         </div>
         <div class="text-center py-4 mt-3">
-          <mdb-btn color="cyan" type="submit">Register</mdb-btn>
+          <mdb-btn color="btn btn-indigo" @click="register">Register</mdb-btn>
         </div>
       </form>
     </mdb-card-body>
@@ -50,6 +88,7 @@
 </template>
 
 <script>
+import AuthenticationService from "../services/AuthenticationService";
 import { mdbInput, mdbBtn, mdbCard, mdbCardBody } from "mdbvue";
 export default {
   name: "Basic",
@@ -58,6 +97,31 @@ export default {
     mdbBtn,
     mdbCard,
     mdbCardBody,
+  },
+  data() {
+    return {
+      formData: {
+        firstname: "",
+        lastname: "",
+        email: "",
+        username: "",
+        password: "",
+        privilegeLevel: "",
+      },
+    };
+  },
+  methods: {
+    async register() {
+      try {
+        const res = await AuthenticationService.register(this.formData);
+        //  this.$router.push({ name: "home" });
+        console.log(res.data);
+        this.$store.dispatch("setToken", res.data.token);
+        this.$store.dispatch("setUser", res.data.user);
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
 };
 </script>
