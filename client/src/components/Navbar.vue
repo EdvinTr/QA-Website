@@ -44,7 +44,9 @@
               @click="navigateTo({ name: 'register' })"
               >Register</mdb-dropdown-item
             >
-            <mdb-dropdown-item v-if="$store.state.isUserLoggedIn"
+            <mdb-dropdown-item
+              v-if="$store.state.isUserLoggedIn"
+              @click="logout"
               >Logout</mdb-dropdown-item
             >
             <mdb-dropdown-item v-if="$store.state.isUserLoggedIn"
@@ -87,6 +89,12 @@ export default {
   methods: {
     navigateTo(route) {
       this.$router.push(route);
+    },
+    logout() {
+      this.$store.dispatch("setToken", null);
+      this.$store.dispatch("setUser", null);
+
+      this.$router.push({ name: "home" });
     },
   },
 };
