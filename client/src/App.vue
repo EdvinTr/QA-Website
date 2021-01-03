@@ -1,20 +1,25 @@
 <template>
-  <div id="app" class="container">
-    <Header />
-    <router-view></router-view>
+  <div id="app">
+    <Navbar />
+    <!-- <img src="./assets/logo-mdb-vue-small.png"> -->
+    <router-view />
   </div>
 </template>
 
 <script>
-import Header from "./components/Header.vue";
-
+import Navbar from "./components/Navbar";
 export default {
   name: "App",
   components: {
-    Header,
+    Navbar,
   },
 };
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
+
+#app {
+  text-align: center;
+}
 </style>
