@@ -1,5 +1,7 @@
 <template>
-  <div>Home Page</div>
+  <div>
+    <h1 class="heading">Home Page</h1>
+  </div>
 </template>
 
 <script>
@@ -9,4 +11,8 @@ export default {
 </script>
 
 <style scoped>
+.heading {
+  text-align: center;
+  margin-top: 40px;
+}
 </style>

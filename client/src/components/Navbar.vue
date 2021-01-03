@@ -44,10 +44,11 @@
               @click="navigateTo({ name: 'register' })"
               >Register</mdb-dropdown-item
             >
-            <mdb-dropdown-item
-              v-if="$store.state.isUserLoggedIn"
-              @click="navigateTo({ name: 'register' })"
+            <mdb-dropdown-item v-if="$store.state.isUserLoggedIn"
               >Logout</mdb-dropdown-item
+            >
+            <mdb-dropdown-item v-if="$store.state.isUserLoggedIn"
+              >My Page</mdb-dropdown-item
             >
           </mdb-dropdown-menu>
         </mdb-dropdown>
