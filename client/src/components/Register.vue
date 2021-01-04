@@ -1,89 +1,92 @@
 <template>
   <!-- Card -->
-  <mdb-card>
-    <mdb-card-body>
-      <form>
-        <p class="h4 text-center py-4">Sign up</p>
-        <div class="grey-text">
-          <mdb-input
-            label="First name"
-            icon="user"
-            group
-            type="text"
-            validate
-            error="wrong"
-            success="right"
-            required
-            v-model="formData.firstname"
-          />
-          <mdb-input
-            label="Last name"
-            icon="user"
-            group
-            type="text"
-            validate
-            error="wrong"
-            success="right"
-            required
-            v-model="formData.lastname"
-          />
-          <mdb-input
-            label="Your email"
-            icon="envelope"
-            group
-            type="email"
-            validate
-            error="wrong"
-            success="right"
-            required
-          />
-          <mdb-input
-            label="Confirm your email"
-            icon="exclamation-triangle"
-            group
-            type="text"
-            validate
-            error="wrong"
-            success="right"
-            required
-            v-model="formData.email"
-          />
-          <mdb-input
-            label="Your username"
-            icon="file-signature"
-            group
-            type="text"
-            validate
-            error="wrong"
-            success="right"
-            required
-            v-model="formData.username"
-          />
-          <mdb-input
-            label="Your password"
-            icon="lock"
-            group
-            type="password"
-            validate
-            required
-            v-model="formData.password"
-          />
-          <mdb-input
-            label="Admin Level"
-            icon="tools"
-            group
-            type="text"
-            validate
-            required
-            v-model="formData.privilegeLevel"
-          />
-        </div>
-        <div class="text-center py-4 mt-3">
-          <mdb-btn color="btn btn-indigo" @click="register">Register</mdb-btn>
-        </div>
-      </form>
-    </mdb-card-body>
-  </mdb-card>
+  <div class="container">
+    <mdb-card>
+      <mdb-card-body>
+        <form>
+          <p class="h4 text-center py-4">Sign up</p>
+          <div class="grey-text">
+            <mdb-input
+              label="First name"
+              icon="user"
+              group
+              type="text"
+              validate
+              error="wrong"
+              success="right"
+              required
+              v-model="formData.firstname"
+            />
+            <mdb-input
+              label="Last name"
+              icon="user"
+              group
+              type="text"
+              validate
+              error="wrong"
+              success="right"
+              required
+              v-model="formData.lastname"
+            />
+            <mdb-input
+              label="Your email"
+              icon="envelope"
+              group
+              type="email"
+              validate
+              error="wrong"
+              success="right"
+              required
+            />
+            <mdb-input
+              label="Confirm your email"
+              icon="exclamation-triangle"
+              group
+              type="text"
+              validate
+              error="wrong"
+              success="right"
+              required
+              v-model="formData.email"
+            />
+            <mdb-input
+              label="Your username"
+              icon="file-signature"
+              group
+              type="text"
+              validate
+              error="wrong"
+              success="right"
+              required
+              v-model="formData.username"
+            />
+            <mdb-input
+              label="Your password"
+              icon="lock"
+              group
+              type="password"
+              validate
+              required
+              v-model="formData.password"
+            />
+            <mdb-input
+              label="Admin Level"
+              icon="tools"
+              group
+              type="text"
+              validate
+              required
+              v-model="formData.privilegeLevel"
+            />
+          </div>
+          <div class="text-center py-4 mt-3">
+            <div class="error" v-html="error" />
+            <mdb-btn color="btn btn-indigo" @click="register">Register</mdb-btn>
+          </div>
+        </form>
+      </mdb-card-body>
+    </mdb-card>
+  </div>
   <!-- Card -->
 </template>
 
@@ -100,6 +103,7 @@ export default {
   },
   data() {
     return {
+      error: null,
       formData: {
         firstname: "",
         lastname: "",
@@ -118,8 +122,9 @@ export default {
         console.log(res.data);
         this.$store.dispatch("setToken", res.data.token);
         this.$store.dispatch("setUser", res.data.user);
+        this.$router.push({ name: "home" });
       } catch (error) {
-        console.log(error);
+        this.error = error.response.data.error;
       }
     },
   },
@@ -127,4 +132,7 @@ export default {
 </script>
 
 <style scoped>
+.error {
+  color: red;
+}
 </style>

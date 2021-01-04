@@ -1,29 +1,31 @@
 <template>
   <!-- Default form login -->
-  <form class="form-group">
-    <p class="h4 text-center mb-4">Sign in</p>
-    <label for="defaultFormLoginEmailEx" class="grey-text">Your email</label>
-    <input
-      type="email"
-      id="defaultFormLoginEmailEx"
-      class="form-control"
-      v-model="credentials.email"
-    />
-    <br />
-    <label for="defaultFormLoginPasswordEx" class="grey-text"
-      >Your password
-    </label>
-    <input
-      type="password"
-      id="defaultFormLoginPasswordEx"
-      class="form-control"
-      v-model="credentials.password"
-    />
-    <div class="text-center mt-4">
-      <div class="error" v-html="error" />
-      <button class="btn btn-indigo" @click="login">Login</button>
-    </div>
-  </form>
+  <div class="container">
+    <form class="form-group">
+      <p class="h4 text-center mb-4">Sign in</p>
+      <label for="defaultFormLoginEmailEx" class="grey-text">Your email</label>
+      <input
+        type="email"
+        id="defaultFormLoginEmailEx"
+        class="form-control"
+        v-model="credentials.email"
+      />
+      <br />
+      <label for="defaultFormLoginPasswordEx" class="grey-text"
+        >Your password
+      </label>
+      <input
+        type="password"
+        id="defaultFormLoginPasswordEx"
+        class="form-control"
+        v-model="credentials.password"
+      />
+      <div class="text-center mt-4">
+        <div class="error" v-html="error" />
+        <button class="btn btn-indigo" @click="login">Login</button>
+      </div>
+    </form>
+  </div>
   <!-- Default form login -->
 </template>
 

@@ -3,8 +3,8 @@ const bcrypt = require("bcrypt");
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define("User", {
         privilegeLevel: {
-            type: DataTypes.INTEGER,
-            defaultValue: 1
+            type: DataTypes.STRING,
+            defaultValue: "1"
         },
 
         username: {
