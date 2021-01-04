@@ -1,6 +1,7 @@
 const AuthenticationController = require("../src/controllers/AuthenticationController")
 const AuthenticationControllerPolicy = require("../src/policies/AuthenticationControllerPolicy");
-const { User } = require("../src/models")
+const QuestionController = require("../src/controllers/QuestionController")
+const { User, Question } = require("../src/models")
 
 module.exports = (app) => {
     app.post("/register",
@@ -17,5 +18,19 @@ module.exports = (app) => {
             console.log(err);
         }
     })
+
+    app.get("/questions", async (req, res) => {
+        try {
+            const questions = await Question.findAll();
+            res.send(questions);
+        } catch (err) {
+            console.log(err);
+            res.status(424).send({
+                error: "Could not fetch all questions"
+            })
+        }
+    })
+
+    app.post("/questions", QuestionController.createQuestion);
 
 }
