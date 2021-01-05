@@ -7,8 +7,10 @@ module.exports = {
         options: {
             dialect: process.env.DIALECT || "sqlite",
             host: process.env.HOST || "localhost",
-            storage: "./QAEngine.sqlite"
+            storage: "./QAEngine.sqlite",
+
         }
+
     },
 
     authentication: {
