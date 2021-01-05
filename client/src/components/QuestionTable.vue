@@ -1,6 +1,6 @@
 <template>
   <mdb-container>
-    <div v-for="question in questions" :key="question.id">
+    <div v-for="(question, index) in questions" :key="question.id">
       <mdb-card class="mt-4">
         <mdb-card-body>
           <mdb-card-title>{{ question.title }}</mdb-card-title>
@@ -9,6 +9,9 @@
           }}</mdb-card-text>
           <mdb-btn color="primary" class="btn-answer">Answer</mdb-btn>
           <mdb-card-footer class="text-muted mt-4">
+            <div v-if="users[index].id === question.userId">
+              {{ users[index].username }}
+            </div>
             {{ splitDate(question.createdAt) }}
           </mdb-card-footer>
         </mdb-card-body>
@@ -18,6 +21,7 @@
 </template>
 <script>
 import QuestionService from "../services/QuestionService";
+import UserService from "../services/UserService";
 import {
   mdbContainer,
   mdbCard,
@@ -46,6 +50,10 @@ export default {
   },
   async mounted() {
     const { data } = await QuestionService.getQuestions();
+    for (const item of data) {
+      const user = await UserService.findUserById(item.userId);
+      this.users = [...this.users, user.data];
+    }
     this.questions = data;
   },
 
