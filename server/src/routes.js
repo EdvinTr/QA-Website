@@ -26,6 +26,8 @@ module.exports = (app) => {
 
     app.get("/questions/:id", QuestionController.findQuestionById);
 
+    app.delete("/questions/:id", QuestionController.deleteQuestionById);
+
     app.post("/questions", QuestionController.createQuestion);
 
 }

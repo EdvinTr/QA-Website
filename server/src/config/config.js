@@ -10,7 +10,6 @@ module.exports = {
             storage: "./QAEngine.sqlite",
 
         }
-
     },
 
     authentication: {

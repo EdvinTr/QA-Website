@@ -15,6 +15,28 @@ module.exports = {
         }
     },
 
+    async deleteQuestionById(req, res) {
+        try {
+            const question = await Question.destroy({
+                where: {
+                    id: req.params.id
+                }
+            })
+            if (question) {
+                res.status(200).send()
+            } else {
+                res.status(400).send({
+                    error: `Could not find question with an ID of ${req.params.id}`
+                })
+            }
+        } catch (err) {
+            console.log(err);
+            res.status(400).send({
+                error: `Could not delete question with an ID of ${req.params.id}`
+            })
+        }
+    },
+
     async getAllQuestion(req, res) {
         try {
             const questions = await Question.findAll();

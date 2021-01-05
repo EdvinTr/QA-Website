@@ -52,8 +52,8 @@ export default {
 footer {
   background-color: #111;
   font-size: 11px;
-  position: absolute;
   width: 100%;
+  position: fixed;
   bottom: 0;
 }
 .copyrightText {

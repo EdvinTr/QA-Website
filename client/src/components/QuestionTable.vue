@@ -61,8 +61,15 @@ export default {
     splitDate(dateString) {
       const date = dateString.split("T");
       const time = date[1].slice(0, 8);
-      const full = date[0] + " " + time;
-      return full;
+      const hours = time.slice(0, 2);
+      try {
+        const parsedTimezone = parseInt(hours) + 1;
+        const fullDate =
+          date[0] + " " + parsedTimezone.toString() + time.slice(2, 8);
+        return fullDate;
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
 };
