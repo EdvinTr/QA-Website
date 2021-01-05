@@ -1,7 +1,7 @@
 <template>
   <!-- Footer -->
   <div class="footer-container">
-    <mdb-footer class="font-small pt-4 mt-4">
+    <mdb-footer color="grey darken-4" class="font-small pt-4 mt-4">
       <mdb-container class="text-left">
         <mdb-row>
           <mdb-col sm="6">
@@ -49,20 +49,17 @@ export default {
 </script>
 
 <style scoped>
-footer {
-  background-color: #111;
-  font-size: 11px;
-  width: 100%;
-  position: fixed;
-  bottom: 0;
+.font-small {
+  background-color: #1d1f20 !important;
 }
 .copyrightText {
   cursor: pointer;
 }
 
+.footer-container {
+  margin-top: 400px;
+}
+
 @media (max-width: 1024px) {
-  footer {
-    bottom: -300px;
-  }
 }
 </style>
