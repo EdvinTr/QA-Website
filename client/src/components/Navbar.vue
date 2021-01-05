@@ -3,14 +3,16 @@
     <mdb-container>
       <router-link to="/">
         <div class="brand">
-          <mdb-navbar-brand> QA Engine </mdb-navbar-brand>
+          <mdb-navbar-brand>{{ pageTitle }}</mdb-navbar-brand>
         </div>
       </router-link>
       <mdb-navbar-toggler>
         <mdb-navbar-nav right>
           <router-link to="login">
             <mdb-nav-item id="donationButtonId" class="donationButton"
-              ><span class="donationText">Support QA Engine</span></mdb-nav-item
+              ><span class="donationText"
+                >Support {{ pageTitle }}</span
+              ></mdb-nav-item
             >
           </router-link>
 
@@ -84,6 +86,11 @@ export default {
     mdbDropdownItem,
     mdbContainer,
     mdbIcon,
+  },
+  data() {
+    return {
+      pageTitle: "QA Engine",
+    };
   },
   methods: {
     logout() {
