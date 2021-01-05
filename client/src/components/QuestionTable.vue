@@ -14,10 +14,22 @@
             question.textContent.slice(0, 200) + "..."
           }}</mdb-card-text>
 
-          <mdb-btn color="primary" class="btn-answer">Answer</mdb-btn>
+          <mdb-btn
+            @click="
+              navigateTo({
+                name: 'question',
+                params: {
+                  questionId: question.id,
+                },
+              })
+            "
+            color="primary"
+            class="btn-answer"
+            >Answer</mdb-btn
+          >
           <mdb-card-footer class="text-muted mt-4">
             <div v-if="users[index].id === question.userId">
-              {{ users[index].username }}
+              <b>{{ users[index].username }}</b>
             </div>
             {{ splitDate(question.createdAt) }}
           </mdb-card-footer>
@@ -77,6 +89,9 @@ export default {
       } catch (err) {
         console.log(err);
       }
+    },
+    navigateTo(route) {
+      this.$router.push(route);
     },
   },
 };

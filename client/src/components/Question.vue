@@ -8,6 +8,10 @@
 export default {
   name: "Question",
   components: {},
+  async mounted() {
+    const questionId = this.$store.currentRoute.params.questionId;
+    console.log(questionId);
+  },
 };
 </script>
 

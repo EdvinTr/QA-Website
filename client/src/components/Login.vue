@@ -1,6 +1,6 @@
 <template>
   <!-- Default form login -->
-  <div class="container">
+  <div class="container signInContainer">
     <form class="form-group">
       <p class="h4 text-center mb-4">Sign in</p>
       <label for="defaultFormLoginEmailEx" class="grey-text">Your email</label>
@@ -71,5 +71,8 @@ export default {
 }
 .error {
   color: red;
+}
+.signInContainer {
+  margin-bottom: 50rem;
 }
 </style>

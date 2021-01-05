@@ -51,6 +51,13 @@ export default {
 <style scoped>
 .font-small {
   background-color: #1d1f20 !important;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  /* position: absolute;
+  bottom: 0;
+  width: 100%; */
 }
 .copyrightText {
   cursor: pointer;
