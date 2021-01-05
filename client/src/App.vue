@@ -3,7 +3,10 @@
     <Navbar />
     <!-- <img src="./assets/logo-mdb-vue-small.png"> -->
     <router-view />
-    <Footer />
+
+    <div v-cloak>
+      <Footer v-cloak />
+    </div>
   </div>
 </template>
 
@@ -31,5 +34,8 @@ export default {
 
 body {
   background-color: rgb(241, 242, 242);
+}
+[v-cloak] {
+  display: none !important;
 }
 </style>

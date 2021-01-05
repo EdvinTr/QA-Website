@@ -31,7 +31,7 @@
             <div v-if="users[index].id === question.userId">
               <b>{{ users[index].username }}</b>
             </div>
-            {{ splitDate(question.createdAt) }}
+            {{ formatGMTDate(question.createdAt) }}
           </mdb-card-footer>
         </mdb-card-body>
       </mdb-card>
@@ -65,6 +65,7 @@ export default {
     return {
       questions: [],
       users: [],
+      formattedDate: "",
     };
   },
   async mounted() {
@@ -77,18 +78,8 @@ export default {
   },
 
   methods: {
-    splitDate(dateString) {
-      const date = dateString.split("T");
-      const time = date[1].slice(0, 8);
-      const hours = time.slice(0, 2);
-      try {
-        const swedishTimezoneHours = parseInt(hours) + 1;
-        const fullDate =
-          date[0] + " " + swedishTimezoneHours.toString() + time.slice(2, 8);
-        return fullDate;
-      } catch (err) {
-        console.log(err);
-      }
+    formatGMTDate(date) {
+      return QuestionService.splitDate(date);
     },
     navigateTo(route) {
       this.$router.push(route);

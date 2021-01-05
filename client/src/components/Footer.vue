@@ -64,7 +64,7 @@ export default {
 }
 
 .footer-container {
-  margin-top: 400px;
+  padding-top: 400px;
 }
 
 @media (max-width: 1024px) {
