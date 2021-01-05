@@ -32,23 +32,29 @@
             }}</mdb-dropdown-toggle>
 
             <mdb-dropdown-menu>
-              <router-link to="login">
-                <mdb-dropdown-item v-if="!$store.state.isUserLoggedIn"
-                  >Login</mdb-dropdown-item
-                >
+              <router-link
+                to="login"
+                class="dropdown-item"
+                v-if="!$store.state.isUserLoggedIn"
+                >Login
               </router-link>
-              <router-link to="register">
-                <mdb-dropdown-item v-if="!$store.state.isUserLoggedIn"
-                  >Register</mdb-dropdown-item
-                >
+              <router-link
+                to="register"
+                class="dropdown-item"
+                v-if="!$store.state.isUserLoggedIn"
+                >Register
+              </router-link>
+
+              <router-link
+                to="/"
+                class="dropdown-item"
+                v-if="$store.state.isUserLoggedIn"
+                >My Page
               </router-link>
               <mdb-dropdown-item
                 v-if="$store.state.isUserLoggedIn"
                 @click="logout"
                 >Logout</mdb-dropdown-item
-              >
-              <mdb-dropdown-item v-if="$store.state.isUserLoggedIn"
-                >My Page</mdb-dropdown-item
               >
             </mdb-dropdown-menu>
           </mdb-dropdown>

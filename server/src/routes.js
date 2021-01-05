@@ -1,5 +1,6 @@
 const AuthenticationController = require("../src/controllers/AuthenticationController")
 const AuthenticationControllerPolicy = require("../src/policies/AuthenticationControllerPolicy");
+const UserController = require("../src/controllers/UserController")
 const QuestionController = require("../src/controllers/QuestionController")
 const { User, Question } = require("../src/models")
 
@@ -18,6 +19,8 @@ module.exports = (app) => {
             console.log(err);
         }
     })
+
+    app.get("/users/:id", UserController.findUserById);
 
     app.get("/questions", QuestionController.getAllQuestion);
 
