@@ -19,17 +19,9 @@ module.exports = (app) => {
         }
     })
 
-    app.get("/questions", async (req, res) => {
-        try {
-            const questions = await Question.findAll();
-            res.send(questions);
-        } catch (err) {
-            console.log(err);
-            res.status(424).send({
-                error: "Could not fetch all questions"
-            })
-        }
-    })
+    app.get("/questions", QuestionController.getAllQuestion);
+
+    app.get("/questions/:id", QuestionController.findQuestionById);
 
     app.post("/questions", QuestionController.createQuestion);
 
