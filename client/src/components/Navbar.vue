@@ -1,21 +1,24 @@
 <template>
   <mdb-navbar expand="large" dark>
     <mdb-container>
-      <div class="brand" @click="navigateTo({ name: 'home' })">
-        <mdb-navbar-brand> QA Engine </mdb-navbar-brand>
-      </div>
+      <router-link to="/">
+        <div class="brand">
+          <mdb-navbar-brand> QA Engine </mdb-navbar-brand>
+        </div>
+      </router-link>
       <mdb-navbar-toggler>
         <mdb-navbar-nav right>
-          <mdb-nav-item
-            id="donationButtonId"
-            class="donationButton"
-            @click="navigateTo({ name: 'login' })"
-            ><span class="donationText">Support QA Engine</span></mdb-nav-item
-          >
+          <router-link to="login">
+            <mdb-nav-item id="donationButtonId" class="donationButton"
+              ><span class="donationText">Support QA Engine</span></mdb-nav-item
+            >
+          </router-link>
 
-          <mdb-nav-item @click="navigateTo({ name: 'register' })">{{
-            $store.state.isUserLoggedIn ? "" : "Membership"
-          }}</mdb-nav-item>
+          <router-link to="register">
+            <mdb-nav-item>{{
+              $store.state.isUserLoggedIn ? "" : "Membership"
+            }}</mdb-nav-item>
+          </router-link>
 
           <mdb-nav-item v-if="$store.state.isUserLoggedIn">
             <mdb-icon far icon="envelope" />
@@ -27,16 +30,16 @@
             }}</mdb-dropdown-toggle>
 
             <mdb-dropdown-menu>
-              <mdb-dropdown-item
-                v-if="!$store.state.isUserLoggedIn"
-                @click="navigateTo({ name: 'login' })"
-                >Login</mdb-dropdown-item
-              >
-              <mdb-dropdown-item
-                v-if="!$store.state.isUserLoggedIn"
-                @click="navigateTo({ name: 'register' })"
-                >Register</mdb-dropdown-item
-              >
+              <router-link to="login">
+                <mdb-dropdown-item v-if="!$store.state.isUserLoggedIn"
+                  >Login</mdb-dropdown-item
+                >
+              </router-link>
+              <router-link to="register">
+                <mdb-dropdown-item v-if="!$store.state.isUserLoggedIn"
+                  >Register</mdb-dropdown-item
+                >
+              </router-link>
               <mdb-dropdown-item
                 v-if="$store.state.isUserLoggedIn"
                 @click="logout"
@@ -83,9 +86,6 @@ export default {
     mdbIcon,
   },
   methods: {
-    navigateTo(route) {
-      this.$router.push(route);
-    },
     logout() {
       this.$store.dispatch("setToken", null);
       this.$store.dispatch("setUser", null);
