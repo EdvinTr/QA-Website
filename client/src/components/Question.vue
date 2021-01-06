@@ -20,13 +20,31 @@
         <mdb-card class="answer">
           <mdb-view hover> </mdb-view>
           <mdb-card-body>
-            <mdb-card-text>{{ answer.textContent }}</mdb-card-text>
+            <mdb-card-text>{{ answer.textContent }} </mdb-card-text>
+
             <mdb-card-footer class="text-muted mt-4">
               <div>
                 <b>{{ answerUserData[index].username }}</b>
               </div>
               {{ formatGMTDate(answer.createdAt) }}
             </mdb-card-footer>
+            <!-- TODO -->
+            <!-- v-if="$store.state.userPrivileveLevel === 3" -->
+            <!-- <div class="dangerButtonContainer" :id="answer.id">
+              <DangerButton
+                v-bind:id="answer.id"
+                buttonText="Delete"
+                :btnClickHandler="click"
+              />
+            </div> -->
+            <div>
+              <mdb-btn
+                color="info"
+                class="btn-danger"
+                @click="() => deleteAnswer(answer.id)"
+                >Delete</mdb-btn
+              >
+            </div>
           </mdb-card-body>
         </mdb-card>
       </div>
@@ -52,6 +70,7 @@ import QuestionService from "../services/QuestionService";
 import UserService from "../services/UserService";
 import AnswerService from "../services/AnswerService";
 import SuccessButton from "../components/SuccessButton";
+//import DangerButton from "../components/DangerButton";
 import {
   mdbCard,
   mdbCardBody,
@@ -61,6 +80,7 @@ import {
   mdbContainer,
   mdbCardFooter,
   mdbInput,
+  mdbBtn,
 } from "mdbvue";
 export default {
   name: "Question",
@@ -74,6 +94,8 @@ export default {
     mdbCardFooter,
     mdbInput,
     SuccessButton,
+    mdbBtn,
+    //  DangerButton,
   },
   data() {
     return {
@@ -156,6 +178,37 @@ export default {
         console.log(err);
       }
     },
+    async deleteAnswer(id) {
+      try {
+        await AnswerService.deleteAnswerById(id);
+        this.fetchAllData();
+        console.log(id);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async fetchAllData() {
+      try {
+        const questionId = this.$store.state.route.params.questionId;
+        const answerData = await AnswerService.findAnswersMappedToQuestionId(
+          questionId
+        );
+
+        this.answers = answerData.data;
+        for (let i = 0; i < this.answers.length; i++) {
+          let id = this.answers[i].userId;
+          let { data } = await UserService.findUserById(id);
+          this.answerUserData = data;
+        }
+        if (this.answers.length > 0) {
+          this.areThereAnyAnswers = true;
+        } else {
+          this.areThereAnyAnswers = false;
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    },
   },
 };
 </script>
@@ -166,5 +219,9 @@ export default {
 }
 .questionContainer {
   margin-bottom: 40rem;
+}
+
+.dangerButtonContainer {
+  margin-top: 1.5rem;
 }
 </style>

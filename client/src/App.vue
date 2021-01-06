@@ -3,9 +3,10 @@
     <Navbar />
     <!-- <img src="./assets/logo-mdb-vue-small.png"> -->
     <router-view />
+    <div class="spacer"></div>
 
     <div v-cloak>
-      <Footer v-bind:isContentFetched="true" />
+      <Footer />
     </div>
   </div>
 </template>
@@ -34,5 +35,8 @@ export default {
 
 body {
   background-color: rgb(241, 242, 242);
+}
+.spacer {
+  height: 55rem;
 }
 </style>

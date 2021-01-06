@@ -1,6 +1,6 @@
 <template>
   <!-- Footer -->
-  <div class="footer-container" v-if="1 == 2">
+  <div class="footer-container">
     <mdb-footer color="grey darken-4" class="font-small pt-4 mt-4">
       <mdb-container class="text-left">
         <mdb-row>

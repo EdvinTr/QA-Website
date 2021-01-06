@@ -8,6 +8,9 @@ export default {
     findAnswersMappedToQuestionId(id) {
         return Api().get(`answers/${id}`);
     },
+    deleteAnswerById(id) {
+        return Api().delete(`answers/${id}`)
+    }
 
 
 }
