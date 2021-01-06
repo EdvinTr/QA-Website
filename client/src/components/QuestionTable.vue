@@ -16,10 +16,8 @@
           <router-link
             :to="{ name: 'question', params: { questionId: question.id } }"
           >
-            <mdb-btn color="primary" class="btn-answer"
-              >Answer</mdb-btn
-            ></router-link
-          >
+            <SuccessButton buttonText="View"
+          /></router-link>
           <mdb-card-footer class="text-muted mt-4">
             <div v-if="users[index].id === question.userId">
               <b>{{ users[index].username }}</b>
@@ -34,13 +32,13 @@
 <script>
 import QuestionService from "../services/QuestionService";
 import UserService from "../services/UserService";
+import SuccessButton from "../components/SuccessButton";
 import {
   mdbContainer,
   mdbCard,
   mdbCardBody,
   mdbCardTitle,
   mdbCardText,
-  mdbBtn,
   mdbCardFooter,
 } from "mdbvue";
 export default {
@@ -51,8 +49,8 @@ export default {
     mdbCardBody,
     mdbCardTitle,
     mdbCardText,
-    mdbBtn,
     mdbCardFooter,
+    SuccessButton,
   },
   data() {
     return {
@@ -79,10 +77,6 @@ export default {
 </script>
 
 <style scoped>
-.btn-answer {
-  background-image: linear-gradient(to right, #00b74a, #00b74a);
-}
-
 .categoryTitle {
   display: inline-block;
   background: linear-gradient(to right, #4776e6, #8e54e9);

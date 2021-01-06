@@ -5,7 +5,6 @@
       <mdb-card-body>
         <mdb-card-title>{{ question.title }}</mdb-card-title>
         <mdb-card-text>{{ question.textContent }}.</mdb-card-text>
-        <mdb-btn color="primary">Button</mdb-btn>
         <mdb-card-footer class="text-muted mt-4">
           <div>
             <b>{{ questionCreator.username }}</b>
@@ -32,6 +31,7 @@
         </mdb-card>
       </div>
     </div>
+    <AnswerInput />
     <!-- REFACTOR THIS -->
     <!-- REFACTOR THIS -->
   </mdb-container>
@@ -41,12 +41,12 @@
 import QuestionService from "../services/QuestionService";
 import UserService from "../services/UserService";
 import AnswerService from "../services/AnswerService";
+import AnswerInput from "../components/AnswerInput";
 import {
   mdbCard,
   mdbCardBody,
   mdbCardTitle,
   mdbCardText,
-  mdbBtn,
   mdbView,
   mdbContainer,
   mdbCardFooter,
@@ -58,10 +58,10 @@ export default {
     mdbCardBody,
     mdbCardTitle,
     mdbCardText,
-    mdbBtn,
     mdbView,
     mdbContainer,
     mdbCardFooter,
+    AnswerInput,
   },
   data() {
     return {
@@ -97,7 +97,6 @@ export default {
         for (let i = 0; i < this.answers.length; i++) {
           let id = this.answers[i].userId;
           let { data } = await UserService.findUserById(id);
-          console.log(data);
           this.answerUserData = [...this.answerUserData, data];
         }
         this.areThereAnyAnswers = true;
