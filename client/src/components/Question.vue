@@ -14,6 +14,8 @@
         </mdb-card-footer>
       </mdb-card-body>
     </mdb-card>
+    <!-- REFACTOR THIS -->
+    <!-- REFACTOR THIS -->
     <div v-if="areThereAnyAnswers">
       <div v-for="(answer, index) in answers" :key="answer.id">
         <mdb-card class="answer">
@@ -30,6 +32,8 @@
         </mdb-card>
       </div>
     </div>
+    <!-- REFACTOR THIS -->
+    <!-- REFACTOR THIS -->
   </mdb-container>
 </template>
 
