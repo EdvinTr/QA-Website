@@ -52,9 +52,9 @@ export default {
           email: this.credentials.email,
           password: this.credentials.password,
         });
-        console.log(res);
         this.$store.dispatch("setToken", res.data.token);
         this.$store.dispatch("setUser", res.data.user);
+        this.$store.dispatch("setPrivilegeLevel", res.data.user.privilegeLevel);
         this.$router.push({ name: "home" });
       } catch (error) {
         this.error = error.response.data.error;
