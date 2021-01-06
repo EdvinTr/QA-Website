@@ -2,6 +2,7 @@ const AuthenticationController = require("../src/controllers/AuthenticationContr
 const AuthenticationControllerPolicy = require("../src/policies/AuthenticationControllerPolicy");
 const UserController = require("../src/controllers/UserController")
 const QuestionController = require("../src/controllers/QuestionController")
+const AnswerController = require("../src/controllers/AnswerController")
 const { User, Question } = require("../src/models")
 
 module.exports = (app) => {
@@ -29,5 +30,10 @@ module.exports = (app) => {
     app.delete("/questions/:id", QuestionController.deleteQuestionById);
 
     app.post("/questions", QuestionController.createQuestion);
+
+    // Answers
+    app.post("/questions/:id", AnswerController.createAnswer)
+
+    app.get("/answers/:id", AnswerController.findAnswersMappedToQuestionId)
 
 }

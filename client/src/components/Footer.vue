@@ -1,6 +1,6 @@
 <template>
   <!-- Footer -->
-  <div class="footer-container">
+  <div class="footer-container" v-if="isContentFetched">
     <mdb-footer color="grey darken-4" class="font-small pt-4 mt-4">
       <mdb-container class="text-left">
         <mdb-row>
@@ -35,16 +35,13 @@ export default {
     mdbRow,
     mdbCol,
   },
+  props: ["isContentFetched"],
   data() {
     return {
       footerItems: ["FAQ", "Rules", "Integrity", "Moderators"],
     };
   },
-  methods: {
-    navigateTo(route) {
-      this.$router.push(route);
-    },
-  },
+  methods: {},
 };
 </script>
 

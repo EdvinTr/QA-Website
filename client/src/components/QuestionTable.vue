@@ -13,19 +13,12 @@
           <mdb-card-text class="cardText">{{
             question.textContent.slice(0, 200) + "..."
           }}</mdb-card-text>
-
-          <mdb-btn
-            @click="
-              navigateTo({
-                name: 'question',
-                params: {
-                  questionId: question.id,
-                },
-              })
-            "
-            color="primary"
-            class="btn-answer"
-            >Answer</mdb-btn
+          <router-link
+            :to="{ name: 'question', params: { questionId: question.id } }"
+          >
+            <mdb-btn color="primary" class="btn-answer"
+              >Answer</mdb-btn
+            ></router-link
           >
           <mdb-card-footer class="text-muted mt-4">
             <div v-if="users[index].id === question.userId">
@@ -80,9 +73,6 @@ export default {
   methods: {
     formatGMTDate(date) {
       return QuestionService.splitDate(date);
-    },
-    navigateTo(route) {
-      this.$router.push(route);
     },
   },
 };

@@ -8,7 +8,7 @@
       </router-link>
       <mdb-navbar-toggler>
         <mdb-navbar-nav right>
-          <router-link to="login">
+          <router-link to="/login">
             <mdb-nav-item id="donationButtonId" class="donationButton"
               ><span class="donationText"
                 >Support {{ pageTitle }}</span
@@ -16,7 +16,7 @@
             >
           </router-link>
 
-          <router-link to="register">
+          <router-link to="/register">
             <mdb-nav-item>{{
               $store.state.isUserLoggedIn ? "" : "Membership"
             }}</mdb-nav-item>
@@ -33,13 +33,13 @@
 
             <mdb-dropdown-menu>
               <router-link
-                to="login"
+                to="/login"
                 class="dropdown-item"
                 v-if="!$store.state.isUserLoggedIn"
                 >Login
               </router-link>
               <router-link
-                to="register"
+                to="/register"
                 class="dropdown-item"
                 v-if="!$store.state.isUserLoggedIn"
                 >Register

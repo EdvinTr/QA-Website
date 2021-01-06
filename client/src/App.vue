@@ -5,7 +5,7 @@
     <router-view />
 
     <div v-cloak>
-      <Footer v-cloak />
+      <Footer v-bind:isContentFetched="true" />
     </div>
   </div>
 </template>
@@ -34,8 +34,5 @@ export default {
 
 body {
   background-color: rgb(241, 242, 242);
-}
-[v-cloak] {
-  display: none !important;
 }
 </style>

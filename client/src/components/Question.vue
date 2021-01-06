@@ -1,5 +1,5 @@
 <template>
-  <mdb-container class="mt-4 questionContainer">
+  <mdb-container class="mt-4 questionContainer" v-if="isDataFetched">
     <mdb-card>
       <mdb-view hover> </mdb-view>
       <mdb-card-body>
@@ -14,19 +14,21 @@
         </mdb-card-footer>
       </mdb-card-body>
     </mdb-card>
-
-    <div v-for="answer in answers" :key="answer.id">
-      <mdb-card class="answer">
-        <mdb-view hover> </mdb-view>
-        <mdb-card-body>
-          <mdb-card-text>{{ answer.text }}</mdb-card-text>
-          <mdb-card-footer class="text-muted mt-4">
-            <div>
-              <b>{{ answer.username }}</b>
-            </div>
-          </mdb-card-footer>
-        </mdb-card-body>
-      </mdb-card>
+    <div v-if="areThereAnyAnswers">
+      <div v-for="(answer, index) in answers" :key="answer.id">
+        <mdb-card class="answer">
+          <mdb-view hover> </mdb-view>
+          <mdb-card-body>
+            <mdb-card-text>{{ answer.textContent }}</mdb-card-text>
+            <mdb-card-footer class="text-muted mt-4">
+              <div>
+                <b>{{ answerUserData[index].username }}</b>
+              </div>
+              {{ formatGMTDate(answer.createdAt) }}
+            </mdb-card-footer>
+          </mdb-card-body>
+        </mdb-card>
+      </div>
     </div>
   </mdb-container>
 </template>
@@ -34,6 +36,7 @@
 <script>
 import QuestionService from "../services/QuestionService";
 import UserService from "../services/UserService";
+import AnswerService from "../services/AnswerService";
 import {
   mdbCard,
   mdbCardBody,
@@ -58,34 +61,50 @@ export default {
   },
   data() {
     return {
+      isDataFetched: false,
       question: null,
       questionCreator: null,
-      answers: [
-        {
-          id: 1,
-          text: "Yo, nice question dude",
-          username: "Adam",
-        },
-        {
-          id: 2,
-          text: "Pretty shitty question ma dude",
-          username: "Melvin",
-        },
-      ],
+      areThereAnyAnswers: false,
+      answers: [],
+      answerUserData: [],
     };
   },
   async created() {
-    // Fetching the specific question by ID
-    const questionId = this.$store.state.route.params.questionId;
-    const questionData = await QuestionService.findQuestionById(questionId);
+    try {
+      // Fetching the specific question by ID
+      const questionId = this.$store.state.route.params.questionId;
+      const questionData = await QuestionService.findQuestionById(questionId);
 
-    // Fetching the user who created the question
-    const userId = questionData.data.userId;
-    const userdata = await UserService.findUserById(userId);
-    this.questionCreator = userdata.data;
-    this.question = questionData.data;
-    console.log(this.question);
+      // Fetching the user who created the question
+      const questionCreatorId = questionData.data.userId;
+      const questionCreatorData = await UserService.findUserById(
+        questionCreatorId
+      );
 
+      // Fetching answerdata
+      const answerData = await AnswerService.findAnswersMappedToQuestionId(
+        questionId
+      );
+      this.answers = answerData.data;
+
+      // Dont render unless there are any answers
+      if (this.answers.length > 0) {
+        // Find the users who posted the answers
+        for (let i = 0; i < this.answers.length; i++) {
+          let id = this.answers[i].userId;
+          let { data } = await UserService.findUserById(id);
+          console.log(data);
+          this.answerUserData = [...this.answerUserData, data];
+        }
+        this.areThereAnyAnswers = true;
+      }
+
+      this.questionCreator = questionCreatorData.data;
+      this.question = questionData.data;
+      this.isDataFetched = true;
+    } catch (err) {
+      console.log(err);
+    }
     // TODO: Fetch answers for the particular question
   },
   methods: {
