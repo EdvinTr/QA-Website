@@ -1,15 +1,22 @@
 <template>
-  <mdb-btn color="primary" class="btn-answer">{{ buttonText }}</mdb-btn>
+  <mdb-btn color="primary" class="btn-answer" @click="btnClickHandler">{{
+    this.buttonText
+  }}</mdb-btn>
 </template>
 
 <script>
 import { mdbBtn } from "mdbvue";
 export default {
   name: "SucessButton",
-  props: ["buttonText"],
 
   components: {
     mdbBtn,
+  },
+  props: {
+    btnClickHandler: {
+      type: Function,
+    },
+    buttonText: String,
   },
 };
 </script>

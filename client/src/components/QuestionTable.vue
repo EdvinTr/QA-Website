@@ -16,7 +16,7 @@
           <router-link
             :to="{ name: 'question', params: { questionId: question.id } }"
           >
-            <SuccessButton buttonText="View"
+            <SuccessButton buttonText="View" :btnClickHandler="nothing"
           /></router-link>
           <mdb-card-footer class="text-muted mt-4">
             <div v-if="users[index].id === question.userId">
@@ -71,6 +71,9 @@ export default {
   methods: {
     formatGMTDate(date) {
       return QuestionService.splitDate(date);
+    },
+    nothing() {
+      return 0;
     },
   },
 };
