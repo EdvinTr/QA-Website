@@ -2,8 +2,8 @@ import Api from "./Api";
 
 export default {
 
-    createAnswer({ questionId, userId, textContent }) {
-        return Api().post(`questions/${questionId}`, questionId, userId, textContent);
+    createAnswer(answer) {
+        return Api().post(`questions/${answer.questionId}`, answer);
     },
     findAnswersMappedToQuestionId(id) {
         return Api().get(`answers/${id}`);

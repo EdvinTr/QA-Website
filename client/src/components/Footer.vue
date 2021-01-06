@@ -1,6 +1,6 @@
 <template>
   <!-- Footer -->
-  <div class="footer-container" v-if="isContentFetched">
+  <div class="footer-container" v-if="1 == 2">
     <mdb-footer color="grey darken-4" class="font-small pt-4 mt-4">
       <mdb-container class="text-left">
         <mdb-row>
@@ -35,7 +35,6 @@ export default {
     mdbRow,
     mdbCol,
   },
-  props: ["isContentFetched"],
   data() {
     return {
       footerItems: ["FAQ", "Rules", "Integrity", "Moderators"],

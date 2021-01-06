@@ -15,6 +15,41 @@ module.exports = {
         }
     },
 
+    async getAllAnswers(req, res) {
+        try {
+            const answers = await Answer.findAll();
+            res.send(answers);
+        } catch (err) {
+            console.log(err);
+            res.status(424).send({
+                error: "Could not fetch all answers"
+            })
+        }
+    },
+
+
+    async deleteAnswerById(req, res) {
+        try {
+            const answer = await Answer.destroy({
+                where: {
+                    id: req.params.id
+                }
+            })
+            if (answer) {
+                res.status(200).send()
+            } else {
+                res.status(400).send({
+                    error: `Could not find answer with an ID of ${req.params.id}`
+                })
+            }
+        } catch (err) {
+            console.log(err);
+            res.status(400).send({
+                error: `Could not delete answer with an ID of ${req.params.id}`
+            })
+        }
+    },
+
     async findAnswersMappedToQuestionId(req, res) {
         try {
             const answers = await Answer.findAll({

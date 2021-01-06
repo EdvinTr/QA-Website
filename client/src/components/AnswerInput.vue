@@ -1,5 +1,6 @@
 <template>
-  <div v-if="$store.state.user">
+  <!-- v-if="$store.state.userPrivilegeLevel >= 2" -->
+  <div>
     <mdb-input
       type="textarea"
       outline
@@ -14,7 +15,6 @@
 <script>
 import { mdbInput } from "mdbvue";
 import SuccessButton from "../components/SuccessButton";
-import AnswerService from "../services/AnswerService";
 
 export default {
   name: "AnswerInput",
@@ -24,31 +24,24 @@ export default {
       textArea: "",
     };
   },
+
   components: {
     mdbInput,
     SuccessButton,
   },
+  props: {
+    createAnswer: {
+      type: Function,
+    },
+  },
   methods: {
-    async createAnswer() {
-      const answer = {
-        userId: this.$store.state.user.id,
-        questionId: this.$store.state.route.params.questionId,
-        textContent: this.textArea,
-      };
-
-      try {
-        const res = await AnswerService.createAnswer(answer);
-        console.log(res.data);
-      } catch (err) {
-        console.log(err);
-      }
+    click() {
+      this.$emit("clicked", this.textArea);
+      console.log("click");
     },
   },
 };
 </script>
 
 <style scoped>
-.answerInputContainer {
-  margin-top: 2rem;
-}
 </style>

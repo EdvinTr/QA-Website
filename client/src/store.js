@@ -8,7 +8,7 @@ export default new Vuex.Store({
     token: null,
     user: null,
     isUserLoggedIn: false,
-    userPrivilegeLevel: null,
+    userPrivilegeLevel: 0,
   },
   mutations: {
     setToken(state, token) {

@@ -54,8 +54,8 @@ export default {
         });
         this.$store.dispatch("setToken", res.data.token);
         this.$store.dispatch("setUser", res.data.user);
-        this.$store.dispatch("setPrivilegeLevel", res.data.user.privilegeLevel);
-        this.$router.push({ name: "home" });
+        this.$store.dispatch("setPrivilegeLevel", res.data.user);
+        this.$router.go(-1);
       } catch (error) {
         this.error = error.response.data.error;
       }

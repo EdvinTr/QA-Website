@@ -31,9 +31,19 @@
         </mdb-card>
       </div>
     </div>
-    <AnswerInput />
     <!-- REFACTOR THIS -->
     <!-- REFACTOR THIS -->
+    <!-- v-if="$store.state.userPrivilegeLevel >= 2" -->
+    <div>
+      <mdb-input
+        type="textarea"
+        outline
+        inputClass="z-depth-1 p-3"
+        placeholder="Write an answer..."
+        v-model="textArea"
+      />
+      <SuccessButton buttonText="Send" :btnClickHandler="this.createAnswer" />
+    </div>
   </mdb-container>
 </template>
 
@@ -41,7 +51,7 @@
 import QuestionService from "../services/QuestionService";
 import UserService from "../services/UserService";
 import AnswerService from "../services/AnswerService";
-import AnswerInput from "../components/AnswerInput";
+import SuccessButton from "../components/SuccessButton";
 import {
   mdbCard,
   mdbCardBody,
@@ -50,6 +60,7 @@ import {
   mdbView,
   mdbContainer,
   mdbCardFooter,
+  mdbInput,
 } from "mdbvue";
 export default {
   name: "Question",
@@ -61,7 +72,8 @@ export default {
     mdbView,
     mdbContainer,
     mdbCardFooter,
-    AnswerInput,
+    mdbInput,
+    SuccessButton,
   },
   data() {
     return {
@@ -71,9 +83,10 @@ export default {
       areThereAnyAnswers: false,
       answers: [],
       answerUserData: [],
+      textArea: "",
     };
   },
-  async created() {
+  async beforeCreate() {
     try {
       // Fetching the specific question by ID
       const questionId = this.$store.state.route.params.questionId;
@@ -93,13 +106,13 @@ export default {
 
       // Dont render unless there are any answers
       if (this.answers.length > 0) {
+        this.areThereAnyAnswers = true;
         // Find the users who posted the answers
         for (let i = 0; i < this.answers.length; i++) {
           let id = this.answers[i].userId;
           let { data } = await UserService.findUserById(id);
           this.answerUserData = [...this.answerUserData, data];
         }
-        this.areThereAnyAnswers = true;
       }
 
       this.questionCreator = questionCreatorData.data;
@@ -110,9 +123,38 @@ export default {
     }
     // TODO: Fetch answers for the particular question
   },
+
   methods: {
     formatGMTDate(date) {
       return QuestionService.splitDate(date);
+    },
+    async createAnswer() {
+      const answer = {
+        //userId: this.$store.state.user.id,
+        userId: 1,
+        questionId: this.$store.state.route.params.questionId,
+        textContent: this.textArea,
+      };
+      try {
+        const res = await AnswerService.createAnswer(answer);
+        if (res.data) {
+          try {
+            this.textArea = "";
+            const questionId = this.$store.state.route.params.questionId;
+            const answerData = await AnswerService.findAnswersMappedToQuestionId(
+              questionId
+            );
+            let { data } = await UserService.findUserById(res.data.userId);
+            this.answerUserData = [...this.answerUserData, data];
+            this.answers = answerData.data;
+            this.areThereAnyAnswers = true;
+          } catch (err) {
+            console.log(err);
+          }
+        }
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
 };

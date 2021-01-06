@@ -70,7 +70,7 @@
               v-model="formData.password"
             />
             <mdb-input
-              label="Admin Level"
+              label="Admin Level (1 = Consumer, 2 = Contributor, 3 = Admin)"
               icon="tools"
               group
               type="text"
