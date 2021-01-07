@@ -20,6 +20,9 @@
         class="form-control"
         v-model="credentials.password"
       />
+      <router-link to="/register">
+        <div class="dontHaveAccountText">Don't have an account? Click here</div>
+      </router-link>
       <div class="text-center mt-4">
         <div class="error" v-html="error" />
         <button class="btn btn-indigo" @click="login">Login</button>
@@ -56,6 +59,8 @@ export default {
         this.$store.dispatch("setUser", res.data.user);
         this.$store.dispatch("setPrivilegeLevel", res.data.user);
         this.$router.go(-1);
+        //this.$router.push({ name: "createquestion" });
+        //this.$router.push({ name: "home" });
       } catch (error) {
         this.error = error.response.data.error;
       }
@@ -74,5 +79,10 @@ export default {
 }
 .signInContainer {
   margin-bottom: 50rem;
+}
+.dontHaveAccountText {
+  margin-top: 1rem;
+  cursor: pointer;
+  font-size: 14px;
 }
 </style>

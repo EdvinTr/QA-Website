@@ -60,14 +60,14 @@ export default {
     async createQuestion() {
       if (this.checkFieldsNotEmpty()) {
         const question = {
-          userId: 1,
+          userId: this.$store.state.user.id,
           title: this.firstLetterToUpperCase(this.title),
           textContent: this.firstLetterToUpperCase(this.textArea),
           category: this.selected,
         };
         console.log(question);
-        await QuestionService.createQuestion(question);
-        this.$router.push({ name: "home" });
+        const returnedQuestion = await QuestionService.createQuestion(question);
+        this.$router.push(`/questions/${returnedQuestion.data.id}`);
       } else {
         console.log("Fields not filled in");
       }

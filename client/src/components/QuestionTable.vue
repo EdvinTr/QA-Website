@@ -24,12 +24,20 @@
             </div>
             {{ formatGMTDate(question.createdAt) }}
           </mdb-card-footer>
-          <div>
+          <div v-if="$store.state.userPrivilegeLevel == 3">
             <mdb-btn
               color="primary"
               class="btn-danger"
               @click="() => deleteQuestionById(question.id)"
               >Admin Delete</mdb-btn
+            >
+          </div>
+          <div v-if="checkUserPresent(question.userId)">
+            <mdb-btn
+              color="primary"
+              class="btn-danger"
+              @click="() => deleteQuestionById(question.id)"
+              >Delete</mdb-btn
             >
           </div>
         </mdb-card-body>
@@ -73,7 +81,6 @@ export default {
   },
   async mounted() {
     const { data } = await QuestionService.getQuestions();
-    console.log("mounted called");
     for (const item of data) {
       const user = await UserService.findUserById(item.userId);
       this.users = [...this.users, user.data];

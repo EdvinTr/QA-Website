@@ -31,9 +31,9 @@ const router = new Router({
       path: '/create-question',
       name: 'createquestion',
       component: CreateQuestion,
-      // redirect: '/login',
+      //redirect: '/login',
       meta: {
-        requiredAuth: true
+        requiresAuth: true
       }
     },
     {
