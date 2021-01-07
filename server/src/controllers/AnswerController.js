@@ -70,6 +70,41 @@ module.exports = {
                 error: `Could not find answers to question with ID of ${req.params.id}`
             })
         }
+    },
+
+    async editAnswer(req, res) {
+        try {
+            const newText = req.body.textContent
+            const answer = await Answer.findOne({
+                where: {
+                    id: req.params.id
+                }
+            })
+            console.log(answer);
+            if (!answer) {
+                res.status(400).send()
+            } else {
+                const updatedAnswer = await Answer.update({
+                    textContent: req.body.textContent
+                }, {
+                    where: {
+                        id: req.params.id
+                    }
+                })
+                if (updatedAnswer) {
+                    res.status(200).send()
+                } else {
+                    res.status(400).send({
+                        error: "Could not update answer"
+                    })
+                }
+            }
+        } catch (err) {
+            res.status(500).send({
+                error: "An error has occured trying to update the answer"
+            })
+        }
     }
+
 
 }

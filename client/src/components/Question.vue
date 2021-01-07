@@ -54,6 +54,40 @@
                 >Delete</mdb-btn
               >
             </div>
+            <!-- ---START MODAL ------>
+            <div>
+              <mdb-btn color="primary" @click.native="modal = true"
+                >Edit</mdb-btn
+              >
+              <mdb-modal size="lg" :show="modal" @close="modal = false">
+                <mdb-modal-header>
+                  <mdb-modal-title>Modal title</mdb-modal-title>
+                </mdb-modal-header>
+                <mdb-modal-body>
+                  <mdb-input
+                    type="textarea"
+                    outline
+                    inputClass="z-depth-1 p-3"
+                    v-model="answer.textContent"
+                  />
+                </mdb-modal-body>
+                <mdb-modal-footer>
+                  <mdb-btn
+                    color="secondary"
+                    size="sm"
+                    @click.native="modal = false"
+                    >Close</mdb-btn
+                  >
+                  <mdb-btn
+                    color="primary"
+                    size="sm"
+                    @click="() => editAnswer(answer.id)"
+                    >Save changes</mdb-btn
+                  >
+                </mdb-modal-footer>
+              </mdb-modal>
+            </div>
+            <!-- END MODAL -->
           </mdb-card-body>
         </mdb-card>
       </div>
@@ -89,6 +123,11 @@ import {
   mdbCardFooter,
   mdbInput,
   mdbBtn,
+  mdbModal,
+  mdbModalHeader,
+  mdbModalTitle,
+  mdbModalBody,
+  mdbModalFooter,
 } from "mdbvue";
 export default {
   name: "Question",
@@ -103,10 +142,16 @@ export default {
     mdbInput,
     SuccessButton,
     mdbBtn,
+    mdbModal,
+    mdbModalHeader,
+    mdbModalTitle,
+    mdbModalBody,
+    mdbModalFooter,
     //  DangerButton,
   },
   data() {
     return {
+      modal: false,
       isDataFetched: false,
       question: null,
       questionCreator: null,
@@ -192,6 +237,11 @@ export default {
       } catch (err) {
         console.log(err);
       }
+    },
+
+    async editAnswer(id) {
+      console.log(id);
+      this.modal = false;
     },
     // async fetchAllData() {
     //   try {

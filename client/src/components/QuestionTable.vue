@@ -81,6 +81,7 @@ export default {
   },
   async mounted() {
     const { data } = await QuestionService.getQuestions();
+    console.log("mounted");
     for (const item of data) {
       const user = await UserService.findUserById(item.userId);
       this.users = [...this.users, user.data];
