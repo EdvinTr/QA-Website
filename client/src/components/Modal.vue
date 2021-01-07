@@ -8,7 +8,19 @@
         <mdb-modal-title>{{ id }}</mdb-modal-title>
       </mdb-modal-header>
       <mdb-modal-body>
-        <mdb-input outline inputClass="z-depth-1 p-3" :value="title" />
+        <mdb-input
+          outline
+          inputClass="z-depth-1 p-3"
+          :v-model="titleModel"
+          :value="title"
+        />
+        <multiselect
+          v-model="selected"
+          :multiple="false"
+          :options="options"
+          :placeholder="category"
+        >
+        </multiselect>
         <mdb-input
           type="textarea"
           outline
@@ -29,6 +41,8 @@
 </template>
 
 <script>
+import Multiselect from "vue-multiselect";
+import categories from "../categories";
 import {
   mdbModal,
   mdbModalHeader,
@@ -47,16 +61,21 @@ export default {
     mdbModalFooter,
     mdbBtn,
     mdbInput,
+    Multiselect,
   },
   data() {
     return {
+      titleModel: "",
       modal: false,
+      options: categories,
+      selected: null,
     };
   },
   props: {
     buttonText: String,
     title: String,
     textContent: String,
+    category: String,
     id: Number,
     onSave: {
       type: Function,

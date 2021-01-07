@@ -83,6 +83,7 @@ module.exports = {
             if (!question) {
                 res.status(400).send()
             } else {
+                console.log(req.body);
                 const updatedQuestion = await Question.update({
                     title: req.body.title,
                     category: req.body.category,

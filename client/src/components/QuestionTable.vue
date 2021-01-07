@@ -1,5 +1,63 @@
 <template>
   <mdb-container>
+    <div>
+      <mdb-modal
+        v-if="modal"
+        size="lg"
+        :show="modal"
+        @close="modal = false"
+        :data="modalData"
+      >
+        <mdb-modal-header>
+          <mdb-modal-title>{{ modalData.title }}</mdb-modal-title>
+        </mdb-modal-header>
+        <mdb-modal-body>
+          <mdb-input
+            outline
+            inputClass="z-depth-1 p-3"
+            v-model="modalData.title"
+            :value="modalData.title"
+          />
+
+          <multiselect
+            v-model="selected"
+            :multiple="false"
+            :options="options"
+            :placeholder="modalData.category"
+            :v-bind="modalData.category"
+          >
+          </multiselect>
+          <mdb-input
+            type="textarea"
+            outline
+            inputClass="z-depth-1 p-3"
+            :value="modalData.textContent"
+            :rows="10"
+            v-model="modalData.textContent"
+          />
+        </mdb-modal-body>
+        <mdb-modal-footer>
+          <mdb-btn color="secondary" size="sm" @click.native="modal = false"
+            >Close</mdb-btn
+          >
+          <!-- TODO  Grab actual edited data-->
+          <mdb-btn
+            color="primary"
+            size="sm"
+            @click="
+              () =>
+                editQuestion(
+                  modalData.id,
+                  modalData.title,
+                  modalData.textContent,
+                  modalData.category
+                )
+            "
+            >Save changes</mdb-btn
+          >
+        </mdb-modal-footer>
+      </mdb-modal>
+    </div>
     <div v-for="(question, index) in questions" :key="question.id">
       <mdb-card class="mt-4">
         <mdb-card-body>
@@ -22,13 +80,10 @@
                 :btnClickHandler="nothing"
                 class="ViewBtn"
             /></router-link>
-            <Modal
-              buttonText="Edit"
-              :id="question.id"
-              :title="question.title"
-              :textContent="question.textContent"
-              :onSave="() => editQuestion(question.id)"
-            />
+
+            <mdb-btn color="primary" @click="() => openModal(question)"
+              >Edit</mdb-btn
+            >
 
             <div v-if="checkUserPresent(question.userId)">
               <mdb-btn
@@ -59,11 +114,12 @@
   </mdb-container>
 </template>
 <script>
-import Modal from "../components/Modal";
 import QuestionService from "../services/QuestionService";
 import UserService from "../services/UserService";
 import SuccessButton from "../components/SuccessButton";
 import AnswerService from "../services/AnswerService";
+import categories from "../categories";
+import Multiselect from "vue-multiselect";
 import {
   mdbBtn,
   mdbContainer,
@@ -72,6 +128,12 @@ import {
   mdbCardTitle,
   mdbCardText,
   mdbCardFooter,
+  mdbModal,
+  mdbModalHeader,
+  mdbModalTitle,
+  mdbModalBody,
+  mdbModalFooter,
+  mdbInput,
 } from "mdbvue";
 export default {
   name: "QuestionTable",
@@ -83,8 +145,14 @@ export default {
     mdbCardText,
     mdbCardFooter,
     mdbBtn,
+    mdbModal,
+    mdbModalHeader,
+    mdbModalTitle,
+    mdbModalBody,
+    mdbModalFooter,
+    mdbInput,
     SuccessButton,
-    Modal,
+    Multiselect,
   },
   data() {
     return {
@@ -92,6 +160,10 @@ export default {
       users: [],
       formattedDate: "",
       textArea: "",
+      modal: false,
+      modalData: null,
+      options: categories,
+      selected: null,
     };
   },
   async mounted() {
@@ -111,6 +183,10 @@ export default {
     nothing() {
       return 0;
     },
+    onShowModal(modal, item) {
+      item.show = true;
+      this.modal = true;
+    },
     async deleteQuestionById(id) {
       try {
         // Delete Question by ID
@@ -125,8 +201,25 @@ export default {
         console.log(err);
       }
     },
-    async editQuestion(id) {
-      console.log(id);
+    async editQuestion(id, title, textContent, category) {
+      const question = {
+        title,
+        textContent,
+        category,
+      };
+      console.log(question);
+      try {
+        await QuestionService.editQuestion(id, question);
+        this.modal = false;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    openModal(data) {
+      this.modalData = data;
+      this.modal = true;
+      console.log(data);
     },
 
     checkUserPresent(questionId) {
