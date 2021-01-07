@@ -80,7 +80,6 @@ module.exports = {
                     id: req.params.id
                 }
             })
-            console.log(answer);
             if (!answer) {
                 res.status(400).send()
             } else {

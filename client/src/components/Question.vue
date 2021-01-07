@@ -81,7 +81,7 @@
                   <mdb-btn
                     color="primary"
                     size="sm"
-                    @click="() => editAnswer(answer.id)"
+                    @click="() => editAnswer(answer.id, answer.textContent)"
                     >Save changes</mdb-btn
                   >
                 </mdb-modal-footer>
@@ -239,8 +239,15 @@ export default {
       }
     },
 
-    async editAnswer(id) {
-      console.log(id);
+    async editAnswer(id, content) {
+      try {
+        const text = {
+          textContent: content,
+        };
+        await AnswerService.editAnswer(id, text);
+      } catch (err) {
+        console.log(err);
+      }
       this.modal = false;
     },
     // async fetchAllData() {
