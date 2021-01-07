@@ -4,17 +4,18 @@ import Home from '@/components/Home';
 import Login from '@/components/Login';
 import Register from '@/components/Register';
 import Question from '@/components/Question';
+import CreateQuestion from '@/components/CreateQuestion';
 
 Vue.use(Router);
-
-export default new Router({
+const router = new Router({
   mode: "history",
   routes: [
 
     {
       path: '/login',
       name: 'login',
-      component: Login
+      component: Login,
+
     },
     {
       path: '/register',
@@ -27,9 +28,24 @@ export default new Router({
       component: Question
     },
     {
+      path: '/create-question',
+      name: 'createquestion',
+      component: CreateQuestion,
+      // redirect: '/login',
+      meta: {
+        requiredAuth: true
+      }
+    },
+    {
       path: '/',
       name: 'home',
       component: Home
     },
-  ]
-});
+  ],
+
+})
+
+
+
+
+export default router;

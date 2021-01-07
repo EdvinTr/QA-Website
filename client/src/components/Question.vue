@@ -246,9 +246,4 @@ export default {
 .dangerButtonContainer {
   margin-top: 1.5rem;
 }
-
-.btn-danger {
-  background-image: linear-gradient(to right, #ff0000de, #ff1e00d8);
-  margin-top: 1rem;
-}
 </style>

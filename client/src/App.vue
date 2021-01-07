@@ -42,4 +42,8 @@ body {
 .text-muted {
   font-size: 13px;
 }
+.btn-danger {
+  background-image: linear-gradient(to right, #ff0000de, #ff1e00d8);
+  margin-top: 1rem;
+}
 </style>

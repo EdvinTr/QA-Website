@@ -24,6 +24,14 @@
             </div>
             {{ formatGMTDate(question.createdAt) }}
           </mdb-card-footer>
+          <div>
+            <mdb-btn
+              color="primary"
+              class="btn-danger"
+              @click="() => deleteAnswer(question.id)"
+              >Admin Delete</mdb-btn
+            >
+          </div>
         </mdb-card-body>
       </mdb-card>
     </div>
@@ -34,6 +42,7 @@ import QuestionService from "../services/QuestionService";
 import UserService from "../services/UserService";
 import SuccessButton from "../components/SuccessButton";
 import {
+  mdbBtn,
   mdbContainer,
   mdbCard,
   mdbCardBody,
@@ -50,6 +59,7 @@ export default {
     mdbCardTitle,
     mdbCardText,
     mdbCardFooter,
+    mdbBtn,
     SuccessButton,
   },
   data() {
@@ -57,6 +67,7 @@ export default {
       questions: [],
       users: [],
       formattedDate: "",
+      textArea: "",
     };
   },
   async mounted() {
@@ -74,6 +85,9 @@ export default {
     },
     nothing() {
       return 0;
+    },
+    async deleteAnswer() {
+      console.log("Deleted");
     },
   },
 };

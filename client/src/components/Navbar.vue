@@ -8,11 +8,9 @@
       </router-link>
       <mdb-navbar-toggler>
         <mdb-navbar-nav right>
-          <router-link to="/login">
+          <router-link :to="{ name: 'createquestion' }">
             <mdb-nav-item id="donationButtonId" class="donationButton"
-              ><span class="donationText"
-                >Support {{ pageTitle }}</span
-              ></mdb-nav-item
+              ><span class="donationText">Ask A Question</span></mdb-nav-item
             >
           </router-link>
 

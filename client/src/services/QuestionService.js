@@ -7,6 +7,9 @@ export default {
     findQuestionById(id) {
         return Api().get(`questions/${id}`);
     },
+    createQuestion(question) {
+        return Api().post("questions", question)
+    },
 
     splitDate(dateString) {
         const date = dateString.split("T");
