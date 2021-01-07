@@ -189,43 +189,46 @@ export default {
       try {
         await AnswerService.deleteAnswerById(id);
         this.answers = this.answers.filter((answer) => answer.id != id);
-
-        console.log(this.answers);
-        //this.fetchAllData();
-        console.log(id);
       } catch (err) {
         console.log(err);
       }
     },
-    async fetchAllData() {
-      try {
-        const questionId = this.$store.state.route.params.questionId;
-        const answerData = await AnswerService.findAnswersMappedToQuestionId(
-          questionId
-        );
+    // async fetchAllData() {
+    //   try {
+    //     const questionId = this.$store.state.route.params.questionId;
+    //     const answerData = await AnswerService.findAnswersMappedToQuestionId(
+    //       questionId
+    //     );
 
-        this.answers = answerData.data;
-        for (let i = 0; i < this.answers.length; i++) {
-          let id = this.answers[i].userId;
-          let { data } = await UserService.findUserById(id);
-          this.answerUserData = data;
-        }
-        console.log(this.answerUserData);
-        if (this.answers.length > 0) {
-          this.areThereAnyAnswers = true;
-        } else {
-          this.areThereAnyAnswers = false;
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    },
+    //     this.answers = answerData.data;
+    //     for (let i = 0; i < this.answers.length; i++) {
+    //       let id = this.answers[i].userId;
+    //       let { data } = await UserService.findUserById(id);
+    //       this.answerUserData = data;
+    //     }
+    //     if (this.answers.length > 0) {
+    //       this.areThereAnyAnswers = true;
+    //     } else {
+    //       this.areThereAnyAnswers = false;
+    //     }
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // },
     checkUserPresent(answersUserId) {
-      let uId = this.$store.state.user.id;
-      if (uId) {
-        return uId == answersUserId ? true : false;
-      } else {
-        return false;
+      try {
+        if (this.$store.state.user === null) {
+          return;
+        } else {
+          let uId = this.$store.state.user.id;
+          if (uId) {
+            return uId == answersUserId ? true : false;
+          } else {
+            return false;
+          }
+        }
+      } catch (err) {
+        console.log(err);
       }
     },
   },
