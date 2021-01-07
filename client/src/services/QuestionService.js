@@ -11,6 +11,10 @@ export default {
         return Api().post("questions", question)
     },
 
+    deleteQuestionById(id) {
+        return Api().delete(`questions/${id}`)
+    },
+
     splitDate(dateString) {
         const date = dateString.split("T");
         const time = date[1].slice(0, 8);

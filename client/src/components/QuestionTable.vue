@@ -28,7 +28,7 @@
             <mdb-btn
               color="primary"
               class="btn-danger"
-              @click="() => deleteAnswer(question.id)"
+              @click="() => deleteQuestionById(question.id)"
               >Admin Delete</mdb-btn
             >
           </div>
@@ -41,6 +41,7 @@
 import QuestionService from "../services/QuestionService";
 import UserService from "../services/UserService";
 import SuccessButton from "../components/SuccessButton";
+import AnswerService from "../services/AnswerService";
 import {
   mdbBtn,
   mdbContainer,
@@ -72,6 +73,7 @@ export default {
   },
   async mounted() {
     const { data } = await QuestionService.getQuestions();
+    console.log("mounted called");
     for (const item of data) {
       const user = await UserService.findUserById(item.userId);
       this.users = [...this.users, user.data];
@@ -86,8 +88,36 @@ export default {
     nothing() {
       return 0;
     },
-    async deleteAnswer() {
-      console.log("Deleted");
+    async deleteQuestionById(id) {
+      try {
+        // Delete Question by ID
+        await QuestionService.deleteQuestionById(id);
+        const { data } = await AnswerService.findAnswersMappedToQuestionId(id);
+        // Delete all answers associated with the question ID
+        for (let i = 0; i < data.length; i++) {
+          await AnswerService.deleteAnswerById(data[i].id);
+        }
+        this.questions = this.questions.filter((question) => question.id != id);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    checkUserPresent(questionId) {
+      try {
+        if (this.$store.state.user === null) {
+          return;
+        } else {
+          let uId = this.$store.state.user.id;
+          if (uId) {
+            return uId == questionId ? true : false;
+          } else {
+            return false;
+          }
+        }
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
 };

@@ -215,6 +215,7 @@ export default {
     //     console.log(err);
     //   }
     // },
+
     checkUserPresent(answersUserId) {
       try {
         if (this.$store.state.user === null) {
