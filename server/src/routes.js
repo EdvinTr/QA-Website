@@ -23,6 +23,7 @@ module.exports = (app) => {
 
     app.get("/users/:id", UserController.findUserById);
 
+    //Questions
     app.get("/questions", QuestionController.getAllQuestion);
 
     app.get("/questions/:id", QuestionController.findQuestionById);
@@ -30,6 +31,8 @@ module.exports = (app) => {
     app.delete("/questions/:id", QuestionController.deleteQuestionById);
 
     app.post("/questions", QuestionController.createQuestion);
+
+    app.put("/questions/:id", QuestionController.editQuestion);
 
     // Answers
     app.post("/questions/:id", AnswerController.createAnswer)

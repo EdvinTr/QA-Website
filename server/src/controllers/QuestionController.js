@@ -51,6 +51,7 @@ module.exports = {
 
     async findQuestionById(req, res) {
         try {
+            // TODO place line 55 further down
             const questionId = req.params.id;
             const question = await Question.findOne({
                 where: {
@@ -68,6 +69,40 @@ module.exports = {
             console.log(err);
             res.status(424).send({
                 error: `Could not find question with ID of ${questionId}`
+            })
+        }
+    },
+
+    async editQuestion(req, res) {
+        try {
+            const question = await Question.findOne({
+                where: {
+                    id: req.params.id
+                }
+            })
+            if (!question) {
+                res.status(400).send()
+            } else {
+                const updatedQuestion = await Question.update({
+                    title: req.body.title,
+                    category: req.body.category,
+                    textContent: req.body.textContent
+                }, {
+                    where: {
+                        id: req.params.id
+                    }
+                })
+                if (updatedQuestion) {
+                    res.status(200).send()
+                } else {
+                    res.status(400).send({
+                        error: "Could not update question"
+                    })
+                }
+            }
+        } catch (err) {
+            res.status(500).send({
+                error: "An error has occured trying to update the question"
             })
         }
     }

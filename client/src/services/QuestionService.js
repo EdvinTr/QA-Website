@@ -14,6 +14,9 @@ export default {
     deleteQuestionById(id) {
         return Api().delete(`questions/${id}`)
     },
+    editQuestion(id, data) {
+        return Api().put(`questions/${id}`, data)
+    },
 
     splitDate(dateString) {
         const date = dateString.split("T");
