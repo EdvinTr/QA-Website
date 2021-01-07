@@ -39,4 +39,7 @@ body {
 .spacer {
   height: 55rem;
 }
+.text-muted {
+  font-size: 13px;
+}
 </style>

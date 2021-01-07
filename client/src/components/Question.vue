@@ -37,7 +37,16 @@
                 :btnClickHandler="click"
               />
             </div> -->
-            <div>
+            <div v-if="$store.state.userPrivilegeLevel == 3">
+              <mdb-btn
+                color="info"
+                class="btn-danger"
+                @click="() => deleteAnswer(answer.id)"
+                >Admin Delete</mdb-btn
+              >
+            </div>
+
+            <div v-if="checkUserPresent(answer.userId)">
               <mdb-btn
                 color="info"
                 class="btn-danger"
@@ -51,8 +60,7 @@
     </div>
     <!-- REFACTOR THIS -->
     <!-- REFACTOR THIS -->
-    <!-- v-if="$store.state.userPrivilegeLevel >= 2" -->
-    <div>
+    <div v-if="$store.state.userPrivilegeLevel >= 2">
       <mdb-input
         type="textarea"
         outline
@@ -152,8 +160,7 @@ export default {
     },
     async createAnswer() {
       const answer = {
-        //userId: this.$store.state.user.id,
-        userId: 1,
+        userId: this.$store.state.user.id,
         questionId: this.$store.state.route.params.questionId,
         textContent: this.textArea,
       };
@@ -181,7 +188,10 @@ export default {
     async deleteAnswer(id) {
       try {
         await AnswerService.deleteAnswerById(id);
-        this.fetchAllData();
+        this.answers = this.answers.filter((answer) => answer.id != id);
+
+        console.log(this.answers);
+        //this.fetchAllData();
         console.log(id);
       } catch (err) {
         console.log(err);
@@ -200,6 +210,7 @@ export default {
           let { data } = await UserService.findUserById(id);
           this.answerUserData = data;
         }
+        console.log(this.answerUserData);
         if (this.answers.length > 0) {
           this.areThereAnyAnswers = true;
         } else {
@@ -207,6 +218,14 @@ export default {
         }
       } catch (err) {
         console.log(err);
+      }
+    },
+    checkUserPresent(answersUserId) {
+      let uId = this.$store.state.user.id;
+      if (uId) {
+        return uId == answersUserId ? true : false;
+      } else {
+        return false;
       }
     },
   },
@@ -223,5 +242,10 @@ export default {
 
 .dangerButtonContainer {
   margin-top: 1.5rem;
+}
+
+.btn-danger {
+  background-image: linear-gradient(to right, #ff0000de, #ff1e00d8);
+  margin-top: 1rem;
 }
 </style>

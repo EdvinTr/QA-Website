@@ -122,6 +122,7 @@ export default {
         console.log(res.data);
         this.$store.dispatch("setToken", res.data.token);
         this.$store.dispatch("setUser", res.data.user);
+        this.$store.dispatch("setPrivilegeLevel", res.data.user);
         this.$router.push({ name: "home" });
       } catch (error) {
         this.error = error.response.data.error;
