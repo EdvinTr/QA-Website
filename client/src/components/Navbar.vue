@@ -138,7 +138,9 @@ mdb-navbar-toggler {
 
 @media (max-width: 1024px) {
   .donationButton {
-    display: none;
+    margin: 0.6rem 0 0.6rem 0;
+    text-align: center;
+    width: 25%;
   }
 }
 </style>

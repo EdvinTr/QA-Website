@@ -46,46 +46,48 @@
               >
             </div>
 
-            <div v-if="checkUserPresent(answer.userId)">
-              <mdb-btn
-                color="info"
-                class="btn-danger"
-                @click="() => deleteAnswer(answer.id)"
-                >Delete</mdb-btn
-              >
-            </div>
-            <!-- ---START MODAL ------>
-            <div>
-              <mdb-btn color="primary" @click.native="modal = true"
-                >Edit</mdb-btn
-              >
-              <mdb-modal size="lg" :show="modal" @close="modal = false">
-                <mdb-modal-header>
-                  <mdb-modal-title>Modal title</mdb-modal-title>
-                </mdb-modal-header>
-                <mdb-modal-body>
-                  <mdb-input
-                    type="textarea"
-                    outline
-                    inputClass="z-depth-1 p-3"
-                    v-model="answer.textContent"
-                  />
-                </mdb-modal-body>
-                <mdb-modal-footer>
-                  <mdb-btn
-                    color="secondary"
-                    size="sm"
-                    @click.native="modal = false"
-                    >Close</mdb-btn
-                  >
-                  <mdb-btn
-                    color="primary"
-                    size="sm"
-                    @click="() => editAnswer(answer.id, answer.textContent)"
-                    >Save changes</mdb-btn
-                  >
-                </mdb-modal-footer>
-              </mdb-modal>
+            <div v-if="checkUserPresent(answer.userId)" class="buttonGroup">
+              <div>
+                <mdb-btn
+                  color="info"
+                  class="btn-danger"
+                  @click="() => deleteAnswer(answer.id)"
+                  >Delete</mdb-btn
+                >
+              </div>
+              <!-- ---START MODAL ------>
+              <div>
+                <mdb-btn color="primary" @click.native="modal = true"
+                  >Edit</mdb-btn
+                >
+                <mdb-modal size="lg" :show="modal" @close="modal = false">
+                  <mdb-modal-header>
+                    <mdb-modal-title></mdb-modal-title>
+                  </mdb-modal-header>
+                  <mdb-modal-body>
+                    <mdb-input
+                      type="textarea"
+                      outline
+                      inputClass="z-depth-1 p-3"
+                      v-model="answer.textContent"
+                    />
+                  </mdb-modal-body>
+                  <mdb-modal-footer>
+                    <mdb-btn
+                      color="secondary"
+                      size="sm"
+                      @click.native="modal = false"
+                      >Close</mdb-btn
+                    >
+                    <mdb-btn
+                      color="primary"
+                      size="sm"
+                      @click="() => editAnswer(answer.id, answer.textContent)"
+                      >Save changes</mdb-btn
+                    >
+                  </mdb-modal-footer>
+                </mdb-modal>
+              </div>
             </div>
             <!-- END MODAL -->
           </mdb-card-body>
@@ -298,10 +300,14 @@ export default {
   margin-top: 20px;
 }
 .questionContainer {
-  margin-bottom: 40rem;
+  margin-bottom: 5rem;
 }
 
 .dangerButtonContainer {
   margin-top: 1.5rem;
+}
+.buttonGroup {
+  margin-top: 1rem;
+  display: flex;
 }
 </style>

@@ -13,11 +13,32 @@
           <mdb-card-text class="cardText">{{
             question.textContent.slice(0, 200) + "..."
           }}</mdb-card-text>
-          <router-link
-            :to="{ name: 'question', params: { questionId: question.id } }"
-          >
-            <SuccessButton buttonText="View" :btnClickHandler="nothing"
-          /></router-link>
+          <div class="buttonGroup">
+            <router-link
+              :to="{ name: 'question', params: { questionId: question.id } }"
+            >
+              <SuccessButton
+                buttonText="View"
+                :btnClickHandler="nothing"
+                class="ViewBtn"
+            /></router-link>
+            <Modal
+              buttonText="Edit"
+              :id="question.id"
+              :title="question.title"
+              :textContent="question.textContent"
+              :onSave="() => editQuestion(question.id)"
+            />
+
+            <div v-if="checkUserPresent(question.userId)">
+              <mdb-btn
+                color="primary"
+                class="btn-danger"
+                @click="() => deleteQuestionById(question.id)"
+                >Delete</mdb-btn
+              >
+            </div>
+          </div>
           <mdb-card-footer class="text-muted mt-4">
             <div v-if="users[index].id === question.userId">
               <b>{{ users[index].username }}</b>
@@ -32,20 +53,13 @@
               >Admin Delete</mdb-btn
             >
           </div>
-          <div v-if="checkUserPresent(question.userId)">
-            <mdb-btn
-              color="primary"
-              class="btn-danger"
-              @click="() => deleteQuestionById(question.id)"
-              >Delete</mdb-btn
-            >
-          </div>
         </mdb-card-body>
       </mdb-card>
     </div>
   </mdb-container>
 </template>
 <script>
+import Modal from "../components/Modal";
 import QuestionService from "../services/QuestionService";
 import UserService from "../services/UserService";
 import SuccessButton from "../components/SuccessButton";
@@ -70,6 +84,7 @@ export default {
     mdbCardFooter,
     mdbBtn,
     SuccessButton,
+    Modal,
   },
   data() {
     return {
@@ -110,6 +125,9 @@ export default {
         console.log(err);
       }
     },
+    async editQuestion(id) {
+      console.log(id);
+    },
 
     checkUserPresent(questionId) {
       try {
@@ -141,5 +159,15 @@ export default {
 }
 .cardText {
   margin-top: 1rem;
+}
+
+.btn-danger {
+  margin-left: 0;
+}
+.ViewBtn {
+}
+.buttonGroup {
+  margin-top: 4rem;
+  display: flex;
 }
 </style>
