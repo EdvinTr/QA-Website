@@ -1,5 +1,46 @@
 <template>
   <mdb-container class="mt-4 questionContainer" v-if="isDataFetched">
+    <!-- ---START MODAL ------>
+    <div>
+      <mdb-modal
+        v-if="modal"
+        :data="modalData"
+        size="lg"
+        :show="modal"
+        @close="modal = false"
+      >
+        <mdb-modal-header>
+          <mdb-modal-title>{{ userModalData.username }}</mdb-modal-title>
+        </mdb-modal-header>
+        <mdb-modal-body>
+          <mdb-input
+            label="Edit Answer"
+            type="textarea"
+            outline
+            inputClass="z-depth-1 p-3"
+            :value="modalData.textContent"
+            @input="updateAnswerVariable"
+          />
+        </mdb-modal-body>
+        <mdb-modal-footer>
+          <mdb-btn
+            color="secondary"
+            size="sm"
+            @click="() => closeModal(modalData)"
+            >Close</mdb-btn
+          >
+          <mdb-btn
+            color="primary"
+            size="sm"
+            @click="
+              () => editAnswer(modalData.id, modalData.questionId, editedAnswer)
+            "
+            >Save changes</mdb-btn
+          >
+        </mdb-modal-footer>
+      </mdb-modal>
+    </div>
+
     <mdb-card>
       <mdb-view hover> </mdb-view>
       <mdb-card-body>
@@ -28,15 +69,7 @@
               </div>
               {{ formatGMTDate(answer.createdAt) }}
             </mdb-card-footer>
-            <!-- TODO -->
-            <!-- v-if="$store.state.userPrivileveLevel === 3" -->
-            <!-- <div class="dangerButtonContainer" :id="answer.id">
-              <DangerButton
-                v-bind:id="answer.id"
-                buttonText="Delete"
-                :btnClickHandler="click"
-              />
-            </div> -->
+
             <div v-if="$store.state.userPrivilegeLevel == 3">
               <mdb-btn
                 color="info"
@@ -46,8 +79,8 @@
               >
             </div>
 
-            <div v-if="checkUserPresent(answer.userId)" class="buttonGroup">
-              <div>
+            <div class="buttonGroup">
+              <div v-if="checkUserPresent(answer.userId)">
                 <mdb-btn
                   color="info"
                   class="btn-danger"
@@ -55,41 +88,12 @@
                   >Delete</mdb-btn
                 >
               </div>
-              <!-- ---START MODAL ------>
-              <div>
-                <mdb-btn color="primary" @click.native="modal = true"
+              <div v-if="$store.state.userPrivilegeLevel >= 2">
+                <mdb-btn color="primary" @click="() => openModal(answer)"
                   >Edit</mdb-btn
                 >
-                <mdb-modal size="lg" :show="modal" @close="modal = false">
-                  <mdb-modal-header>
-                    <mdb-modal-title></mdb-modal-title>
-                  </mdb-modal-header>
-                  <mdb-modal-body>
-                    <mdb-input
-                      type="textarea"
-                      outline
-                      inputClass="z-depth-1 p-3"
-                      v-model="answer.textContent"
-                    />
-                  </mdb-modal-body>
-                  <mdb-modal-footer>
-                    <mdb-btn
-                      color="secondary"
-                      size="sm"
-                      @click.native="modal = false"
-                      >Close</mdb-btn
-                    >
-                    <mdb-btn
-                      color="primary"
-                      size="sm"
-                      @click="() => editAnswer(answer.id, answer.textContent)"
-                      >Save changes</mdb-btn
-                    >
-                  </mdb-modal-footer>
-                </mdb-modal>
               </div>
             </div>
-            <!-- END MODAL -->
           </mdb-card-body>
         </mdb-card>
       </div>
@@ -153,7 +157,9 @@ export default {
   },
   data() {
     return {
+      userModalData: null,
       modal: false,
+      modalData: null,
       isDataFetched: false,
       question: null,
       questionCreator: null,
@@ -161,6 +167,7 @@ export default {
       answers: [],
       answerUserData: [],
       textArea: "",
+      editedAnswer: "",
     };
   },
   async beforeCreate() {
@@ -241,39 +248,37 @@ export default {
       }
     },
 
-    async editAnswer(id, content) {
+    openModal(data) {
+      this.modalData = data;
+      this.modal = true;
+      const user = this.answerUserData.filter((user) => user.id == data.userId);
+      this.userModalData = user[0];
+    },
+
+    closeModal(data) {
+      this.editedAnswer = data.textContent;
+      this.modal = false;
+    },
+
+    updateAnswerVariable(value) {
+      this.editedAnswer = value;
+    },
+
+    async editAnswer(id, questionId, text) {
       try {
-        const text = {
-          textContent: content,
+        const answer = {
+          textContent: text,
         };
-        await AnswerService.editAnswer(id, text);
+        await AnswerService.editAnswer(id, answer);
+
+        const { data } = await AnswerService.findOneById(id);
+        this.answers = this.answers.filter((answer) => answer.id != id);
+        this.answers = [...this.answers, data];
       } catch (err) {
         console.log(err);
       }
       this.modal = false;
     },
-    // async fetchAllData() {
-    //   try {
-    //     const questionId = this.$store.state.route.params.questionId;
-    //     const answerData = await AnswerService.findAnswersMappedToQuestionId(
-    //       questionId
-    //     );
-
-    //     this.answers = answerData.data;
-    //     for (let i = 0; i < this.answers.length; i++) {
-    //       let id = this.answers[i].userId;
-    //       let { data } = await UserService.findUserById(id);
-    //       this.answerUserData = data;
-    //     }
-    //     if (this.answers.length > 0) {
-    //       this.areThereAnyAnswers = true;
-    //     } else {
-    //       this.areThereAnyAnswers = false;
-    //     }
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // },
 
     checkUserPresent(answersUserId) {
       try {

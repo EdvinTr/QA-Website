@@ -118,8 +118,6 @@ export default {
     async register() {
       try {
         const res = await AuthenticationService.register(this.formData);
-        //  this.$router.push({ name: "home" });
-        console.log(res.data);
         this.$store.dispatch("setToken", res.data.token);
         this.$store.dispatch("setUser", res.data.user);
         this.$store.dispatch("setPrivilegeLevel", res.data.user);

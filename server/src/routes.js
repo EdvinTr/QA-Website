@@ -39,6 +39,8 @@ module.exports = (app) => {
 
     app.get("/answers", AnswerController.getAllAnswers)
 
+    app.get("/answer/:id", AnswerController.findOneById)
+
     app.put("/answers/:id", AnswerController.editAnswer)
 
     app.delete("/answers/:id", AnswerController.deleteAnswerById)

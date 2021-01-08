@@ -27,6 +27,22 @@ module.exports = {
         }
     },
 
+    async findOneById(req, res) {
+        try {
+            const answer = await Answer.findOne({
+                where: {
+                    id: req.params.id
+                }
+            })
+            res.send(answer);
+        } catch (err) {
+            console.log(err);
+            res.status(424).send({
+                error: `Something went wrong, could not fetch answer with ID of ${req.params.id}`
+            })
+        }
+    },
+
 
     async deleteAnswerById(req, res) {
         try {

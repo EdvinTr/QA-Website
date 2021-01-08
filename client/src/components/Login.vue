@@ -55,6 +55,7 @@ export default {
           email: this.credentials.email,
           password: this.credentials.password,
         });
+        // TODO remove user password from backend
         this.$store.dispatch("setToken", res.data.token);
         this.$store.dispatch("setUser", res.data.user);
         this.$store.dispatch("setPrivilegeLevel", res.data.user);

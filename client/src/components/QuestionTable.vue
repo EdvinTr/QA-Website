@@ -78,18 +78,23 @@
                 :btnClickHandler="nothing"
                 class="ViewBtn"
             /></router-link>
-
-            <mdb-btn color="primary" @click="() => openModal(question)"
-              >Edit</mdb-btn
-            >
-
-            <div v-if="checkUserPresent(question.userId)">
-              <mdb-btn
-                color="primary"
-                class="btn-danger"
-                @click="() => deleteQuestionById(question.id)"
-                >Delete</mdb-btn
+            <div v-if="$store.state.userPrivilegeLevel == 3">
+              <mdb-btn color="primary" @click="() => openModal(question)"
+                >Edit</mdb-btn
               >
+            </div>
+            <div v-if="checkUserPresent(question.userId)">
+              <mdb-btn color="primary" @click="() => openModal(question)"
+                >Edit</mdb-btn
+              >
+              <div>
+                <mdb-btn
+                  color="primary"
+                  class="btn-danger"
+                  @click="() => deleteQuestionById(question.id)"
+                  >Delete</mdb-btn
+                >
+              </div>
             </div>
           </div>
           <mdb-card-footer class="text-muted mt-4">
