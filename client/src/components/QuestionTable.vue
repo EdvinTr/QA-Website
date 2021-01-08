@@ -8,6 +8,9 @@
       @input="searchTimeOut"
     />
     <div>
+      <h1 v-if="questions.length == 0" style="text-align: center">
+        Nothing Found
+      </h1>
       <!-- REFACTOR THIS PLEASE, LIKE WTF -->
       <mdb-modal
         v-if="modal"
@@ -191,14 +194,25 @@ export default {
         searchTerm: this.searchField,
       };
       this.timer = setTimeout(async () => {
-        const { data } = await QuestionService.searchQuestionsByCategory(query);
-        if (data.length >= 1) {
-          this.questions = data;
-          this.users = [];
-          for (let i = 0; i < data.length; i++) {
-            const user = await UserService.findUserById(data[i].userId);
-            this.users = [...this.users, user.data];
+        try {
+          const { data } = await QuestionService.searchQuestionsByCategory(
+            query
+          );
+          if (data.length >= 0) {
+            let userArray = [];
+            for (let i = 0; i < data.length; i++) {
+              try {
+                const user = await UserService.findUserById(data[i].userId);
+                userArray = [...userArray, user.data];
+              } catch (err) {
+                console.log(err);
+              }
+            }
+            this.users = userArray;
+            this.questions = data;
           }
+        } catch (err) {
+          console.log(err);
         }
       }, 400);
     },

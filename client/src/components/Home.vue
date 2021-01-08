@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1 class="heading">Home Page</h1>
-
+    <!-- <h1 class="heading">Home Page</h1> -->
+    <div class="space"></div>
     <QuestionTable />
   </div>
 </template>
@@ -25,5 +25,8 @@ export default {
 .heading {
   text-align: center;
   margin-top: 40px;
+}
+.space {
+  padding-bottom: 2rem;
 }
 </style>
