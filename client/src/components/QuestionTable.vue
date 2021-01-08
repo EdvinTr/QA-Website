@@ -2,11 +2,11 @@
   <mdb-container>
     <mdb-input
       type="text"
-      label="Search"
+      label="Search Category"
       class="active-pink active-pink-2 mt-0 mb-3"
       v-model="searchField"
+      @input="searchTimeOut"
     />
-    <mdb-btn color="secondary" size="sm" @click="sendSearch">Search</mdb-btn>
     <div>
       <!-- REFACTOR THIS PLEASE, LIKE WTF -->
       <mdb-modal
@@ -168,8 +168,10 @@ export default {
       selected: null,
       editTextArea: "",
       editTitle: "",
+      timer: null,
     };
   },
+
   async mounted() {
     const { data } = await QuestionService.getQuestions();
     for (const item of data) {
@@ -180,17 +182,25 @@ export default {
   },
 
   methods: {
-    async sendSearch() {
+    searchTimeOut() {
+      if (this.timer) {
+        clearTimeout(this.timer);
+        this.timer = null;
+      }
       const query = {
         searchTerm: this.searchField,
       };
-      const { data } = await QuestionService.searchQuestionsByCategory(query);
-      console.log(data);
-      console.log(data.length);
-      console.log(this.questions);
-      this.questions = this.questions.filter(
-        (question) => question.id === data.id
-      );
+      this.timer = setTimeout(async () => {
+        const { data } = await QuestionService.searchQuestionsByCategory(query);
+        if (data.length >= 1) {
+          this.questions = data;
+          this.users = [];
+          for (let i = 0; i < data.length; i++) {
+            const user = await UserService.findUserById(data[i].userId);
+            this.users = [...this.users, user.data];
+          }
+        }
+      }, 400);
     },
 
     formatGMTDate(date) {

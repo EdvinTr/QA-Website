@@ -65,7 +65,6 @@ export default {
           textContent: this.firstLetterToUpperCase(this.textArea),
           category: this.selected,
         };
-        console.log(question);
         const returnedQuestion = await QuestionService.createQuestion(question);
         this.$router.push(`/questions/${returnedQuestion.data.id}`);
       } else {
