@@ -69,18 +69,14 @@
               </div>
               {{ formatGMTDate(answer.createdAt) }}
             </mdb-card-footer>
-
-            <div v-if="$store.state.userPrivilegeLevel == 3">
-              <mdb-btn
-                color="info"
-                class="btn-danger"
-                @click="() => deleteAnswer(answer.id)"
-                >Admin Delete</mdb-btn
-              >
-            </div>
-
-            <div class="buttonGroup">
-              <div v-if="checkUserPresent(answer.userId)">
+            <div
+              class="buttonGroup"
+              v-if="
+                checkUserPresent(answer.userId) ||
+                $store.state.userPrivilegeLevel == 3
+              "
+            >
+              <div>
                 <mdb-btn
                   color="info"
                   class="btn-danger"
@@ -88,7 +84,7 @@
                   >Delete</mdb-btn
                 >
               </div>
-              <div v-if="$store.state.userPrivilegeLevel >= 2">
+              <div>
                 <mdb-btn color="primary" @click="() => openModal(answer)"
                   >Edit</mdb-btn
                 >

@@ -30,30 +30,23 @@
             }}</mdb-dropdown-toggle>
 
             <mdb-dropdown-menu>
-              <router-link
-                to="/login"
-                class="dropdown-item"
-                v-if="!$store.state.isUserLoggedIn"
-                >Login
-              </router-link>
-              <router-link
-                to="/register"
-                class="dropdown-item"
-                v-if="!$store.state.isUserLoggedIn"
-                >Register
-              </router-link>
-
-              <router-link
-                to="/"
-                class="dropdown-item"
-                v-if="$store.state.isUserLoggedIn"
-                >My Page
-              </router-link>
-              <mdb-dropdown-item
-                v-if="$store.state.isUserLoggedIn"
-                @click="logout"
-                >Logout</mdb-dropdown-item
-              >
+              <div v-if="!$store.state.isUserLoggedIn">
+                <router-link to="/login" class="dropdown-item"
+                  >Login
+                </router-link>
+                <router-link to="/register" class="dropdown-item"
+                  >Register
+                </router-link>
+              </div>
+              <div v-if="$store.state.userPrivilegeLevel == 3">
+                <router-link to="/users" class="dropdown-item"
+                  >Manage Users</router-link
+                >
+              </div>
+              <div v-if="$store.state.isUserLoggedIn">
+                <router-link to="/" class="dropdown-item">My Page </router-link>
+                <mdb-dropdown-item @click="logout">Logout</mdb-dropdown-item>
+              </div>
             </mdb-dropdown-menu>
           </mdb-dropdown>
         </mdb-navbar-nav>

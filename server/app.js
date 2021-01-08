@@ -7,7 +7,9 @@ const config = require("./src/config/config");
 
 const app = express()
 app.use(morgan("combined"))
-app.use(bodyParser.json())
+//app.use(bodyParser.json())
+//app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.json())
 app.use(cors())
 
 require("../server/src/routes")(app);

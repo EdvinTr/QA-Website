@@ -24,9 +24,8 @@ export default new Vuex.Store({
     },
     setPrivilegeLevel(state, user) {
       state.userPrivilegeLevel = user.privilegeLevel;
-    }
+    },
   },
-
   actions: {
     setToken({ commit }, token) {
       commit("setToken", token)
@@ -36,7 +35,6 @@ export default new Vuex.Store({
     },
     setPrivilegeLevel({ commit }, user) {
       commit("setPrivilegeLevel", user)
-    }
-
+    },
   }
 })

@@ -17,6 +17,9 @@ export default {
     editQuestion(id, questionData) {
         return Api().put(`questions/${id}`, questionData)
     },
+    searchQuestionsByCategory(query) {
+        return Api().post("search", query)
+    },
 
     splitDate(dateString) {
         const date = dateString.split("T");

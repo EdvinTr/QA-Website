@@ -1,5 +1,12 @@
 <template>
   <mdb-container>
+    <mdb-input
+      type="text"
+      label="Search"
+      class="active-pink active-pink-2 mt-0 mb-3"
+      v-model="searchField"
+    />
+    <mdb-btn color="secondary" size="sm" @click="sendSearch">Search</mdb-btn>
     <div>
       <!-- REFACTOR THIS PLEASE, LIKE WTF -->
       <mdb-modal
@@ -78,23 +85,22 @@
                 :btnClickHandler="nothing"
                 class="ViewBtn"
             /></router-link>
-            <div v-if="$store.state.userPrivilegeLevel == 3">
+            <div
+              v-if="
+                checkUserPresent(question.userId) ||
+                $store.state.userPrivilegeLevel == 3
+              "
+            >
               <mdb-btn color="primary" @click="() => openModal(question)"
                 >Edit</mdb-btn
               >
-            </div>
-            <div v-if="checkUserPresent(question.userId)">
-              <mdb-btn color="primary" @click="() => openModal(question)"
-                >Edit</mdb-btn
+
+              <mdb-btn
+                color="primary"
+                class="btn-danger"
+                @click="() => deleteQuestionById(question.id)"
+                >Delete</mdb-btn
               >
-              <div>
-                <mdb-btn
-                  color="primary"
-                  class="btn-danger"
-                  @click="() => deleteQuestionById(question.id)"
-                  >Delete</mdb-btn
-                >
-              </div>
             </div>
           </div>
           <mdb-card-footer class="text-muted mt-4">
@@ -103,14 +109,6 @@
             </div>
             {{ formatGMTDate(question.createdAt) }}
           </mdb-card-footer>
-          <div v-if="$store.state.userPrivilegeLevel == 3">
-            <mdb-btn
-              color="primary"
-              class="btn-danger"
-              @click="() => deleteQuestionById(question.id)"
-              >Admin Delete</mdb-btn
-            >
-          </div>
         </mdb-card-body>
       </mdb-card>
     </div>
@@ -159,6 +157,7 @@ export default {
   },
   data() {
     return {
+      searchField: "",
       questions: [],
       users: [],
       formattedDate: "",
@@ -181,9 +180,23 @@ export default {
   },
 
   methods: {
+    async sendSearch() {
+      const query = {
+        searchTerm: this.searchField,
+      };
+      const { data } = await QuestionService.searchQuestionsByCategory(query);
+      console.log(data);
+      console.log(data.length);
+      console.log(this.questions);
+      this.questions = this.questions.filter(
+        (question) => question.id === data.id
+      );
+    },
+
     formatGMTDate(date) {
       return QuestionService.splitDate(date);
     },
+
     nothing() {
       return 0;
     },

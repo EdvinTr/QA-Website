@@ -1,5 +1,8 @@
 const { Question } = require("../models")
 
+const { Sequelize } = require("sequelize")
+const Op = Sequelize.Op
+
 module.exports = {
     async createQuestion(req, res) {
         try {
@@ -11,6 +14,26 @@ module.exports = {
             console.log(err);
             res.status(400).send({
                 error: "Could not create question"
+            })
+        }
+    },
+
+    async searchQuestionsByCategory(req, res) {
+        try {
+
+            console.log("---------------" + req.body.searchTerm);
+            const questions = await Question.findAll({
+                where: {
+                    category: {
+                        [Op.like]: '%' + req.body.searchTerm + '%'
+                    }
+                }
+            })
+            res.send(questions)
+        } catch (err) {
+            console.log(err);
+            res.status(400).send({
+                error: "Could not find questions by that category name"
             })
         }
     },
@@ -45,6 +68,22 @@ module.exports = {
             console.log(err);
             res.status(424).send({
                 error: "Could not fetch all questions"
+            })
+        }
+    },
+
+    async findQuestionsMappedToUserId(req, res) {
+        try {
+            const questions = await Question.findAll({
+                where: {
+                    id: req.params.id
+                }
+            });
+            res.send(questions);
+        } catch (err) {
+            console.log(err);
+            res.status(424).send({
+                error: `Could not fetch questions made by the user of ID ${req.params.id}`
             })
         }
     },

@@ -5,6 +5,7 @@ import Login from '@/components/Login';
 import Register from '@/components/Register';
 import Question from '@/components/Question';
 import CreateQuestion from '@/components/CreateQuestion';
+import UserTable from '@/components/UserTable';
 
 Vue.use(Router);
 const router = new Router({
@@ -35,6 +36,14 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: '/users',
+      name: 'users',
+      component: UserTable,
+      // meta: {
+      //   requiresAuth: true
+      // }
     },
     {
       path: '/',

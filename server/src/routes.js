@@ -12,16 +12,15 @@ module.exports = (app) => {
 
     app.post("/login", AuthenticationController.login)
 
-    app.get("/users", async (req, res) => {
-        try {
-            const users = await User.findAll();
-            res.send(users)
-        } catch (err) {
-            console.log(err);
-        }
-    })
+    app.get("/users", UserController.findAll)
 
     app.get("/users/:id", UserController.findUserById);
+
+    app.get("/users/:id", UserController.deleteUserById);
+
+    app.get("/users/:id/answers", AnswerController.findAnswersMappedToUserId)
+
+    app.get("/users/:id/questions", QuestionController.findQuestionsMappedToUserId)
 
     //Questions
     app.get("/questions", QuestionController.getAllQuestion);
@@ -33,6 +32,8 @@ module.exports = (app) => {
     app.post("/questions", QuestionController.createQuestion);
 
     app.put("/questions/:id", QuestionController.editQuestion);
+
+    app.post("/search", QuestionController.searchQuestionsByCategory);
 
     // Answers
     app.post("/questions/:id", AnswerController.createAnswer)

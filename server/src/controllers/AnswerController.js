@@ -27,6 +27,22 @@ module.exports = {
         }
     },
 
+    async findAnswersMappedToUserId(req, res) {
+        try {
+            const answers = await Answer.findAll({
+                where: {
+                    userId: req.params.id
+                }
+            });
+            res.send(answers);
+        } catch (err) {
+            console.log(err);
+            res.status(424).send({
+                error: `Could not fetch all answers by the user of ID ${req.params.id}`
+            })
+        }
+    },
+
     async findOneById(req, res) {
         try {
             const answer = await Answer.findOne({
