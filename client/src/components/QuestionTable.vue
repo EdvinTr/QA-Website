@@ -1,6 +1,7 @@
 <template>
   <mdb-container>
     <div>
+      <!-- REFACTOR THIS PLEASE, LIKE WTF -->
       <mdb-modal
         v-if="modal"
         size="lg"
@@ -13,31 +14,30 @@
         </mdb-modal-header>
         <mdb-modal-body>
           <mdb-input
+            label="Title"
             outline
             inputClass="z-depth-1 p-3"
-            v-model="modalData.title"
             :value="modalData.title"
+            @input="updateEditTitle"
           />
 
-          <multiselect
-            v-model="selected"
-            :multiple="false"
-            :options="options"
-            :placeholder="modalData.category"
-            :v-bind="modalData.category"
-          >
+          <multiselect v-model="selected" :multiple="false" :options="options">
           </multiselect>
           <mdb-input
+            label="Text"
             type="textarea"
             outline
             inputClass="z-depth-1 p-3"
             :value="modalData.textContent"
             :rows="10"
-            v-model="modalData.textContent"
+            @input="updateEditTextArea"
           />
         </mdb-modal-body>
         <mdb-modal-footer>
-          <mdb-btn color="secondary" size="sm" @click.native="modal = false"
+          <mdb-btn
+            color="secondary"
+            size="sm"
+            @click="() => closeModal(modalData)"
             >Close</mdb-btn
           >
           <!-- TODO  Grab actual edited data-->
@@ -46,18 +46,16 @@
             size="sm"
             @click="
               () =>
-                editQuestion(
-                  modalData.id,
-                  modalData.title,
-                  modalData.textContent,
-                  modalData.category
-                )
+                editQuestion(modalData.id, editTitle, editTextArea, selected)
             "
             >Save changes</mdb-btn
           >
         </mdb-modal-footer>
       </mdb-modal>
     </div>
+
+    <!-- REFACTOR THIS PLEASE, LIKE WTF -->
+
     <div v-for="(question, index) in questions" :key="question.id">
       <mdb-card class="mt-4">
         <mdb-card-body>
@@ -164,11 +162,12 @@ export default {
       modalData: null,
       options: categories,
       selected: null,
+      editTextArea: "",
+      editTitle: "",
     };
   },
   async mounted() {
     const { data } = await QuestionService.getQuestions();
-    console.log("mounted");
     for (const item of data) {
       const user = await UserService.findUserById(item.userId);
       this.users = [...this.users, user.data];
@@ -207,19 +206,36 @@ export default {
         textContent,
         category,
       };
-      console.log(question);
       try {
         await QuestionService.editQuestion(id, question);
+        const { data } = await QuestionService.findQuestionById(id);
+        this.questions = this.questions.filter(
+          (question) => question.id != data.id
+        );
+        this.questions = [...this.questions, data];
         this.modal = false;
       } catch (err) {
         console.log(err);
       }
+      this.modal = false;
+    },
+    updateEditTextArea(value) {
+      this.editTextArea = value;
+    },
+    updateEditTitle(value) {
+      this.editTitle = value;
     },
 
     openModal(data) {
+      (this.editTitle = data.title), (this.editTextArea = data.textContent);
+      this.selected = data.category;
       this.modalData = data;
       this.modal = true;
-      console.log(data);
+    },
+    closeModal(data) {
+      this.editTitle = data.title;
+      this.editTextArea = data.textContent;
+      this.modal = false;
     },
 
     checkUserPresent(questionId) {
