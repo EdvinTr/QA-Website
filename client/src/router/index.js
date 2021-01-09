@@ -41,9 +41,9 @@ const router = new Router({
       path: '/users',
       name: 'users',
       component: UserTable,
-      // meta: {
-      //   requiresAuth: true
-      // }
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/',

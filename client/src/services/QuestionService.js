@@ -23,6 +23,9 @@ export default {
     markQuestionAsDuplicate(id, value) {
         return Api().patch(`questions/${id}`, value)
     },
+    findQuestionsMappedToUserId(userId) {
+        return Api().get(`users/questions/${userId}`)
+    },
 
     splitDate(dateString) {
         const date = dateString.split("T");

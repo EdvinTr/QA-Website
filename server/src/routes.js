@@ -28,7 +28,7 @@ module.exports = (app) => {
 
     app.get("/users/:id/answers", AnswerController.findAnswersMappedToUserId)
 
-    app.get("/users/:id/questions", QuestionController.findQuestionsMappedToUserId)
+    app.get("/users/questions/:id", QuestionController.findQuestionsMappedToUserId)
 
     //Questions
     app.get("/questions", QuestionController.getAllQuestion);

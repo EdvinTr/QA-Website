@@ -256,8 +256,11 @@ export default {
     },
     async deleteAnswer(id) {
       try {
-        await AnswerService.deleteAnswerById(id);
-        this.answers = this.answers.filter((answer) => answer.id != id);
+        const answer = confirm("Are you sure you want to delete this answer?");
+        if (answer) {
+          await AnswerService.deleteAnswerById(id);
+          this.answers = this.answers.filter((answer) => answer.id != id);
+        }
       } catch (err) {
         console.log(err);
       }

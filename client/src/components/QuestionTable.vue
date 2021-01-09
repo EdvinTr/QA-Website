@@ -249,14 +249,23 @@ export default {
     },
     async deleteQuestionById(id) {
       try {
-        // Delete Question by ID
-        await QuestionService.deleteQuestionById(id);
-        const { data } = await AnswerService.findAnswersMappedToQuestionId(id);
-        // Delete all answers associated with the question ID
-        for (let i = 0; i < data.length; i++) {
-          await AnswerService.deleteAnswerById(data[i].id);
+        const answer = confirm(
+          "Are you sure you want to delete this question?"
+        );
+        if (answer) {
+          // Delete Question by ID
+          await QuestionService.deleteQuestionById(id);
+          const { data } = await AnswerService.findAnswersMappedToQuestionId(
+            id
+          );
+          // Delete all answers associated with the question ID
+          for (let i = 0; i < data.length; i++) {
+            await AnswerService.deleteAnswerById(data[i].id);
+          }
+          this.questions = this.questions.filter(
+            (question) => question.id != id
+          );
         }
-        this.questions = this.questions.filter((question) => question.id != id);
       } catch (err) {
         console.log(err);
       }

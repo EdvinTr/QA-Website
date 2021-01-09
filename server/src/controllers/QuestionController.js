@@ -96,7 +96,7 @@ module.exports = {
         try {
             const questions = await Question.findAll({
                 where: {
-                    id: req.params.id
+                    userId: req.params.id
                 }
             });
             res.send(questions);

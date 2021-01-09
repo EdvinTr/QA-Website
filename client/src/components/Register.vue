@@ -69,15 +69,6 @@
               required
               v-model="formData.password"
             />
-            <mdb-input
-              label="Admin Level (1 = Consumer, 2 = Contributor, 3 = Admin)"
-              icon="tools"
-              group
-              type="text"
-              validate
-              required
-              v-model="formData.privilegeLevel"
-            />
           </div>
           <div class="text-center py-4 mt-3">
             <div class="error" v-html="error" />
@@ -110,7 +101,6 @@ export default {
         email: "",
         username: "",
         password: "",
-        privilegeLevel: "",
       },
     };
   },

@@ -103,6 +103,24 @@ module.exports = {
             })
         }
     },
+
+    async findAll(req, res) {
+        try {
+            const users = await User.findAll();
+            if (!users) {
+                return res.status(403).send({
+                    error: `Could not fetch users`
+                })
+            } else {
+                res.send(users);
+            }
+        } catch (err) {
+            console.log(err);
+            res.status(424).send({
+                error: `Could not find users`
+            })
+        }
+    },
     async createContributor(req, res) {
         try {
             const user = await User.create(req.body);
