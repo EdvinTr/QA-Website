@@ -33,10 +33,14 @@ module.exports = (app) => {
 
     app.put("/questions/:id", QuestionController.editQuestion);
 
+    app.patch("/questions/:id", QuestionController.markQuestionAsDuplicate);
+
     app.post("/search", QuestionController.searchQuestionsByCategory);
 
     // Answers
     app.post("/questions/:id", AnswerController.createAnswer)
+
+    app.patch("/questions/:id", AnswerController.upvoteAnswer)
 
     app.get("/answers", AnswerController.getAllAnswers)
 

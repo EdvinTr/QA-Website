@@ -129,7 +129,7 @@ mdb-navbar-toggler {
   color: black;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 764px) {
   .donationButton {
     margin: 0.6rem 0 0.6rem 0;
     text-align: center;

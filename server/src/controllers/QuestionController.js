@@ -18,6 +18,26 @@ module.exports = {
         }
     },
 
+    async markQuestionAsDuplicate(req, res) {
+        try {
+            console.log("------------" + req.body.duplicate);
+            const question = await Question.update({
+                duplicate: req.body.duplicate
+            }, {
+                where: {
+                    id: req.params.id
+                }
+            }
+            )
+            res.send(question)
+        } catch (err) {
+            console.log(err);
+            res.status(400).send({
+                error: "Could not mark the question as duplicate"
+            })
+        }
+    },
+
     async searchQuestionsByCategory(req, res) {
         try {
 

@@ -20,6 +20,9 @@ export default {
     searchQuestionsByCategory(query) {
         return Api().post("search", query)
     },
+    markQuestionAsDuplicate(id, value) {
+        return Api().patch(`questions/${id}`, value)
+    },
 
     splitDate(dateString) {
         const date = dateString.split("T");

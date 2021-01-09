@@ -45,4 +45,11 @@ body {
 .btn-danger {
   background-image: linear-gradient(to right, #ff0000de, #ff1e00d8);
 }
+.btn-edit {
+}
+
+.btn-duplicate {
+  background-image: #0d47a1 !important;
+  background-color: #0d47a1 !important;
+}
 </style>

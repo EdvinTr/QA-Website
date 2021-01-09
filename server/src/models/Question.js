@@ -4,6 +4,10 @@ module.exports = (sequelize, DataTypes) => {
         title: DataTypes.STRING,
         textContent: DataTypes.TEXT,
         category: DataTypes.STRING,
-    })
+        duplicate: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
+        }
+    });
     return Question
 }

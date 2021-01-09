@@ -8,7 +8,10 @@
       @input="searchTimeOut"
     />
     <div>
-      <h1 v-if="questions.length == 0" style="text-align: center">
+      <h1
+        v-if="questions.length == 0 && searchField.length != 0"
+        style="text-align: center"
+      >
         Nothing Found
       </h1>
       <!-- REFACTOR THIS PLEASE, LIKE WTF -->
@@ -69,16 +72,22 @@
     <div v-for="(question, index) in questions" :key="question.id">
       <mdb-card class="mt-4">
         <mdb-card-body>
-          <mdb-card-title
-            >{{ question.title }}
-            <aside class="categoryTitle">
-              {{ question.category }}
-            </aside></mdb-card-title
+          <div class="titleContainer">
+            <mdb-card-title
+              >{{ question.title }}
+              <aside class="categoryTitle">
+                {{ question.category }}
+              </aside>
+              <div class="isDuplicate" v-if="question.duplicate == true">
+                Duplicate
+              </div>
+            </mdb-card-title>
+          </div>
+          <mdb-card-text
+            class="cardText"
+            v-if="question.textContent.length > 0"
+            >{{ question.textContent.slice(0, 200) + "..." }}</mdb-card-text
           >
-
-          <mdb-card-text class="cardText">{{
-            question.textContent.slice(0, 200) + "..."
-          }}</mdb-card-text>
           <div class="buttonGroup">
             <router-link
               :to="{ name: 'question', params: { questionId: question.id } }"
@@ -94,7 +103,10 @@
                 $store.state.userPrivilegeLevel == 3
               "
             >
-              <mdb-btn color="primary" @click="() => openModal(question)"
+              <mdb-btn
+                class="btn-edit"
+                color="primary"
+                @click="() => openModal(question)"
                 >Edit</mdb-btn
               >
 
@@ -105,6 +117,13 @@
                 >Delete</mdb-btn
               >
             </div>
+            <mdb-btn
+              v-if="$store.state.userPrivilegeLevel == 2"
+              color="primary"
+              class="btn-duplicate"
+              @click="() => markAsDuplicate(question.id, question.duplicate)"
+              >Mark Duplicate</mdb-btn
+            >
           </div>
           <mdb-card-footer class="text-muted mt-4">
             <div v-if="users[index].id === question.userId">
@@ -261,6 +280,23 @@ export default {
       }
       this.modal = false;
     },
+
+    async markAsDuplicate(id, currentValue) {
+      // Take opposite of the questions current duplicate status and update
+      try {
+        const isDuplicate = {
+          duplicate: !currentValue,
+        };
+        await QuestionService.markQuestionAsDuplicate(id, isDuplicate);
+        this.questions.forEach((question) => {
+          if (question.id == id) {
+            question.duplicate = !currentValue;
+          }
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
     updateEditTextArea(value) {
       this.editTextArea = value;
     },
@@ -320,5 +356,20 @@ export default {
 .buttonGroup {
   margin-top: 4rem;
   display: flex;
+}
+.titleContainer {
+  display: flex;
+  align-content: space-between;
+  align-items: flex-end;
+}
+
+.isDuplicate {
+  display: inline-block;
+  align-content: space-around;
+  font-weight: 500;
+  font-size: 12px;
+  background-color: lightyellow;
+  margin-left: 1rem;
+  padding: 0.5rem;
 }
 </style>

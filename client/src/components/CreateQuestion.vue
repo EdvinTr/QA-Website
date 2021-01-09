@@ -77,8 +77,6 @@ export default {
     checkFieldsNotEmpty() {
       if (this.title == "") {
         this.error = "You must include a title";
-      } else if (this.textArea == "") {
-        this.error = "You must include some text content";
       } else if (this.selected == null) {
         this.error = "You must pick a category";
       } else {

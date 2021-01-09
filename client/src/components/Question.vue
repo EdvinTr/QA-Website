@@ -61,7 +61,20 @@
         <mdb-card class="answer">
           <mdb-view hover> </mdb-view>
           <mdb-card-body>
-            <mdb-card-text>{{ answer.textContent }} </mdb-card-text>
+            <div class="scoreButtons">
+              <i
+                class="fas fa-chevron-up"
+                @click="() => upvoteAnswer(answer.id)"
+              ></i>
+              <div>{{ answer.score }}</div>
+              <i
+                class="fas fa-chevron-down"
+                @click="() => downvoteAnswer(answer.id)"
+              ></i>
+            </div>
+            <mdb-card-text v-if="answer.textContent.length > 0">{{
+              answer.textContent
+            }}</mdb-card-text>
 
             <mdb-card-footer class="text-muted mt-4">
               <div>
@@ -292,6 +305,12 @@ export default {
         console.log(err);
       }
     },
+    async upvoteAnswer(answerId) {
+      console.log(answerId);
+    },
+    async downvoteAnswer(answerId) {
+      console.log(answerId);
+    },
   },
 };
 </script>
@@ -310,5 +329,14 @@ export default {
 .buttonGroup {
   margin-top: 1rem;
   display: flex;
+}
+.scoreButtons {
+  float: right;
+}
+.fa-chevron-up {
+  cursor: pointer;
+}
+.fa-chevron-down {
+  cursor: pointer;
 }
 </style>
