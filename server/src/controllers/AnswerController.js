@@ -17,7 +17,7 @@ module.exports = {
 
     async upvoteAnswer(req, res) {
         try {
-            const answer = await Answer.find({
+            const answer = await Answer.findOne({
                 where: {
                     id: req.params.id
                 }
@@ -29,6 +29,35 @@ module.exports = {
             }
             const upvotedAnswer = await Answer.update({
                 score: answer.score + 1
+            }, {
+                where: {
+                    id: req.params.id
+                }
+            }
+            )
+            res.send(upvotedAnswer)
+        } catch (err) {
+            console.log(err);
+            res.status(400).send({
+                error: "Something went wrong trying to upvote the answers score"
+            })
+        }
+    },
+
+    async downvoteAnswer(req, res) {
+        try {
+            const answer = await Answer.findOne({
+                where: {
+                    id: req.params.id
+                }
+            })
+            if (!answer) {
+                res.status(400).send({
+                    error: `Could update the answers score because it the answer with ID ${req.params.id} could not be found`
+                })
+            }
+            const upvotedAnswer = await Answer.update({
+                score: answer.score - 1
             }, {
                 where: {
                     id: req.params.id

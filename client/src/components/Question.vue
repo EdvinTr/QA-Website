@@ -61,15 +61,21 @@
         <mdb-card class="answer">
           <mdb-view hover> </mdb-view>
           <mdb-card-body>
-            <div class="scoreButtons">
+            <div
+              v-if="
+                $store.state.userPrivilegeLevel == 3 ||
+                isConsumersQuestion(question)
+              "
+              class="scoreButtons"
+            >
               <i
                 class="fas fa-chevron-up"
-                @click="() => upvoteAnswer(answer.id)"
+                @click="() => upvoteAnswer(answer.id, answer.questionId)"
               ></i>
               <div>{{ answer.score }}</div>
               <i
                 class="fas fa-chevron-down"
-                @click="() => downvoteAnswer(answer.id)"
+                @click="() => downvoteAnswer(answer.id, answer.questionId)"
               ></i>
             </div>
             <mdb-card-text v-if="answer.textContent.length > 0">{{
@@ -305,11 +311,35 @@ export default {
         console.log(err);
       }
     },
-    async upvoteAnswer(answerId) {
-      console.log(answerId);
+    isConsumersQuestion() {
+      if (this.$store.state.user === null) {
+        return false;
+      } else {
+        let userId = this.$store.state.user.id;
+        return userId == this.question.userId ? true : false;
+      }
     },
-    async downvoteAnswer(answerId) {
-      console.log(answerId);
+    async upvoteAnswer(answerId, questionId) {
+      try {
+        await AnswerService.upvoteAnswer(answerId);
+        const { data } = await AnswerService.findAnswersMappedToQuestionId(
+          questionId
+        );
+        this.answers = data;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async downvoteAnswer(answerId, questionId) {
+      try {
+        await AnswerService.downvoteAnswer(answerId);
+        const { data } = await AnswerService.findAnswersMappedToQuestionId(
+          questionId
+        );
+        this.answers = data;
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
 };

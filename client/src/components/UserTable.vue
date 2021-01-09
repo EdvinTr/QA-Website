@@ -1,40 +1,47 @@
 <template>
-  <mdb-container class="tableContainer">
-    <mdb-tbl hover>
-      <mdb-tbl-head textWhite class="tableHeader">
-        <tr>
-          <th>ID</th>
-          <th>Username</th>
-          <th>Email</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Privilege Level</th>
-          <th>Registered</th>
-          <th>Actions</th>
-        </tr>
-      </mdb-tbl-head>
-      <mdb-tbl-body>
-        <tr v-for="user in users" :key="user.id">
-          <th>{{ user.id }}</th>
-          <td>{{ user.username }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.firstname }}</td>
-          <td>{{ user.lastname }}</td>
-          <td>{{ user.privilegeLevel }}</td>
-          <td>{{ formatGMTDate(user.createdAt) }}</td>
-          <div class="btnGroup">
-            <mdb-btn
-              color="info"
-              class="btn-danger"
-              @click="() => deleteUser(user.id)"
-              >Delete</mdb-btn
-            >
+  <mdb-container>
+    <mdb-container class="tableContainer">
+      <mdb-tbl hover>
+        <mdb-tbl-head textWhite class="tableHeader">
+          <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Privilege Level</th>
+            <th>Registered</th>
+            <th>Actions</th>
+          </tr>
+        </mdb-tbl-head>
+        <mdb-tbl-body>
+          <tr v-for="user in users" :key="user.id">
+            <th>{{ user.id }}</th>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.firstname }}</td>
+            <td>{{ user.lastname }}</td>
+            <td>{{ user.privilegeLevel }}</td>
+            <td>{{ formatGMTDate(user.createdAt) }}</td>
+            <div class="btnGroup">
+              <mdb-btn color="info" class="btn-success">Edit</mdb-btn>
+              <mdb-btn color="info" class="block-btn">Block</mdb-btn>
 
-            <mdb-btn color="info" class="btn-success">Edit</mdb-btn>
-          </div>
-        </tr>
-      </mdb-tbl-body>
-    </mdb-tbl>
+              <mdb-btn
+                color="info"
+                class="btn-danger"
+                @click="() => deleteUser(user.id)"
+                >Delete</mdb-btn
+              >
+            </div>
+          </tr>
+        </mdb-tbl-body>
+      </mdb-tbl>
+    </mdb-container>
+    <SuccessButton
+      buttonText="Add Contributor"
+      :btnClickHandler="addContributor"
+    />
   </mdb-container>
 </template>
 
@@ -42,6 +49,7 @@
 import { mdbTbl, mdbTblHead, mdbTblBody, mdbContainer, mdbBtn } from "mdbvue";
 import UserService from "../services/UserService";
 import QuestionService from "../services/QuestionService";
+import SuccessButton from "../components/SuccessButton";
 //import AnswerService from "../services/AnswerService";
 export default {
   name: "UserTable",
@@ -51,6 +59,7 @@ export default {
     mdbTblBody,
     mdbContainer,
     mdbBtn,
+    SuccessButton,
   },
   data() {
     return {
@@ -78,6 +87,9 @@ export default {
         console.log(err);
       }
     },
+    async addContributor() {
+      console.log("OK");
+    },
   },
 };
 </script>
@@ -92,5 +104,8 @@ export default {
 }
 .btnGroup {
   display: flex;
+}
+.block-btn {
+  background-image: linear-gradient(to right, #003c5fde, #00405dd8);
 }
 </style>

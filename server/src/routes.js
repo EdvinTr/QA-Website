@@ -40,7 +40,9 @@ module.exports = (app) => {
     // Answers
     app.post("/questions/:id", AnswerController.createAnswer)
 
-    app.patch("/questions/:id", AnswerController.upvoteAnswer)
+    app.patch("/answers/upvote/:id", AnswerController.upvoteAnswer)
+
+    app.patch("/answers/downvote/:id", AnswerController.downvoteAnswer)
 
     app.get("/answers", AnswerController.getAllAnswers)
 

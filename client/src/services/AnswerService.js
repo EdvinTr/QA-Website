@@ -14,6 +14,13 @@ export default {
     editAnswer(id, answer) {
         return Api().put(`answers/${id}`, answer)
     },
+    upvoteAnswer(id) {
+        return Api().patch(`answers/upvote/${id}`)
+    },
+
+    downvoteAnswer(id) {
+        return Api().patch(`answers/downvote/${id}`)
+    },
     deleteAnswerById(id) {
         return Api().delete(`answers/${id}`)
     },

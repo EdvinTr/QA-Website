@@ -26,7 +26,7 @@
 
           <mdb-dropdown tag="li" class="nav-item">
             <mdb-dropdown-toggle tag="a" navLink slot="toggle" waves-fixed>{{
-              $store.state.isUserLoggedIn ? $store.state.user.firstname : "User"
+              $store.state.isUserLoggedIn ? $store.state.user.username : "User"
             }}</mdb-dropdown-toggle>
 
             <mdb-dropdown-menu>
