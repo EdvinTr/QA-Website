@@ -223,6 +223,7 @@ import {
 import UserService from "../services/UserService";
 import QuestionService from "../services/QuestionService";
 import SuccessButton from "../components/SuccessButton";
+import AnswerService from "../services/AnswerService";
 //import AnswerService from "../services/AnswerService";
 export default {
   name: "UserTable",
@@ -402,6 +403,27 @@ export default {
         if (answer) {
           await UserService.deleteById(id);
           this.users = this.users.filter((user) => user.id != id);
+          // Get all questions
+          const usersQuestions = await QuestionService.findQuestionsMappedToUserId(
+            id
+          );
+          // get all answers
+          let usersAnswers = [];
+          for (let i = 0; i < usersQuestions.data.length; i++) {
+            const answer = await AnswerService.findAnswersMappedToQuestionId(
+              usersQuestions.data[i].id
+            );
+            usersAnswers = [...usersAnswers, answer.data];
+          }
+
+          // delete all questions
+          for (let i = 0; i < usersQuestions.data.length; i++) {
+            await QuestionService.deleteQuestionById(usersQuestions.data[i].id);
+          }
+          //delete all answers
+          for (let i = 0; i < usersAnswers.length; i++) {
+            await AnswerService.deleteAnswerById(usersAnswers[i].id);
+          }
         }
       } catch (err) {
         console.log(err);

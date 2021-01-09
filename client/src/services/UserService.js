@@ -20,7 +20,7 @@ export default {
         return Api().patch(`users/${id}`)
     },
     unblockUser(id) {
-        return Api().patch(`users/unblock/${id}`)
+        return Api().patch(`unblock/${id}`)
     }
 
 
