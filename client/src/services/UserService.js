@@ -9,6 +9,15 @@ export default {
     },
     deleteById(id) {
         return Api().delete(`users/${id}`)
+    },
+    createContributor(user) {
+        return Api().post("users", user)
+    },
+    updateUser(id, data) {
+        return Api().put(`users/${id}`, data)
+    },
+    blockUser(id) {
+        return Api().patch(`users/${id}`)
     }
 
 

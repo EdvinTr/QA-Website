@@ -1,4 +1,5 @@
 const { User } = require("../models")
+const bcrypt = require("bcrypt");
 
 module.exports = {
     async findUserById(req, res) {
@@ -20,6 +21,46 @@ module.exports = {
             console.log(err);
             res.status(424).send({
                 error: `Could not find user with ID of ${userId}`
+            })
+        }
+    },
+
+    async updateUser(req, res) {
+        try {
+            const userId = req.params.id
+            const salt = bcrypt.genSaltSync();
+            await User.update(
+                {
+                    username: req.body.username,
+                    password: bcrypt.hashSync(req.body.password, salt),
+                    email: req.body.email,
+                    firstname: req.body.firstname,
+                    lastname: req.body.lastname,
+                    privilegeLevel: req.body.privilegeLevel
+                }
+                , {
+                    where: {
+                        id: userId
+                    }
+                }
+            )
+            const updatedUser = await User.findOne({
+                where: {
+                    id: userId
+                }
+            })
+            if (updatedUser) {
+                res.send(updatedUser)
+            } else {
+                res.send({
+                    error: `Could not find user with ID ${userId} after updating`
+                })
+            }
+
+        } catch (err) {
+            console.log(err);
+            res.status(424).send({
+                error: `Something went wrong trying to update the user with ID ${req.params.id}`
             })
         }
     },
@@ -59,6 +100,56 @@ module.exports = {
             console.log(err);
             res.status(424).send({
                 error: `Could not find users`
+            })
+        }
+    },
+    async createContributor(req, res) {
+        try {
+            const user = await User.create(req.body);
+            if (!user) {
+                return res.status(400).send({
+                    error: `Could not create user`
+                })
+            } else {
+                res.send(user);
+            }
+        } catch (err) {
+            console.log(err);
+            res.status(424).send({
+                error: `Could not find users`
+            })
+        }
+    },
+
+    async blockUser(req, res) {
+        try {
+            const userId = req.params.id
+            await User.update(
+                {
+                    privilegeLevel: 0
+                }
+                , {
+                    where: {
+                        id: userId
+                    }
+                }
+            )
+            const user = User.findOne({
+                where: {
+                    id: userId
+                }
+            })
+            if (!user) {
+                return res.status(400).send({
+                    error: `Could not block user`
+                })
+            } else {
+                res.send(user);
+            }
+        } catch (err) {
+            console.log(err);
+            res.status(424).send({
+                error: `Could not block the user`
             })
         }
     }

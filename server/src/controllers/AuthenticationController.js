@@ -39,12 +39,19 @@ module.exports = {
                     error: "The login information was incorrect"
                 })
             }
+            if (user.privilegeLevel == 0) {
+                return res.status(403).send({
+                    error: "This account has been blocked"
+                })
+            }
+
             const isPasswordValid = await user.comparePassword(password)
             if (!isPasswordValid) {
                 return res.status(403).send({
                     error: "The login information was incorrect"
                 })
             }
+
             // If login successful return user object with a token as well
             const userJson = user.toJSON()
             res.send({

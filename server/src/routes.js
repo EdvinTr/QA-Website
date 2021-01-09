@@ -14,6 +14,14 @@ module.exports = (app) => {
 
     app.get("/users", UserController.findAll)
 
+    app.post("/users", UserController.createContributor)
+
+    app.put("/users/:id", UserController.updateUser)
+
+    app.patch("/users/:id", UserController.blockUser)
+
+    app.delete("/users/:id", UserController.deleteUserById)
+
     app.get("/users/:id", UserController.findUserById);
 
     app.get("/users/:id", UserController.deleteUserById);
