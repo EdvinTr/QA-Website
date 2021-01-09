@@ -170,5 +170,38 @@ module.exports = {
                 error: `Could not block the user`
             })
         }
+    },
+
+    async unblockUser(req, res) {
+        try {
+            const userId = req.params.id
+            await User.update(
+                {
+                    privilegeLevel: 1
+                }
+                , {
+                    where: {
+                        id: userId
+                    }
+                }
+            )
+            const user = User.findOne({
+                where: {
+                    id: userId
+                }
+            })
+            if (!user) {
+                return res.status(400).send({
+                    error: `Could not unblock user`
+                })
+            } else {
+                res.send(user);
+            }
+        } catch (err) {
+            console.log(err);
+            res.status(424).send({
+                error: `An error occured trying to unblock the user`
+            })
+        }
     }
 }

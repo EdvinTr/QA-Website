@@ -173,11 +173,20 @@
                 >Edit</mdb-btn
               >
               <mdb-btn
+                v-if="isUserBlocked(user) == false"
                 color="info"
                 class="block-btn"
                 @click="() => blockUser(user.id)"
-                >Block</mdb-btn
-              >
+                >Block
+              </mdb-btn>
+
+              <mdb-btn
+                v-if="isUserBlocked(user) == true"
+                color="info"
+                class="block-btn"
+                @click="() => unblockUser(user.id)"
+                >Unblock
+              </mdb-btn>
 
               <mdb-btn
                 color="info"
@@ -277,6 +286,19 @@ export default {
       } catch (err) {
         console.log(err);
       }
+    },
+    // TODO
+    async unblockUser(id) {
+      try {
+        await UserService.unblockUser(id);
+        const { data } = await UserService.findAll();
+        this.users = data;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    isUserBlocked(user) {
+      return user.privilegeLevel == 0 ? true : false;
     },
 
     /* ------- EDIT MODAL METHODS START ------- */

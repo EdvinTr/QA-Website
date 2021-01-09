@@ -18,6 +18,9 @@ export default {
     },
     blockUser(id) {
         return Api().patch(`users/${id}`)
+    },
+    unblockUser(id) {
+        return Api().patch(`users/unblock/${id}`)
     }
 
 
