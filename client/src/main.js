@@ -18,7 +18,7 @@ router.beforeEach((to, from, next) => {
     if (to.fullPath == "/users" && store.state.userPrivilegeLevel == 3) {
       next()
     }
-    if (store.state.userPrivilegeLevel < 1 || store.state.userPrivilegeLevel == 2) {
+    if (store.state.userPrivilegeLevel == 2 || store.state.user == null) {
 
       next({ name: 'login' })
     } else {

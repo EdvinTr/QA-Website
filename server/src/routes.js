@@ -30,6 +30,7 @@ module.exports = (app) => {
 
     app.get("/users/questions/:id", QuestionController.findQuestionsMappedToUserId)
 
+
     app.patch(`/unblock/:id`, UserController.unblockUser)
 
     //Questions

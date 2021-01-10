@@ -8,6 +8,9 @@ export default {
     findAnswersMappedToQuestionId(id) {
         return Api().get(`answers/${id}`);
     },
+    findAnswersMappedToUserId(id) {
+        return Api().get(`users/${id}/answers`);
+    },
     findOneById(id) {
         return Api().get(`answer/${id}`)
     },

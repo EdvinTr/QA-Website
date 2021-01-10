@@ -7,6 +7,7 @@
         type="text"
         id="defaultFormRegisterNameEx"
         class="form-control"
+        autocomplete="off"
       />
     </form>
     <div class="multiSelectContainer">
@@ -22,7 +23,7 @@
       type="textarea"
       outline
       inputClass="z-depth-1 p-3"
-      placeholder="Ask Something..."
+      placeholder="(Optional) Describe your question in more detail..."
       v-model="textArea"
     />
     <div class="error" v-html="error" />
@@ -77,8 +78,11 @@ export default {
     checkFieldsNotEmpty() {
       if (this.title == "") {
         this.error = "You must include a title";
-      } else if (this.selected == null) {
+        return;
+      }
+      if (this.selected == null) {
         this.error = "You must pick a category";
+        return;
       } else {
         this.error = "";
         return true;

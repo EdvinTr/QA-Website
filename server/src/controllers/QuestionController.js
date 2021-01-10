@@ -44,8 +44,13 @@ module.exports = {
             console.log("---------------" + req.body.searchTerm);
             const questions = await Question.findAll({
                 where: {
-                    category: {
-                        [Op.like]: '%' + req.body.searchTerm + '%'
+                    [Op.or]: {
+                        category: {
+                            [Op.like]: '%' + req.body.searchTerm + '%'
+                        },
+                        title: {
+                            [Op.like]: '%' + req.body.searchTerm + '%'
+                        }
                     }
                 }
             })

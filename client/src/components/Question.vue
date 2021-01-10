@@ -18,6 +18,7 @@
             type="textarea"
             outline
             inputClass="z-depth-1 p-3"
+            :rows="numberOfRows"
             :value="modalData.textContent"
             @input="updateAnswerVariable"
           />
@@ -45,7 +46,7 @@
       <mdb-view hover> </mdb-view>
       <mdb-card-body>
         <mdb-card-title>{{ question.title }}</mdb-card-title>
-        <mdb-card-text>{{ question.textContent }}.</mdb-card-text>
+        <mdb-card-text>{{ question.textContent }}</mdb-card-text>
         <mdb-card-footer class="text-muted mt-4">
           <div>
             <b>{{ questionCreator.username }}</b>
@@ -78,9 +79,11 @@
                 @click="() => downvoteAnswer(answer.id, answer.questionId)"
               ></i>
             </div>
-            <mdb-card-text v-if="answer.textContent.length > 0">{{
-              answer.textContent
-            }}</mdb-card-text>
+            <mdb-card-text
+              class="answerText"
+              v-if="answer.textContent.length > 0"
+              >{{ answer.textContent }}</mdb-card-text
+            >
 
             <mdb-card-footer class="text-muted mt-4">
               <div>
@@ -133,7 +136,6 @@ import QuestionService from "../services/QuestionService";
 import UserService from "../services/UserService";
 import AnswerService from "../services/AnswerService";
 import SuccessButton from "../components/SuccessButton";
-//import DangerButton from "../components/DangerButton";
 import {
   mdbCard,
   mdbCardBody,
@@ -183,10 +185,12 @@ export default {
       answerUserData: [],
       textArea: "",
       editedAnswer: "",
+      numberOfRows: 20,
     };
   },
   async beforeCreate() {
     try {
+      window.scrollTo(0, 0);
       // Fetching the specific question by ID
       const questionId = this.$store.state.route.params.questionId;
       const questionData = await QuestionService.findQuestionById(questionId);
@@ -227,6 +231,7 @@ export default {
     formatGMTDate(date) {
       return QuestionService.splitDate(date);
     },
+
     async createAnswer() {
       const answer = {
         userId: this.$store.state.user.id,
@@ -371,5 +376,8 @@ export default {
 }
 .fa-chevron-down {
   cursor: pointer;
+}
+.answerText {
+  white-space: pre-wrap;
 }
 </style>

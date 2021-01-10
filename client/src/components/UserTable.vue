@@ -133,7 +133,7 @@
             >Close</mdb-btn
           >
           <mdb-btn color="primary" size="sm" @click="addContributor"
-            >Save changes</mdb-btn
+            >Add Contributor</mdb-btn
           >
         </mdb-modal-footer>
       </mdb-modal>
@@ -189,6 +189,7 @@
               </mdb-btn>
 
               <mdb-btn
+                v-if="user.privilegeLevel == 2"
                 color="info"
                 class="btn-danger"
                 @click="() => deleteUser(user.id)"
@@ -224,7 +225,6 @@ import UserService from "../services/UserService";
 import QuestionService from "../services/QuestionService";
 import SuccessButton from "../components/SuccessButton";
 import AnswerService from "../services/AnswerService";
-//import AnswerService from "../services/AnswerService";
 export default {
   name: "UserTable",
   components: {
@@ -244,6 +244,7 @@ export default {
   data() {
     return {
       users: [],
+      isPasswordChanged: false,
       modalAdd: false,
       modalEdit: false,
       modalData: null,
@@ -308,6 +309,8 @@ export default {
     },
 
     modalEditUpdatePassword(value) {
+      this.isPasswordChanged = true;
+      console.log(this.isPasswordChanged);
       this.modalEditPassword = value;
     },
 
@@ -327,6 +330,7 @@ export default {
     },
     async openEditUserModal(data) {
       this.modalData = data;
+      this.isPasswordChanged = false;
       this.modalEditUsername = this.modalData.username;
       this.modalEditPassword = this.modalData.password;
       this.modalEditEmail = this.modalData.email;
@@ -337,14 +341,25 @@ export default {
     },
 
     async saveUser() {
-      const user = {
-        username: this.modalEditUsername,
-        password: this.modalEditPassword,
-        email: this.modalEditEmail,
-        firstname: this.modalEditFirstName,
-        lastname: this.modalEditLastName,
-        privilegeLevel: this.modalEditPrivilegeLevel,
-      };
+      let user = null;
+      if (this.isPasswordChanged) {
+        user = {
+          username: this.modalEditUsername,
+          password: this.modalEditPassword,
+          email: this.modalEditEmail,
+          firstname: this.modalEditFirstName,
+          lastname: this.modalEditLastName,
+          privilegeLevel: this.modalEditPrivilegeLevel,
+        };
+      } else {
+        user = {
+          username: this.modalEditUsername,
+          email: this.modalEditEmail,
+          firstname: this.modalEditFirstName,
+          lastname: this.modalEditLastName,
+          privilegeLevel: this.modalEditPrivilegeLevel,
+        };
+      }
       try {
         await UserService.updateUser(this.modalData.id, user);
         const { data } = await UserService.findAll();
@@ -401,29 +416,15 @@ export default {
       try {
         const answer = confirm("Are you sure you want to delete the user?");
         if (answer) {
-          await UserService.deleteById(id);
-          this.users = this.users.filter((user) => user.id != id);
-          // Get all questions
-          const usersQuestions = await QuestionService.findQuestionsMappedToUserId(
-            id
-          );
-          // get all answers
-          let usersAnswers = [];
-          for (let i = 0; i < usersQuestions.data.length; i++) {
-            const answer = await AnswerService.findAnswersMappedToQuestionId(
-              usersQuestions.data[i].id
-            );
-            usersAnswers = [...usersAnswers, answer.data];
+          // Get all answers
+          const { data } = await AnswerService.findAnswersMappedToUserId(id);
+          for (let i = 0; i < data.length; i++) {
+            await AnswerService.deleteAnswerById(data[i].id);
           }
 
-          // delete all questions
-          for (let i = 0; i < usersQuestions.data.length; i++) {
-            await QuestionService.deleteQuestionById(usersQuestions.data[i].id);
-          }
-          //delete all answers
-          for (let i = 0; i < usersAnswers.length; i++) {
-            await AnswerService.deleteAnswerById(usersAnswers[i].id);
-          }
+          await UserService.deleteById(id);
+          const userData = await UserService.findAll();
+          this.users = userData.data;
         }
       } catch (err) {
         console.log(err);

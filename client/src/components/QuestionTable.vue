@@ -2,7 +2,7 @@
   <mdb-container>
     <mdb-input
       type="text"
-      label="Search Category"
+      label="Search"
       class="active-pink active-pink-2 mt-0 mb-3"
       v-model="searchField"
       @input="searchTimeOut"
@@ -85,7 +85,13 @@
           </div>
           <mdb-card-text
             class="cardText"
-            v-if="question.textContent.length > 0"
+            v-if="question.textContent.length < 200"
+            >{{ question.textContent }}</mdb-card-text
+          >
+
+          <mdb-card-text
+            class="cardText"
+            v-if="question.textContent.length >= 200"
             >{{ question.textContent.slice(0, 200) + "..." }}</mdb-card-text
           >
           <div class="buttonGroup">
@@ -195,12 +201,17 @@ export default {
   },
 
   async mounted() {
-    const { data } = await QuestionService.getQuestions();
-    for (const item of data) {
-      const user = await UserService.findUserById(item.userId);
-      this.users = [...this.users, user.data];
+    window.scrollTo(0, 0);
+    try {
+      const { data } = await QuestionService.getQuestions();
+      for (const item of data) {
+        const user = await UserService.findUserById(item.userId);
+        this.users = [...this.users, user.data];
+      }
+      this.questions = data;
+    } catch (err) {
+      console.log(err);
     }
-    this.questions = data;
   },
 
   methods: {
@@ -278,11 +289,13 @@ export default {
       };
       try {
         await QuestionService.editQuestion(id, question);
-        const { data } = await QuestionService.findQuestionById(id);
-        this.questions = this.questions.filter(
-          (question) => question.id != data.id
-        );
-        this.questions = [...this.questions, data];
+        for (let i = 0; i < this.questions.length; i++) {
+          if (this.questions[i].id == id) {
+            this.questions[i].title = title;
+            this.questions[i].textContent = textContent;
+            this.questions[i].category = category;
+          }
+        }
         this.modal = false;
       } catch (err) {
         console.log(err);

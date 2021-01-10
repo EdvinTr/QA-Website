@@ -29,10 +29,16 @@ module.exports = {
         try {
             const userId = req.params.id
             const salt = bcrypt.genSaltSync();
+            const user = await User.findOne({
+                where: {
+                    id: req.params.id
+                }
+            })
+            const password = req.body.password != undefined ? bcrypt.hashSync(req.body.password, salt) : user.password
             await User.update(
                 {
                     username: req.body.username,
-                    password: bcrypt.hashSync(req.body.password, salt),
+                    password: password,
                     email: req.body.email,
                     firstname: req.body.firstname,
                     lastname: req.body.lastname,

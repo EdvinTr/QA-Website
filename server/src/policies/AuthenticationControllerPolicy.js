@@ -54,22 +54,3 @@ module.exports = {
         }
     }
 }
-
-
-
-// privilegeLevel: {
-//     type: DataTypes.INTEGER,
-//         defaultValue: 1
-// },
-
-// username: {
-//     type: DataTypes.STRING,
-//         unique: true
-// },
-// password: DataTypes.STRING,
-
-//     email: DataTypes.STRING,
-
-//         firstname: DataTypes.STRING,
-
-//             lastname: DataTypes.STRING,
