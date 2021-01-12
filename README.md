@@ -3,15 +3,15 @@ Final project for my Dynamic Web course. We received the project instructions a 
 My previous knowledge of Vue was very limited as we only had 1 assignment using it (we used a cdn link for that assignment).
 
 ### The project core features in miniature that had to be implemented
-The core assignment was to create a Fullstack website with SQL as database together with node/express for server and Vue JS for front end. There had to be 3 different types of account, consumers, contributors and admin.
+The core assignment was to create a Fullstack website with SQL as database together with node/express for server and Vue JS for front end. There had to be 3 different types of accounts: consumers, contributors and admin.
 
-The **consumer** would consume information and ask questions, but could not reply to other questions submitted by other consumers. The consumer can also edit/delete their questions, which in turn deleted all answers associated with that question.
+The **consumer** can consume information and ask questions, but cannot reply to other questions submitted by other consumers. The consumer can also edit/delete their questions, which in turn deletes all answers associated with that question.
 
-The **contributor** accounts are then able to answer to questions but not create their own. They can also edit/delete their answers
+The **contributor** accounts are able to answer to questions but not create their own. They can also edit/delete their answers.
 
-The **admin** has full privilege, meaning they are able to alter answers and questions and also block users or delete contributor accounts.
+The **admin** has full privilege, meaning they are able to alter answers and questions as well as block users or delete contributor accounts.
 
-Feel free to use this project for whatever you may like, just note that a lot of the things I have implemented have been very rushed as the deadline was so short. In other words, it's a bit of a mess. I might go back and refactor in the future.
+Feel free to use this project for whatever you may like, just note that a lot of the things that I have implemented have been very rushed as the deadline was so short. In other words, it's a bit of a mess. I might go back and refactor things in the future.
 
 ## How to install
 1. Open two terminal windows
