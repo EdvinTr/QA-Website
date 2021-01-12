@@ -47,7 +47,10 @@ Feel free to use this project for whatever you may like, just note that a lot of
 ![](https://i.gyazo.com/42a7a30a0582df2fe917750ae39651e3.png)
 
 ### Individual question (not logged in)
-![](https://i.gyazo.com/bdbce0d7ada96eca3aa6272eaec2b15f.png)
+![](https://i.gyazo.com/6f502d888507913b559f2fdba3ba43c4.png)
+
+### Individual question (logged in as contributor)
+![](https://i.gyazo.com/f0b0cbb7aa31bb9d6c08282531cc883a.png)
 
 ### Front page (logged in as consumer)
 ![](https://i.gyazo.com/be275882e62d0b68299e254aa363cfec.png)
