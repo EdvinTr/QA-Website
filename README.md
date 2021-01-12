@@ -41,3 +41,22 @@ Feel free to use this project for whatever you may like, just note that a lot of
 * joi
 * jsonwebtoken
 
+# Images of the project
+
+### Front page (not logged in)
+![](https://i.gyazo.com/42a7a30a0582df2fe917750ae39651e3.png)
+
+### Individual question (not logged in)
+![](https://i.gyazo.com/bdbce0d7ada96eca3aa6272eaec2b15f.png)
+
+### Front page (logged in as consumer)
+![](https://i.gyazo.com/be275882e62d0b68299e254aa363cfec.png)
+
+### Edit question (logged in as consumer)
+![](https://i.gyazo.com/e1e5c8953fd48c54e38dee65a392d39b.png)
+
+### Create question (logged in as consumer)
+![](https://i.gyazo.com/3ed560f75fdfbf4539af37dbd8f54209.png)
+
+### Manage users (logged in as admin)
+![](https://i.gyazo.com/9ed634dbf25ac9c635c22f951a258833.png)
