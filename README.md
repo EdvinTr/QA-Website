@@ -46,6 +46,11 @@ Feel free to use this project for whatever you may like, just note that a lot of
 ### Front page (not logged in)
 ![](https://i.gyazo.com/42a7a30a0582df2fe917750ae39651e3.png)
 
+### Search bar
+When a user searches for something it makes a GET request to the backend and will try to match WHERE the category or title of any question is LIKE the query.
+The search bar is using a timeout function which gets triggered each time the user types, so after half a second or so of no more typing the GET request is executed.
+![](https://i.gyazo.com/e083865c9d9ee00e63d9baf3453afd3a.png)
+
 ### Individual question (not logged in)
 ![](https://i.gyazo.com/6f502d888507913b559f2fdba3ba43c4.png)
 
