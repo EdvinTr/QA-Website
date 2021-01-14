@@ -47,12 +47,19 @@
       <mdb-card-body>
         <mdb-card-title>{{ question.title }}</mdb-card-title>
         <mdb-card-text>{{ question.textContent }}</mdb-card-text>
-        <mdb-btn
-          color="primary"
-          class="btn-danger"
-          @click="() => deleteQuestionById(question.id)"
-          >Delete</mdb-btn
+        <div
+          v-if="
+            isConsumersQuestion(question) ||
+            $store.state.userPrivilegeLevel == 3
+          "
         >
+          <mdb-btn
+            color="primary"
+            class="btn-danger deleteQuestionBtn"
+            @click="() => deleteQuestionById(question.id)"
+            >Delete</mdb-btn
+          >
+        </div>
         <mdb-card-footer class="text-muted mt-4">
           <div>
             <b>{{ questionCreator.username }}</b>
@@ -105,16 +112,16 @@
               "
             >
               <div>
+                <mdb-btn color="primary" @click="() => openModal(answer)"
+                  >Edit</mdb-btn
+                >
+              </div>
+              <div>
                 <mdb-btn
                   color="info"
                   class="btn-danger"
                   @click="() => deleteAnswer(answer.id)"
                   >Delete</mdb-btn
-                >
-              </div>
-              <div>
-                <mdb-btn color="primary" @click="() => openModal(answer)"
-                  >Edit</mdb-btn
                 >
               </div>
             </div>
@@ -406,5 +413,12 @@ export default {
 }
 .answerText {
   white-space: pre-wrap;
+}
+.btn-danger {
+  margin-left: 0;
+}
+.deleteQuestionBtn {
+  margin-top: 4rem;
+  margin-bottom: 0;
 }
 </style>
