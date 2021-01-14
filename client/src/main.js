@@ -8,7 +8,6 @@ import router from './router'
 import store from './store'
 
 Vue.config.productionTip = false
-
 sync(store, router)
 
 router.beforeEach((to, from, next) => {
