@@ -44,7 +44,11 @@
                 >
               </div>
               <div v-if="$store.state.isUserLoggedIn">
-                <router-link to="/" class="dropdown-item">My Page </router-link>
+                <router-link
+                  :to="{ path: '/' + $store.state.user.username }"
+                  class="dropdown-item"
+                  >My Page
+                </router-link>
                 <mdb-dropdown-item @click="logout">Logout</mdb-dropdown-item>
               </div>
             </mdb-dropdown-menu>

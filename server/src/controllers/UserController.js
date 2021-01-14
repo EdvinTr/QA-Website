@@ -25,6 +25,32 @@ module.exports = {
         }
     },
 
+    async findUserByUsername(req, res) {
+        try {
+            console.log("----------" + req.params.username);
+            const user = await User.findOne({
+                attributes: {
+                    exclude: ["password"]
+                },
+                where: {
+                    username: req.params.username
+                }
+            })
+            if (!user) {
+                return res.status(403).send({
+                    error: `Could not find user with the username: ${username}`
+                })
+            } else {
+                res.send(user.toJSON());
+            }
+        } catch (err) {
+            console.log(err);
+            res.status(424).send({
+                error: `Could not find user with username: ${username}`
+            })
+        }
+    },
+
     async updateUser(req, res) {
         try {
             const userId = req.params.id

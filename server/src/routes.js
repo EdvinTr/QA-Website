@@ -3,7 +3,6 @@ const AuthenticationControllerPolicy = require("../src/policies/AuthenticationCo
 const UserController = require("../src/controllers/UserController")
 const QuestionController = require("../src/controllers/QuestionController")
 const AnswerController = require("../src/controllers/AnswerController")
-const { User, Question } = require("../src/models")
 
 module.exports = (app) => {
     app.post("/register",
@@ -24,7 +23,7 @@ module.exports = (app) => {
 
     app.get("/users/:id", UserController.findUserById);
 
-    app.get("/users/:id", UserController.deleteUserById);
+    app.get("/users/username/:username", UserController.findUserByUsername)
 
     app.get("/users/:id/answers", AnswerController.findAnswersMappedToUserId)
 

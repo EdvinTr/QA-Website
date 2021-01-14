@@ -6,6 +6,7 @@ import Register from '@/components/Register';
 import Question from '@/components/Question';
 import CreateQuestion from '@/components/CreateQuestion';
 import UserTable from '@/components/UserTable';
+import UserPage from "@/components/User/Index"
 
 Vue.use(Router);
 const router = new Router({
@@ -22,6 +23,11 @@ const router = new Router({
       path: '/register',
       name: 'register',
       component: Register
+    },
+    {
+      path: "/:username",
+      name: 'UserPage',
+      component: UserPage
     },
     {
       path: '/questions/:questionId',

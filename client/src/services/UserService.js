@@ -4,6 +4,9 @@ export default {
     findUserById(id) {
         return Api().get(`users/${id}`);
     },
+    findUserByUsername(user) {
+        return Api().get(`users/username/${user.username}`)
+    },
     findAll() {
         return Api().get("users")
     },
