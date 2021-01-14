@@ -47,6 +47,12 @@
       <mdb-card-body>
         <mdb-card-title>{{ question.title }}</mdb-card-title>
         <mdb-card-text>{{ question.textContent }}</mdb-card-text>
+        <mdb-btn
+          color="primary"
+          class="btn-danger"
+          @click="() => deleteQuestionById(question.id)"
+          >Delete</mdb-btn
+        >
         <mdb-card-footer class="text-muted mt-4">
           <div>
             <b>{{ questionCreator.username }}</b>
@@ -230,6 +236,27 @@ export default {
   methods: {
     formatGMTDate(date) {
       return QuestionService.splitDate(date);
+    },
+    async deleteQuestionById(id) {
+      try {
+        const answer = confirm(
+          "Are you sure you want to delete this question?"
+        );
+        if (answer) {
+          // Delete Question by ID
+          await QuestionService.deleteQuestionById(id);
+          const { data } = await AnswerService.findAnswersMappedToQuestionId(
+            id
+          );
+          // Delete all answers associated with the question ID
+          for (let i = 0; i < data.length; i++) {
+            await AnswerService.deleteAnswerById(data[i].id);
+          }
+          this.$router.push({ name: "home" });
+        }
+      } catch (err) {
+        console.log(err);
+      }
     },
 
     async createAnswer() {

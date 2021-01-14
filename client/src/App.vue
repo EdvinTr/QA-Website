@@ -27,10 +27,12 @@ export default {
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
 
 #app {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .btn {
   background-image: linear-gradient(to bottom, #333 0, #111 100%);
+}
+[v-cloak] {
+  display: none;
 }
 
 body {
