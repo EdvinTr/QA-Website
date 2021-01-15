@@ -1,20 +1,20 @@
 <template>
   <div
-    v-if="
-      this.questions.length > 0 && this.$store.state.userPrivilegeLevel == 1
-    "
+    v-if="this.answers.length > 0 && this.$store.state.userPrivilegeLevel == 2"
   >
-    <h3 class="mt-5">Your Questions</h3>
-    <div v-for="question in questions" :key="question.id">
+    <h3 class="mt-5">Your Answers</h3>
+    <div v-for="answer in answers" :key="answer.id">
       <router-link
-        :to="{ name: 'question', params: { questionId: question.id } }"
+        :to="{ name: 'question', params: { questionId: answer.questionId } }"
       >
         <mdb-card class="questionCardContainer">
           <mdb-card-body>
             <mdb-row>
-              <mdb-col md="9">{{ question.title }}</mdb-col>
-              <mdb-col md="3" class="text-right"
-                >Answers: {{ question.answerCount }}</mdb-col
+              <mdb-col md="9" v-if="answer.textContent.length < 40">{{
+                answer.textContent
+              }}</mdb-col>
+              <mdb-col md="9" v-if="answer.textContent.length >= 40"
+                >{{ answer.textContent.slice(0, 60) }}...</mdb-col
               >
             </mdb-row>
           </mdb-card-body>
@@ -34,7 +34,7 @@ export default {
     mdbRow,
     mdbCol,
   },
-  props: ["questions"],
+  props: ["answers"],
   data() {
     return {};
   },
