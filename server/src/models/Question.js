@@ -7,7 +7,12 @@ module.exports = (sequelize, DataTypes) => {
         duplicate: {
             type: DataTypes.BOOLEAN,
             defaultValue: false
+        },
+        answerCount: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0
         }
     });
     return Question
+
 }

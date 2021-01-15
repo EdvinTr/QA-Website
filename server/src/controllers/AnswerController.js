@@ -1,12 +1,31 @@
-const { Answer } = require("../models")
+const { Answer, Question } = require("../models");
 
 module.exports = {
     async createAnswer(req, res) {
         try {
             const answer = await Answer.create(req.body)
-            console.log(req.body);
-            const answerJson = answer.toJSON();
-            res.send(answerJson)
+            if (answer) {
+                const question = await Question.findOne({
+                    where: {
+                        id: answer.questionId
+                    }
+                })
+                const updatedQuestion = await Question.update({
+                    answerCount: question.answerCount + 1
+                }, {
+                    where: {
+                        id: req.body.questionId
+                    }
+                })
+                if (!updatedQuestion) {
+                    res.status(400).send({
+                        error: "Failed to increment the answercount to the question"
+                    })
+                }
+                const answerJson = answer.toJSON();
+                res.send(answerJson)
+            }
+
         } catch (err) {
             console.log(err);
             res.status(400).send({
@@ -129,7 +148,7 @@ module.exports = {
                 res.status(200).send()
             } else {
                 res.status(400).send({
-                    error: `Could not find answer with an ID of ${req.params.id}`
+                    error: `Could not delete answer with an ID of ${req.params.id}`
                 })
             }
         } catch (err) {

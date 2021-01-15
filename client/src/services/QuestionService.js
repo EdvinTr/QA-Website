@@ -10,6 +10,9 @@ export default {
     createQuestion(question) {
         return Api().post("questions", question)
     },
+    decrementAnswerCount(questionId) {
+        return Api().patch(`answercount/decrement/${questionId}`)
+    },
 
     deleteQuestionById(id) {
         return Api().delete(`questions/${id}`)

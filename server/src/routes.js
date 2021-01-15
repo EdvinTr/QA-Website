@@ -23,12 +23,13 @@ module.exports = (app) => {
 
     app.get("/users/:id", UserController.findUserById);
 
-    app.get("/users/username/:username", UserController.findUserByUsername)
+    app.get("/username/find/:username", UserController.findUserByUsername)
 
     app.get("/users/:id/answers", AnswerController.findAnswersMappedToUserId)
 
     app.get("/users/questions/:id", QuestionController.findQuestionsMappedToUserId)
 
+    app.patch("/answercount/decrement/:questionId", QuestionController.decrementAnswerCount)
 
     app.patch(`/unblock/:id`, UserController.unblockUser)
 

@@ -13,9 +13,12 @@ app.use(express.json())
 app.use(cors())
 
 require("../server/src/routes")(app);
+
+
 // force: true will drop all tables
 sequelize.sync({ force: false })
     .then(() => {
         app.listen(config.port)
         console.log(`Server started on port ${config.port}`);
+
     })

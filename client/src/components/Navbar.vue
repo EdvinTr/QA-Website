@@ -45,7 +45,7 @@
               </div>
               <div v-if="$store.state.isUserLoggedIn">
                 <router-link
-                  :to="{ path: '/' + $store.state.user.username }"
+                  :to="{ path: '/users/' + $store.state.user.username }"
                   class="dropdown-item"
                   >My Page
                 </router-link>

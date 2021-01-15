@@ -297,6 +297,10 @@ export default {
       try {
         const answer = confirm("Are you sure you want to delete this answer?");
         if (answer) {
+          await QuestionService.decrementAnswerCount(
+            this.$store.state.route.params.questionId
+          );
+
           await AnswerService.deleteAnswerById(id);
           this.answers = this.answers.filter((answer) => answer.id != id);
         }

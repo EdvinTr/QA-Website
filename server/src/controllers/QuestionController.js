@@ -18,6 +18,34 @@ module.exports = {
         }
     },
 
+    async decrementAnswerCount(req, res) {
+        try {
+            const question = await Question.findOne({
+                where: {
+                    id: req.params.questionId
+                }
+            })
+            if (question) {
+                const updatedQuestion = await Question.update({
+                    answerCount: question.answerCount - 1
+                }, {
+                    where: {
+                        id: req.params.questionId
+                    }
+                })
+
+                res.send(updatedQuestion)
+            }
+            console.log(req.body);
+
+        } catch (err) {
+            console.log(err);
+            res.status(400).send({
+                error: "Could not decrement answer count"
+            })
+        }
+    },
+
     async markQuestionAsDuplicate(req, res) {
         try {
             console.log("------------" + req.body.duplicate);

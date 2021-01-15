@@ -5,7 +5,7 @@ export default {
         return Api().get(`users/${id}`);
     },
     findUserByUsername(user) {
-        return Api().get(`users/username/${user.username}`)
+        return Api().get(`username/find/${user.username}`)
     },
     findAll() {
         return Api().get("users")
