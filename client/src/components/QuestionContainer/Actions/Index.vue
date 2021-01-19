@@ -2,7 +2,7 @@
   <div class="buttonGroup">
     <ViewQuestion :questionId="question.id" />
     <Edit :question="question" />
-    <Delete :question="question" :function="deleteQuestionById" />
+    <Delete :question="question" />
   </div>
 </template>
 
@@ -12,7 +12,7 @@ import Edit from "../Actions/Edit";
 import ViewQuestion from "../Actions/ViewQuestion";
 export default {
   name: "Actions",
-  props: ["question", "deleteQuestionById"],
+  props: ["question"],
   components: {
     Delete,
     Edit,

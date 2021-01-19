@@ -1,6 +1,6 @@
 <template>
-  <div v-if="questions.length > 0 && users.length > 0">
-    <div v-for="(question, index) in questions" :key="question.id">
+  <div>
+    <div v-for="(question, index) in $store.state.questions" :key="question.id">
       <mdb-card class="mt-4">
         <mdb-card-body>
           <CardHeader
@@ -9,8 +9,11 @@
             :duplicate="question.duplicate"
           />
           <CardText :textContent="question.textContent" />
-          <Actions :question="question" :function="deleteQuestionById" />
-          <CardFooter :question="question" :user="users[index]" />
+          <Actions :question="question" />
+          <CardFooter
+            :question="question"
+            :user="$store.state.questionCreators[index]"
+          />
         </mdb-card-body>
       </mdb-card>
     </div>
@@ -27,7 +30,6 @@ import Actions from "../QuestionContainer/Actions/Index";
 export default {
   name: "Card",
 
-  props: ["users", "questions"],
   components: {
     mdbCard,
     mdbCardBody,
@@ -40,11 +42,7 @@ export default {
   data() {
     return {};
   },
-  methods: {
-    async deleteQuestionById(id) {
-      console.log(id);
-    },
-  },
+  methods: {},
 };
 </script>
 

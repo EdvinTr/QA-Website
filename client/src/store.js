@@ -10,6 +10,8 @@ export default new Vuex.Store({
     user: null,
     isUserLoggedIn: false,
     userPrivilegeLevel: 0,
+    questions: [],
+    questionCreators: [],
   },
   mutations: {
     setToken(state, token) {
@@ -26,6 +28,12 @@ export default new Vuex.Store({
     setPrivilegeLevel(state, user) {
       state.userPrivilegeLevel = user.privilegeLevel;
     },
+    setQuestions(state, questions) {
+      state.questions = questions
+    },
+    setQuestionCreators(state, users) {
+      state.questionCreators = users
+    }
 
   },
   actions: {
@@ -38,6 +46,12 @@ export default new Vuex.Store({
     setPrivilegeLevel({ commit }, user) {
       commit("setPrivilegeLevel", user)
     },
+    setQuestions({ commit }, questions) {
+      commit("setQuestions", questions)
+    },
+    setQuestionCreators({ commit }, questionCreators) {
+      commit("setQuestionCreators", questionCreators)
+    }
   },
   plugins: [createPersistedState()]
 })

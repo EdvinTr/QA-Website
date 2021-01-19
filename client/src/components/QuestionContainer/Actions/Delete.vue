@@ -10,22 +10,15 @@
 <script>
 import { mdbBtn } from "mdbvue";
 export default {
-  props: ["question", "allQuestions"],
+  props: ["question"],
   name: "Delete",
   components: { mdbBtn },
   data() {
-    return {
-      questions: this.allQuestions,
-    };
+    return {};
   },
   methods: {
     async deleteQuestionById(id) {
-      try {
-        this.$emit("clicked", id);
-        console.log(id);
-      } catch (err) {
-        console.log(err);
-      }
+      console.log(id);
     },
   },
 };
