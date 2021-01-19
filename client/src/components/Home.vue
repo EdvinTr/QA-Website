@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- <h1 class="heading">Home Page</h1> -->
     <div class="space"></div>
     <QuestionTable />
   </div>

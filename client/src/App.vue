@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <Navbar />
-    <!-- <img src="./assets/logo-mdb-vue-small.png"> -->
     <router-view />
     <div class="spacer"></div>
 
@@ -25,9 +24,6 @@ export default {
 
 <style>
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
-
-#app {
-}
 .btn {
   background-image: linear-gradient(to bottom, #333 0, #111 100%);
 }
@@ -46,8 +42,6 @@ body {
 }
 .btn-danger {
   background-image: linear-gradient(to right, #ff0000de, #ff1e00d8);
-}
-.btn-edit {
 }
 
 .btn-duplicate {
