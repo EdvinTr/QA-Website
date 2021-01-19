@@ -60,14 +60,50 @@ export default {
   methods: {
     async createQuestion() {
       if (this.checkFieldsNotEmpty()) {
-        const question = {
+        let question = {
           userId: this.$store.state.user.id,
           title: this.firstLetterToUpperCase(this.title),
           textContent: this.firstLetterToUpperCase(this.textArea),
           category: this.selected,
         };
-        const returnedQuestion = await QuestionService.createQuestion(question);
-        this.$router.push(`/questions/${returnedQuestion.data.id}`);
+
+        let foundUser = false;
+        console.log("Here");
+
+        for (let i = 0; i < this.$store.state.questionCreators.length; i++) {
+          console.log(this.$store.state.questionCreators[i]);
+
+          if (
+            this.$store.state.questionCreators[i].id ==
+            this.$store.state.user.id
+          ) {
+            console.log("true");
+            foundUser = true;
+            break;
+          }
+        }
+        if (!foundUser) {
+          console.log("Store doesnt have this user");
+          const newUsers = [
+            ...this.$store.state.questionCreators,
+            this.$store.state.user,
+          ];
+          this.$store.dispatch("setQuestionCreators", newUsers);
+        }
+
+        try {
+          const returnedQuestion = await QuestionService.createQuestion(
+            question
+          );
+          const newQuestions = [
+            ...this.$store.state.questions,
+            returnedQuestion.data,
+          ];
+          this.$store.dispatch("setQuestions", newQuestions);
+          this.$router.push(`/questions/${returnedQuestion.data.id}`);
+        } catch (err) {
+          console.log(err);
+        }
       } else {
         console.log("Fields not filled in");
       }

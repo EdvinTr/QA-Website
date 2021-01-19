@@ -1,5 +1,5 @@
 <template>
-  <mdb-container>
+  <mdb-container v-if="this.$store.state.questions.length > 0">
     <h1>Question Comp</h1>
     <Card />
   </mdb-container>

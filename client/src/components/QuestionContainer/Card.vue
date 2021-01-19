@@ -1,6 +1,11 @@
 <template>
-  <div>
-    <div v-for="(question, index) in $store.state.questions" :key="question.id">
+  <div
+    v-if="
+      $store.state.questions.length > 0 &&
+      $store.state.questionCreators.length > 0
+    "
+  >
+    <div v-for="question in $store.state.questions" :key="question.id">
       <mdb-card class="mt-4">
         <mdb-card-body>
           <CardHeader
@@ -10,10 +15,7 @@
           />
           <CardText :textContent="question.textContent" />
           <Actions :question="question" />
-          <CardFooter
-            :question="question"
-            :user="$store.state.questionCreators[index]"
-          />
+          <CardFooter :question="question" />
         </mdb-card-body>
       </mdb-card>
     </div>
@@ -41,6 +43,9 @@ export default {
   },
   data() {
     return {};
+  },
+  mounted() {
+    console.log("Card Mounted");
   },
   methods: {},
 };

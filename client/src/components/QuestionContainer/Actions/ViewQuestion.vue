@@ -1,5 +1,7 @@
 <template>
-  <router-link :to="{ name: 'question', params: { questionId: questionId } }">
+  <router-link
+    :to="{ name: 'question', params: { questionId: this.questionId } }"
+  >
     <mdb-btn color="primary" class="btn-answer">View</mdb-btn>
   </router-link>
 </template>

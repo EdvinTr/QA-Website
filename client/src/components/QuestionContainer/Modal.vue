@@ -1,6 +1,7 @@
 <template>
   <div>
-    <mdb-modal size="sm" :show="modal" @close="modal = false">
+    <mdb-btn color="primary" @click.native="modal = true">Small modal</mdb-btn>
+    <mdb-modal v-if="modal" size="sm" :show="modal" @close="modal = false">
       <mdb-modal-header>
         <mdb-modal-title>Modal title</mdb-modal-title>
       </mdb-modal-header>
@@ -12,46 +13,31 @@
         <mdb-btn color="primary" size="sm">Save changes</mdb-btn>
       </mdb-modal-footer>
     </mdb-modal>
-    <mdb-btn
-      class="btn-edit"
-      color="primary"
-      @click="() => openEditModal(question)"
-      >Edit</mdb-btn
-    >
   </div>
 </template>
 
-<!-- Todo OPEN MODAL -->
 <script>
 import {
-  mdbBtn,
   mdbModal,
   mdbModalHeader,
   mdbModalTitle,
   mdbModalBody,
   mdbModalFooter,
+  mdbBtn,
 } from "mdbvue";
 export default {
-  name: "Edit",
-  props: ["question"],
   components: {
-    mdbBtn,
     mdbModal,
     mdbModalHeader,
     mdbModalTitle,
     mdbModalBody,
     mdbModalFooter,
+    mdbBtn,
   },
   data() {
     return {
       modal: false,
     };
-  },
-  methods: {
-    openEditModal(data) {
-      this.modal = true;
-      console.log(data);
-    },
   },
 };
 </script>

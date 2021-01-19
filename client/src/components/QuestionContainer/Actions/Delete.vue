@@ -34,12 +34,24 @@ export default {
           for (let i = 0; i < data.length; i++) {
             await AnswerService.deleteAnswerById(data[i].id);
           }
-          this.$store.state.questions = this.$store.state.questions.filter(
+          // Updating the store by filtering out the question and after the user who created it
+          const newQuestions = this.$store.state.questions.filter(
             (question) => question.id != id
           );
-          this.$store.state.questionCreators = this.$store.state.questionCreators.filter(
-            (user) => user.id != userId
-          );
+          let userQuestionsCount = 0;
+          for (let i = 0; i < this.$store.state.questions.length; i++) {
+            if (this.$store.state.questions[i].userId === userId) {
+              userQuestionsCount++;
+            }
+          }
+
+          if (userQuestionsCount == 1) {
+            const newQuestionCreators = this.$store.state.questionCreators.filter(
+              (user) => user.id != userId
+            );
+            this.$store.dispatch("setQuestionCreators", newQuestionCreators);
+          }
+          this.$store.dispatch("setQuestions", newQuestions);
         }
       } catch (err) {
         console.log(err);

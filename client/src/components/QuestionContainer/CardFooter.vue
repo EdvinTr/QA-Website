@@ -1,8 +1,8 @@
 <template>
-  <div v-if="user && question">
+  <div v-if="dataReady">
     <mdb-card-footer class="text-muted mt-4">
-      <div v-if="user.id === question.userId">
-        <b>{{ user.username }}</b>
+      <div>
+        <b>{{ username }}</b>
       </div>
       {{ formatGMTDate(question.createdAt) }}
     </mdb-card-footer>
@@ -14,14 +14,25 @@ import { mdbCardFooter } from "mdbvue";
 import QuestionService from "../../services/QuestionService";
 export default {
   name: "CardFooter",
-  props: ["question", "user"],
+  props: ["question"],
   components: {
     mdbCardFooter,
   },
   data() {
-    return {};
+    return {
+      username: "",
+      dataReady: false,
+    };
   },
-
+  mounted() {
+    for (let i = 0; i < this.$store.state.questionCreators.length; i++) {
+      if (this.$store.state.questionCreators[i].id === this.question.userId) {
+        this.username = this.$store.state.questionCreators[i].username;
+        this.dataReady = true;
+        break;
+      }
+    }
+  },
   methods: {
     formatGMTDate(date) {
       return QuestionService.splitDate(date);
