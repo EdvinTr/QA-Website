@@ -21,6 +21,9 @@ export default {
   data() {
     return {};
   },
+  mounted() {
+    console.log(this.user);
+  },
   methods: {
     formatGMTDate(date) {
       return QuestionService.splitDate(date);

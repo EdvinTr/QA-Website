@@ -1,14 +1,16 @@
 <template>
-  <mdb-container>
+  <mdb-container v-if="this.users.length > 0">
     <h1>Question Comp</h1>
-    <Card :users="users" />
+    <Card :users="this.users" :questions="questions" />
   </mdb-container>
 </template>
 
 <script>
+import { mdbContainer } from "mdbvue";
+
 import Card from "../QuestionContainer/Card";
 import UserService from "../../services/UserService";
-import { mdbContainer } from "mdbvue";
+import QuestionService from "../../services/QuestionService";
 export default {
   components: {
     Card,
@@ -17,12 +19,16 @@ export default {
   data() {
     return {
       users: [],
+      questions: [],
     };
   },
   async mounted() {
     try {
-      const questions = this.$store.state.questions;
-      for (const question of questions) {
+      window.scrollTo(0, 0);
+
+      const questions = await QuestionService.getQuestions();
+      this.questions = questions.data;
+      for (const question of this.questions) {
         const { data } = await UserService.findUserById(question.userId);
         this.users = [...this.users, data];
       }
