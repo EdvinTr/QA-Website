@@ -2,13 +2,15 @@
   <mdb-btn
     color="primary"
     class="btn-danger"
-    @click="() => deleteQuestionById(question.id)"
+    @click="() => deleteQuestionById(question)"
     >Delete</mdb-btn
   >
 </template>
 
 <script>
 import { mdbBtn } from "mdbvue";
+import QuestionService from "../../../services/QuestionService";
+import AnswerService from "../../../services/AnswerService";
 export default {
   props: ["question"],
   name: "Delete",
@@ -17,8 +19,31 @@ export default {
     return {};
   },
   methods: {
-    async deleteQuestionById(id) {
-      console.log(id);
+    async deleteQuestionById({ id, userId }) {
+      try {
+        const answer = confirm(
+          "Are you sure you want to delete this question?"
+        );
+        if (answer) {
+          // Delete Question by ID
+          await QuestionService.deleteQuestionById(id);
+          const { data } = await AnswerService.findAnswersMappedToQuestionId(
+            id
+          );
+          // Delete all answers associated with the question ID
+          for (let i = 0; i < data.length; i++) {
+            await AnswerService.deleteAnswerById(data[i].id);
+          }
+          this.$store.state.questions = this.$store.state.questions.filter(
+            (question) => question.id != id
+          );
+          this.$store.state.questionCreators = this.$store.state.questionCreators.filter(
+            (user) => user.id != userId
+          );
+        }
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
 };

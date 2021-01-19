@@ -22,7 +22,7 @@ export default {
     Footer,
   },
   async mounted() {
-    console.log("mounted");
+    console.log("App mounted");
     try {
       let users = [];
       const { data } = await QuestionService.getQuestions();
