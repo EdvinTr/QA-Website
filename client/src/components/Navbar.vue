@@ -1,61 +1,65 @@
 <template>
-  <div class="test">
-    <mdb-navbar expand="large" dark>
-      <router-link to="/">
-        <div class="brand">
-          <mdb-navbar-brand>{{ pageTitle }}</mdb-navbar-brand>
-        </div>
-      </router-link>
-      <mdb-navbar-toggler>
-        <mdb-navbar-nav right>
-          <router-link :to="{ name: 'createquestion' }">
-            <mdb-nav-item id="donationButtonId" class="donationButton"
-              ><span class="donationText">Ask A Question</span></mdb-nav-item
-            >
-          </router-link>
+  <div class="navOuterColor">
+    <mdb-container>
+      <mdb-navbar expand="large" dark>
+        <router-link to="/">
+          <div class="brand">
+            <mdb-navbar-brand>{{ pageTitle }}</mdb-navbar-brand>
+          </div>
+        </router-link>
+        <mdb-navbar-toggler>
+          <mdb-navbar-nav right>
+            <router-link :to="{ name: 'createquestion' }">
+              <mdb-nav-item id="donationButtonId" class="donationButton"
+                ><span class="donationText">Ask A Question</span></mdb-nav-item
+              >
+            </router-link>
 
-          <router-link to="/register">
-            <mdb-nav-item>{{
-              $store.state.isUserLoggedIn ? "" : "Membership"
-            }}</mdb-nav-item>
-          </router-link>
+            <router-link to="/register">
+              <mdb-nav-item>{{
+                $store.state.isUserLoggedIn ? "" : "Membership"
+              }}</mdb-nav-item>
+            </router-link>
 
-          <mdb-nav-item v-if="$store.state.isUserLoggedIn">
-            <mdb-icon far icon="envelope" />
-          </mdb-nav-item>
+            <mdb-nav-item v-if="$store.state.isUserLoggedIn">
+              <mdb-icon far icon="envelope" />
+            </mdb-nav-item>
 
-          <mdb-dropdown tag="li" class="nav-item">
-            <mdb-dropdown-toggle tag="a" navLink slot="toggle" waves-fixed>{{
-              $store.state.isUserLoggedIn ? $store.state.user.username : "User"
-            }}</mdb-dropdown-toggle>
+            <mdb-dropdown tag="li" class="nav-item">
+              <mdb-dropdown-toggle tag="a" navLink slot="toggle" waves-fixed>{{
+                $store.state.isUserLoggedIn
+                  ? $store.state.user.username
+                  : "User"
+              }}</mdb-dropdown-toggle>
 
-            <mdb-dropdown-menu>
-              <div v-if="!$store.state.isUserLoggedIn">
-                <router-link to="/login" class="dropdown-item"
-                  >Login
-                </router-link>
-                <router-link to="/register" class="dropdown-item"
-                  >Register
-                </router-link>
-              </div>
-              <div v-if="$store.state.userPrivilegeLevel == 3">
-                <router-link to="/users" class="dropdown-item"
-                  >Manage Users</router-link
-                >
-              </div>
-              <div v-if="$store.state.isUserLoggedIn">
-                <router-link
-                  :to="{ path: '/users/' + $store.state.user.username }"
-                  class="dropdown-item"
-                  >My Page
-                </router-link>
-                <mdb-dropdown-item @click="logout">Logout</mdb-dropdown-item>
-              </div>
-            </mdb-dropdown-menu>
-          </mdb-dropdown>
-        </mdb-navbar-nav>
-      </mdb-navbar-toggler>
-    </mdb-navbar>
+              <mdb-dropdown-menu>
+                <div v-if="!$store.state.isUserLoggedIn">
+                  <router-link to="/login" class="dropdown-item"
+                    >Login
+                  </router-link>
+                  <router-link to="/register" class="dropdown-item"
+                    >Register
+                  </router-link>
+                </div>
+                <div v-if="$store.state.userPrivilegeLevel == 3">
+                  <router-link to="/users" class="dropdown-item"
+                    >Manage Users</router-link
+                  >
+                </div>
+                <div v-if="$store.state.isUserLoggedIn">
+                  <router-link
+                    :to="{ path: '/users/' + $store.state.user.username }"
+                    class="dropdown-item"
+                    >My Page
+                  </router-link>
+                  <mdb-dropdown-item @click="logout">Logout</mdb-dropdown-item>
+                </div>
+              </mdb-dropdown-menu>
+            </mdb-dropdown>
+          </mdb-navbar-nav>
+        </mdb-navbar-toggler>
+      </mdb-navbar>
+    </mdb-container>
   </div>
 </template>
 
@@ -71,6 +75,7 @@ import {
   mdbDropdownToggle,
   mdbDropdownItem,
   mdbIcon,
+  mdbContainer,
 } from "mdbvue";
 export default {
   name: "NavbarPage",
@@ -85,6 +90,7 @@ export default {
     mdbDropdownToggle,
     mdbDropdownItem,
     mdbIcon,
+    mdbContainer,
   },
   data() {
     return {
@@ -128,6 +134,15 @@ mdb-navbar-toggler {
 }
 .donationText {
   color: black;
+}
+.navbar {
+  -webkit-box-shadow: 0px !important;
+  box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.16), 0 0px 0px 0 rgba(0, 0, 0, 0.12);
+  padding: 0.5rem 0rem;
+}
+
+.navOuterColor {
+  background-color: #1d1f20;
 }
 
 @media (max-width: 1023px) {
