@@ -7,6 +7,7 @@ import Question from '@/components/Question';
 import CreateQuestion from '@/components/CreateQuestion';
 import UserTable from '@/components/UserTable';
 import UserPage from "@/components/User/Index"
+import QuestionContainer from "@/components/QuestionContainer/Index"
 
 Vue.use(Router);
 const router = new Router({
@@ -33,6 +34,12 @@ const router = new Router({
       path: '/questions/:questionId',
       name: 'question',
       component: Question
+    },
+
+    {
+      path: '/test',
+      name: 'questioncontainer',
+      component: QuestionContainer
     },
     {
       path: '/create-question',

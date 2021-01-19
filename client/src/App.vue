@@ -13,11 +13,20 @@
 <script>
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import QuestionService from "../src/services/QuestionService";
 export default {
   name: "App",
   components: {
     Navbar,
     Footer,
+  },
+  async created() {
+    try {
+      const { data } = await QuestionService.getQuestions();
+      this.$store.dispatch("setQuestions", data);
+    } catch (err) {
+      console.log(err);
+    }
   },
 };
 </script>
