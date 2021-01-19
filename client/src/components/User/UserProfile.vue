@@ -39,6 +39,7 @@ export default {
   max-width: 150px;
   height: 150px;
   border-radius: 1000rem;
+  cursor: pointer;
 }
 .name {
   font-weight: 700;
