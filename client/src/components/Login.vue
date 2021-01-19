@@ -75,6 +75,7 @@ export default {
   width: 50%;
   margin: 50px auto;
 }
+
 .error {
   color: red;
 }
@@ -85,5 +86,10 @@ export default {
   margin-top: 1rem;
   cursor: pointer;
   font-size: 14px;
+}
+@media only screen and (max-width: 600px) {
+  .form-group {
+    width: 80%;
+  }
 }
 </style>
