@@ -59,7 +59,7 @@ export default {
         this.$store.dispatch("setToken", res.data.token);
         this.$store.dispatch("setUser", res.data.user);
         this.$store.dispatch("setPrivilegeLevel", res.data.user);
-        this.$router.next();
+        this.$router.go(-1);
         //this.$router.push({ name: "createquestion" });
         //this.$router.push({ name: "home" });
       } catch (error) {
