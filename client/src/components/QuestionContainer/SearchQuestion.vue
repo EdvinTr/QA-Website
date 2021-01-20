@@ -37,6 +37,7 @@ export default {
   },
   methods: {
     searchTimeOut() {
+      let timeOutMilis = this.searchField == "" ? 0 : 400;
       if (this.timer) {
         clearTimeout(this.timer);
         this.timer = null;
@@ -67,7 +68,7 @@ export default {
         } catch (err) {
           console.log(err);
         }
-      }, 400);
+      }, timeOutMilis);
     },
   },
 };

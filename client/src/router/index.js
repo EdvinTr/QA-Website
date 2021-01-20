@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from '@/components/Home';
 import Login from '@/components/Login';
 import Register from '@/components/Register';
 import Question from '@/components/Question';
@@ -37,15 +36,9 @@ const router = new Router({
     },
 
     {
-      path: '/test',
-      name: 'questioncontainer',
-      component: QuestionContainer
-    },
-    {
       path: '/create-question',
       name: 'createquestion',
       component: CreateQuestion,
-      //redirect: '/login',
       meta: {
         requiresAuth: true
       }
@@ -60,8 +53,8 @@ const router = new Router({
     },
     {
       path: '/',
-      name: 'home',
-      component: Home
+      name: 'QuestionContainer',
+      component: QuestionContainer
     },
   ],
 
