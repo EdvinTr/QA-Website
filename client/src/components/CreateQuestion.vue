@@ -69,8 +69,6 @@ export default {
 
         let foundUser = false;
         for (let i = 0; i < this.$store.state.questionCreators.length; i++) {
-          console.log(this.$store.state.questionCreators[i]);
-
           if (
             this.$store.state.questionCreators[i].id ==
             this.$store.state.user.id

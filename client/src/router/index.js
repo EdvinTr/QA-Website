@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Login from '@/components/Login';
 import Register from '@/components/Register';
-import Question from '@/components/Question';
+import QuestionPage from '@/components/QuestionPage/Index';
 import CreateQuestion from '@/components/CreateQuestion';
 import UserTable from '@/components/UserTable';
 import UserPage from "@/components/User/Index"
@@ -31,8 +31,8 @@ const router = new Router({
     },
     {
       path: '/questions/:questionId',
-      name: 'question',
-      component: Question
+      name: 'questionpage',
+      component: QuestionPage
     },
 
     {

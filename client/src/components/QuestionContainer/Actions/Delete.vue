@@ -44,7 +44,7 @@ export default {
               userQuestionsCount++;
             }
           }
-
+          // If this user only posted 1 question we can safely delete the user from the questionCreators array
           if (userQuestionsCount == 1) {
             const newQuestionCreators = this.$store.state.questionCreators.filter(
               (user) => user.id != userId
