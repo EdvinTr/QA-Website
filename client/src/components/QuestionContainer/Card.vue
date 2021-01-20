@@ -5,20 +5,18 @@
       $store.state.questionCreators.length > 0
     "
   >
-    <div v-for="question in $store.state.questions" :key="question.id">
-      <mdb-card class="mt-4">
-        <mdb-card-body>
-          <CardHeader
-            :title="question.title"
-            :category="question.category"
-            :duplicate="question.duplicate"
-          />
-          <CardText :textContent="question.textContent" />
-          <Actions :question="question" />
-          <CardFooter :question="question" />
-        </mdb-card-body>
-      </mdb-card>
-    </div>
+    <mdb-card class="mt-4">
+      <mdb-card-body>
+        <CardHeader
+          :title="question.title"
+          :category="question.category"
+          :duplicate="question.duplicate"
+        />
+        <CardText :textContent="question.textContent" />
+        <Actions :question="question" />
+        <CardFooter :question="question" />
+      </mdb-card-body>
+    </mdb-card>
   </div>
 </template>
 
@@ -31,7 +29,7 @@ import Actions from "../QuestionContainer/Actions/Index";
 
 export default {
   name: "Card",
-
+  props: ["question"],
   components: {
     mdbCard,
     mdbCardBody,

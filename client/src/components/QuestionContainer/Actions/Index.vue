@@ -9,7 +9,10 @@
       v-if="checkUserPresent() || $store.state.userPrivilegeLevel == 3"
       :question="question"
     />
-    <Duplicate :question="question" />
+    <Duplicate
+      v-if="$store.state.userPrivilegeLevel == 2"
+      :question="question"
+    />
   </div>
 </template>
 

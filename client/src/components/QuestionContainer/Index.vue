@@ -2,7 +2,9 @@
   <mdb-container>
     <SearchQuestion />
     <div v-if="this.$store.state.questions.length > 0">
-      <Card />
+      <div v-for="question in $store.state.questions" :key="question.id">
+        <Card :question="question" />
+      </div>
     </div>
   </mdb-container>
 </template>
