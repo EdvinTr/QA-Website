@@ -5,8 +5,9 @@
       <mdb-card-text class="answerText" v-if="answer.textContent.length > 0">{{
         answer.textContent
       }}</mdb-card-text>
-      <ActionGroup :answer="answer" />
-
+      <div>
+        <ActionGroup :answer="answer" />
+      </div>
       <AnswerFooter :answer="answer" />
     </mdb-card-body>
   </mdb-card>

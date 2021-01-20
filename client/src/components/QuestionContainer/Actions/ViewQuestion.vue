@@ -1,9 +1,11 @@
 <template>
-  <router-link
-    :to="{ name: 'questionpage', params: { questionId: this.questionId } }"
-  >
-    <mdb-btn color="primary" class="btn-answer">View</mdb-btn>
-  </router-link>
+  <div v-if="showViewButton">
+    <router-link
+      :to="{ name: 'questionpage', params: { questionId: this.questionId } }"
+    >
+      <mdb-btn color="primary" class="btn-answer">View</mdb-btn>
+    </router-link>
+  </div>
 </template>
 
 <script>
@@ -13,7 +15,15 @@ export default {
   props: ["questionId"],
   components: { mdbBtn },
   data() {
-    return {};
+    return {
+      showViewButton: true,
+    };
+  },
+  methods: {},
+  mounted() {
+    if (this.$router.currentRoute.name == "questionpage") {
+      this.showViewButton = false;
+    }
   },
 };
 </script>

@@ -1,12 +1,7 @@
 <template>
-  <div>
-    <mdb-btn
-      color="info"
-      class="btn-danger"
-      @click="() => deleteAnswer(answerId)"
-      >Delete</mdb-btn
-    >
-  </div>
+  <mdb-btn color="info" class="btn-danger" @click="() => deleteAnswer(answerId)"
+    >Delete</mdb-btn
+  >
 </template>
 
 <script>
@@ -45,4 +40,7 @@ export default {
 </script>
 
 <style scoped>
+.btn-danger {
+  margin-left: 0;
+}
 </style>
