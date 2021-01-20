@@ -1,6 +1,7 @@
 <template>
   <mdb-container v-if="question">
     <Card :question="question" />
+    <AnswerGroup :question="question" />
   </mdb-container>
 </template>
 
@@ -8,11 +9,13 @@
 import { mdbContainer } from "mdbvue";
 
 import Card from "../QuestionContainer/Card";
+import AnswerGroup from "./Answers/Index";
 export default {
   name: "QuestionPage",
   components: {
     mdbContainer,
     Card,
+    AnswerGroup,
   },
   data() {
     return {
