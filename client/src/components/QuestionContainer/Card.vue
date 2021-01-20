@@ -44,9 +44,7 @@ export default {
   data() {
     return {};
   },
-  mounted() {
-    console.log("Card Mounted");
-  },
+
   methods: {},
 };
 </script>
