@@ -55,7 +55,6 @@
   </div>
 </template>
 
-<!-- Todo OPEN MODAL -->
 <script>
 import Multiselect from "vue-multiselect";
 import categories from "../../../categories";
