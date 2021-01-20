@@ -5,6 +5,7 @@
       <mdb-card-text class="answerText" v-if="answer.textContent.length > 0">{{
         answer.textContent
       }}</mdb-card-text>
+      <ActionGroup :answer="answer" />
 
       <AnswerFooter :answer="answer" />
     </mdb-card-body>
@@ -13,6 +14,7 @@
 
 <script>
 import { mdbCard, mdbCardBody, mdbCardText, mdbView } from "mdbvue";
+import ActionGroup from "./Actions/ActionGroup";
 import AnswerFooter from "./AnswerFooter";
 export default {
   name: "Answer",
@@ -21,7 +23,9 @@ export default {
     mdbCardBody,
     mdbCardText,
     mdbView,
+
     AnswerFooter,
+    ActionGroup,
   },
   props: ["answer"],
   data() {
