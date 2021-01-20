@@ -14,6 +14,7 @@
 <script>
 import { mdbInput } from "mdbvue";
 import SuccessButton from "../../SuccessButton";
+import AnswerService from "../../../services/AnswerService";
 export default {
   name: "CreateAnswer",
   components: {
@@ -27,7 +28,21 @@ export default {
   },
   methods: {
     async createAnswer() {
-      console.log("Created answer");
+      const answer = {
+        userId: this.$store.state.user.id,
+        questionId: this.$store.state.route.params.questionId,
+        textContent: this.textArea,
+      };
+      try {
+        this.textArea = "";
+        const res = await AnswerService.createAnswer(answer);
+        if (res.data) {
+          const newAnswers = [...this.$store.state.answers, res.data];
+          this.$store.dispatch("setAnswers", newAnswers);
+        }
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
 };

@@ -12,6 +12,7 @@ export default new Vuex.Store({
     userPrivilegeLevel: 0,
     questions: [],
     questionCreators: [],
+    answers: []
   },
   mutations: {
     setToken(state, token) {
@@ -33,6 +34,9 @@ export default new Vuex.Store({
     },
     setQuestionCreators(state, users) {
       state.questionCreators = users
+    },
+    setAnswers(state, answers) {
+      state.answers = answers
     }
 
   },
@@ -51,6 +55,9 @@ export default new Vuex.Store({
     },
     setQuestionCreators({ commit }, questionCreators) {
       commit("setQuestionCreators", questionCreators)
+    },
+    setAnswers({ commit }, answers) {
+      commit("setAnswers", answers)
     }
   },
   plugins: [createPersistedState()]
