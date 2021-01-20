@@ -9,6 +9,7 @@
       v-if="checkUserPresent() || $store.state.userPrivilegeLevel == 3"
       :question="question"
     />
+    <Duplicate :question="question" />
   </div>
 </template>
 
@@ -16,7 +17,7 @@
 import Delete from "../Actions/Delete";
 import Edit from "../Actions/Edit";
 import ViewQuestion from "../Actions/ViewQuestion";
-
+import Duplicate from "../Actions/Duplicate";
 export default {
   name: "Actions",
   props: ["question"],
@@ -24,6 +25,7 @@ export default {
     Delete,
     Edit,
     ViewQuestion,
+    Duplicate,
   },
   data() {
     return {};
