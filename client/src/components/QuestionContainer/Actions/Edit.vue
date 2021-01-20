@@ -106,7 +106,6 @@ export default {
       this.selected = data.category;
       this.modal = true;
       this.modalData = data;
-      console.log(data);
     },
 
     async editQuestion(id, title, textContent, category) {
