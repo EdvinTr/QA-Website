@@ -2,6 +2,7 @@
   <mdb-card class="mt-3">
     <mdb-view hover> </mdb-view>
     <mdb-card-body>
+      <VoteAnswer :answer="answer" />
       <mdb-card-text class="answerText" v-if="answer.textContent.length > 0">{{
         answer.textContent
       }}</mdb-card-text>
@@ -17,6 +18,7 @@
 import { mdbCard, mdbCardBody, mdbCardText, mdbView } from "mdbvue";
 import ActionGroup from "./Actions/ActionGroup";
 import AnswerFooter from "./AnswerFooter";
+import VoteAnswer from "./VoteAnswer";
 export default {
   name: "Answer",
   components: {
@@ -27,6 +29,7 @@ export default {
 
     AnswerFooter,
     ActionGroup,
+    VoteAnswer,
   },
   props: ["answer"],
   data() {
@@ -36,4 +39,7 @@ export default {
 </script>
 
 <style scoped>
+.answerText {
+  white-space: pre-wrap;
+}
 </style>

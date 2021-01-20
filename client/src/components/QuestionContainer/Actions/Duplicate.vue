@@ -3,8 +3,10 @@
     color="primary"
     class="btn-duplicate"
     @click="() => markAsDuplicate(question.id, question.duplicate)"
-    >Mark Duplicate</mdb-btn
   >
+    <div v-if="!question.duplicate">Mark Duplicate</div>
+    <div v-if="question.duplicate">Unmark Duplicate</div>
+  </mdb-btn>
 </template>
 
 <script>
@@ -15,7 +17,9 @@ export default {
   props: ["question"],
   components: { mdbBtn },
   data() {
-    return {};
+    return {
+      buttonText: "Mark Duplicate",
+    };
   },
   methods: {
     async markAsDuplicate(id, currentValue) {

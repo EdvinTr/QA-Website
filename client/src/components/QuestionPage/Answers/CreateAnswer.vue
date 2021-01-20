@@ -1,5 +1,5 @@
 <template>
-  <div v-if="$store.state.user && $store.state.userPrivilegeLevel == 1">
+  <div v-if="$store.state.user && $store.state.userPrivilegeLevel == 2">
     <mdb-input
       type="textarea"
       outline

@@ -7,7 +7,7 @@
     <h3 class="mt-5">Your Questions</h3>
     <div v-for="question in questions" :key="question.id">
       <router-link
-        :to="{ name: 'question', params: { questionId: question.id } }"
+        :to="{ name: 'questionpage', params: { questionId: question.id } }"
       >
         <mdb-card class="questionCardContainer">
           <mdb-card-body>
