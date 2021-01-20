@@ -46,7 +46,7 @@ module.exports = (app) => {
 
     app.patch("/questions/:id", QuestionController.markQuestionAsDuplicate);
 
-    app.post("/search", QuestionController.searchQuestionsByCategory);
+    app.post("/search", QuestionController.searchQuestions);
 
     // Answers
     app.post("/questions/:id", AnswerController.createAnswer)

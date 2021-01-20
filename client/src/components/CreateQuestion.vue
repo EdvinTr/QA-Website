@@ -68,8 +68,6 @@ export default {
         };
 
         let foundUser = false;
-        console.log("Here");
-
         for (let i = 0; i < this.$store.state.questionCreators.length; i++) {
           console.log(this.$store.state.questionCreators[i]);
 
@@ -77,13 +75,11 @@ export default {
             this.$store.state.questionCreators[i].id ==
             this.$store.state.user.id
           ) {
-            console.log("true");
             foundUser = true;
             break;
           }
         }
         if (!foundUser) {
-          console.log("Store doesnt have this user");
           const newUsers = [
             ...this.$store.state.questionCreators,
             this.$store.state.user,

@@ -20,7 +20,7 @@ export default {
     editQuestion(id, questionData) {
         return Api().put(`questions/${id}`, questionData)
     },
-    searchQuestionsByCategory(query) {
+    searchQuestions(query) {
         return Api().post("search", query)
     },
     markQuestionAsDuplicate(id, value) {

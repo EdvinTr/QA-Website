@@ -1,8 +1,14 @@
 <template>
   <div class="buttonGroup">
     <ViewQuestion :questionId="question.id" />
-    <Edit :question="question" />
-    <Delete :question="question" />
+    <Edit
+      v-if="checkUserPresent() || $store.state.userPrivilegeLevel == 3"
+      :question="question"
+    />
+    <Delete
+      v-if="checkUserPresent() || $store.state.userPrivilegeLevel == 3"
+      :question="question"
+    />
   </div>
 </template>
 
@@ -10,6 +16,7 @@
 import Delete from "../Actions/Delete";
 import Edit from "../Actions/Edit";
 import ViewQuestion from "../Actions/ViewQuestion";
+
 export default {
   name: "Actions",
   props: ["question"],
@@ -20,6 +27,20 @@ export default {
   },
   data() {
     return {};
+  },
+  methods: {
+    checkUserPresent() {
+      try {
+        if (this.$store.state.user === null) {
+          return;
+        } else {
+          let uId = this.$store.state.user.id;
+          return uId == this.question.userId ? true : false;
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    },
   },
 };
 </script>

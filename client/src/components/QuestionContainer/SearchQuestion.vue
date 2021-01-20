@@ -46,9 +46,7 @@ export default {
       };
       this.timer = setTimeout(async () => {
         try {
-          const { data } = await QuestionService.searchQuestionsByCategory(
-            query
-          );
+          const { data } = await QuestionService.searchQuestions(query);
           if (data.length >= 0) {
             let userArray = [];
             let userIds = [];

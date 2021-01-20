@@ -66,7 +66,7 @@ module.exports = {
         }
     },
 
-    async searchQuestionsByCategory(req, res) {
+    async searchQuestions(req, res) {
         try {
 
             console.log("---------------" + req.body.searchTerm);
