@@ -13,32 +13,11 @@
 <script>
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import QuestionService from "./services/QuestionService";
-import UserService from "./services/UserService";
 export default {
   name: "App",
   components: {
     Navbar,
     Footer,
-  },
-  async beforeCreate() {
-    console.log("App Created");
-    try {
-      let users = [];
-      const { data } = await QuestionService.getQuestions();
-      let scannedUsersIds = [];
-      for (const question of data) {
-        if (!scannedUsersIds.includes(question.userId)) {
-          const user = await UserService.findUserById(question.userId);
-          users = [...users, user.data];
-          scannedUsersIds.push(question.userId);
-        }
-      }
-      this.$store.dispatch("setQuestions", data);
-      this.$store.dispatch("setQuestionCreators", users);
-    } catch (err) {
-      console.log(err);
-    }
   },
 };
 </script>

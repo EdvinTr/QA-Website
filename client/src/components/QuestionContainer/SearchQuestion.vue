@@ -35,9 +35,13 @@ export default {
       searchField: "",
     };
   },
+  mounted() {
+    console.log("mounted searchbar");
+    this.searchTimeOut();
+  },
   methods: {
     searchTimeOut() {
-      let timeOutMilis = this.searchField == "" ? 0 : 400;
+      let timeOutMilis = this.searchField == "" ? 200 : 500;
       if (this.timer) {
         clearTimeout(this.timer);
         this.timer = null;
