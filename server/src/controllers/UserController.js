@@ -27,7 +27,6 @@ module.exports = {
 
     async findUserByUsername(req, res) {
         try {
-            console.log("----------" + req.params.username);
             const user = await User.findOne({
                 attributes: {
                     exclude: ["password"]

@@ -7,7 +7,6 @@ module.exports = {
     async createQuestion(req, res) {
         try {
             const question = await Question.create(req.body)
-            console.log(req.body);
             const questionJson = question.toJSON();
             res.send(questionJson)
         } catch (err) {
@@ -36,7 +35,6 @@ module.exports = {
 
                 res.send(updatedQuestion)
             }
-            console.log(req.body);
 
         } catch (err) {
             console.log(err);
@@ -48,7 +46,6 @@ module.exports = {
 
     async markQuestionAsDuplicate(req, res) {
         try {
-            console.log("------------" + req.body.duplicate);
             const question = await Question.update({
                 duplicate: req.body.duplicate
             }, {
@@ -68,8 +65,6 @@ module.exports = {
 
     async searchQuestions(req, res) {
         try {
-
-            console.log("---------------" + req.body.searchTerm);
             const questions = await Question.findAll({
                 where: {
                     [Op.or]: {
@@ -175,7 +170,6 @@ module.exports = {
             if (!question) {
                 res.status(400).send()
             } else {
-                console.log(req.body);
                 const updatedQuestion = await Question.update({
                     title: req.body.title,
                     category: req.body.category,

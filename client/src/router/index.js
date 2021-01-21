@@ -53,7 +53,7 @@ const router = new Router({
     },
     {
       path: '/',
-      name: 'questioncontainer',
+      name: 'questions',
       component: QuestionContainer
     },
   ],

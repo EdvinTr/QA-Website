@@ -277,7 +277,7 @@ export default {
   },
   methods: {
     formatGMTDate(string) {
-      return QuestionService.splitDate(string);
+      return QuestionService.formatDate(string);
     },
 
     async blockUser(id) {

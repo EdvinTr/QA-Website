@@ -13,7 +13,6 @@ module.exports = {
     async register(req, res) {
         try {
             const user = await User.create(req.body)
-            console.log(req.body);
             const userJson = user.toJSON();
             res.send({
                 user: userJson,

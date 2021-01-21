@@ -111,7 +111,7 @@ export default {
         this.$store.dispatch("setToken", res.data.token);
         this.$store.dispatch("setUser", res.data.user);
         this.$store.dispatch("setPrivilegeLevel", res.data.user);
-        this.$router.push({ name: "home" });
+        this.$router.push({ name: "questions" });
       } catch (error) {
         this.error = error.response.data.error;
       }

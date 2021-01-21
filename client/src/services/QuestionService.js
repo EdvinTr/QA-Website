@@ -30,7 +30,7 @@ export default {
         return Api().get(`users/questions/${userId}`)
     },
 
-    splitDate(dateString) {
+    formatDate(dateString) {
         const date = dateString.split("T");
         const time = date[1].slice(0, 8);
         const hours = time.slice(0, 2);

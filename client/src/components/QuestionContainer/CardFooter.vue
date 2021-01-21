@@ -25,9 +25,10 @@ export default {
     };
   },
   mounted() {
-    for (let i = 0; i < this.$store.state.questionCreators.length; i++) {
-      if (this.$store.state.questionCreators[i].id === this.question.userId) {
-        this.username = this.$store.state.questionCreators[i].username;
+    let questionCreators = this.$store.state.questionCreators;
+    for (let i = 0; i < questionCreators.length; i++) {
+      if (questionCreators[i].id === this.question.userId) {
+        this.username = questionCreators[i].username;
         this.dataReady = true;
         break;
       }
@@ -35,7 +36,7 @@ export default {
   },
   methods: {
     formatGMTDate(date) {
-      return QuestionService.splitDate(date);
+      return QuestionService.formatDate(date);
     },
   },
 };
