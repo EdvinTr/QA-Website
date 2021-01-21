@@ -36,7 +36,6 @@ export default {
     };
   },
   mounted() {
-    console.log("mounted searchbar");
     this.searchTimeOut();
   },
   methods: {
