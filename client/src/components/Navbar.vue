@@ -10,8 +10,10 @@
         <mdb-navbar-toggler>
           <mdb-navbar-nav right>
             <router-link :to="{ name: 'createquestion' }">
-              <mdb-nav-item id="donationButtonId" class="donationButton"
-                ><span class="donationText">Ask A Question</span></mdb-nav-item
+              <mdb-nav-item class="ask-a-question"
+                ><div class="ask-a-question-text">
+                  Ask A Question
+                </div></mdb-nav-item
               >
             </router-link>
 
@@ -126,15 +128,15 @@ mdb-navbar-toggler {
 .navbar-link {
   color: #000;
 }
-.donationButton {
+.ask-a-question {
   background-color: #ffe500;
-  color: #000;
   font-weight: 700;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
-.donationText {
+.ask-a-question-text {
   color: black;
 }
+
 .navbar {
   -webkit-box-shadow: 0px !important;
   box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.16), 0 0px 0px 0 rgba(0, 0, 0, 0.12);
@@ -146,7 +148,7 @@ mdb-navbar-toggler {
 }
 
 @media (max-width: 991px) {
-  .donationButton {
+  .ask-a-question {
     margin: 0.6rem 0 0 0;
     text-align: left;
     max-width: 6rem;
