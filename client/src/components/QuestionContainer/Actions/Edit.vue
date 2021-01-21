@@ -116,12 +116,13 @@ export default {
       };
       try {
         await QuestionService.editQuestion(id, question);
-        const updatedQuestion = await QuestionService.findQuestionById(id);
-        const filteredQuestions = this.$store.state.questions.filter(
-          (question) => question.id != id
-        );
-        const newQuestions = [...filteredQuestions, updatedQuestion.data];
-        this.$store.dispatch("setQuestions", newQuestions);
+        this.$store.state.questions.forEach((question) => {
+          if (question.id == id) {
+            question.title = title;
+            question.textContent = textContent;
+            question.category = category;
+          }
+        });
       } catch (err) {
         console.log(err);
       }

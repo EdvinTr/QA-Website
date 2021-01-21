@@ -2,7 +2,7 @@
   <mdb-container v-if="user" class="userProfileContainer">
     <h3>{{ user.username }}s Profile</h3>
     <UserProfile :user="user" />
-    <UserQuestions :questions="questions" />
+    <UserQuestions :questions="questions" :user="user" />
     <UserAnswers :answers="answers" />
   </mdb-container>
 </template>

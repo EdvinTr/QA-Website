@@ -1,10 +1,6 @@
 <template>
-  <div
-    v-if="
-      this.questions.length > 0 && this.$store.state.userPrivilegeLevel == 1
-    "
-  >
-    <h3 class="mt-5">Your Questions</h3>
+  <div v-if="this.questions.length > 0">
+    <h3 class="mt-5">Questions</h3>
     <div v-for="question in questions" :key="question.id">
       <router-link
         :to="{ name: 'questionpage', params: { questionId: question.id } }"
@@ -34,7 +30,7 @@ export default {
     mdbRow,
     mdbCol,
   },
-  props: ["questions"],
+  props: ["questions", "user"],
   data() {
     return {};
   },

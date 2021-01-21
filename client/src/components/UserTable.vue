@@ -11,7 +11,7 @@
         @close="modalEdit = false"
       >
         <mdb-modal-header>
-          <mdb-modal-title></mdb-modal-title>
+          <mdb-modal-title>Edit {{ modalData.username }}</mdb-modal-title>
         </mdb-modal-header>
         <mdb-modal-body>
           <mdb-input
@@ -90,7 +90,7 @@
         @close="modalAdd = false"
       >
         <mdb-modal-header>
-          <mdb-modal-title></mdb-modal-title>
+          <mdb-modal-title>Add Contributor</mdb-modal-title>
         </mdb-modal-header>
         <mdb-modal-body>
           <mdb-input

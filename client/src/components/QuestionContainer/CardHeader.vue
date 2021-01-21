@@ -2,9 +2,9 @@
   <div class="titleContainer">
     <mdb-card-title
       >{{ title }}
-      <aside class="categoryTitle">
+      <div class="categoryTitle">
         {{ category }}
-      </aside>
+      </div>
       <div class="isDuplicate" v-if="duplicate == true">Duplicate</div>
     </mdb-card-title>
   </div>
@@ -48,3 +48,4 @@ export default {
   padding: 0.5rem;
 }
 </style>
+
