@@ -27,6 +27,7 @@ export default {
     };
   },
   async mounted() {
+    window.scrollTo(0, 0);
     const questionId = this.$store.state.route.params.questionId;
     this.$store.state.questions.forEach((item) => {
       if (item.id == questionId) {

@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     searchTimeOut() {
-      let timeOutMilis = this.searchField == "" ? 200 : 500;
+      let timeOutMilis = this.searchField == "" ? 0 : 500;
       if (this.timer) {
         clearTimeout(this.timer);
         this.timer = null;

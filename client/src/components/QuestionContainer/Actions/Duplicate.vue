@@ -45,4 +45,7 @@ export default {
 </script>
 
 <style scoped>
+.btn-duplicate {
+  margin-left: 0;
+}
 </style>

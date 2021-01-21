@@ -88,7 +88,6 @@ export default {
 
 <style scoped>
 .categoryTitle {
-  display: inline-block;
   padding: 0.2rem 0.4rem 0.2rem 0.4rem;
   color: white;
   font-size: 12px;
@@ -96,7 +95,7 @@ export default {
 
 .titleText {
   display: inline-block;
-  text-align: center;
+  text-align: left;
   margin-right: 0.5rem;
 }
 
