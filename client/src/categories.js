@@ -57,24 +57,6 @@ const categories = [
         name: "World",
         background: "#4286f4"
     },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ]
 
 export default categories;

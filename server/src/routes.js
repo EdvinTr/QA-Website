@@ -45,6 +45,8 @@ module.exports = (app) => {
 
     app.patch("/questions/:id", QuestionController.markQuestionAsDuplicate);
 
+    app.patch("/answercount/decrement/:questionId", QuestionController.decrementAnswerCount)
+
     app.delete("/questions/:id", QuestionController.deleteQuestionById);
     /* ------------------------ Question Routes END -------------------------------- */
 

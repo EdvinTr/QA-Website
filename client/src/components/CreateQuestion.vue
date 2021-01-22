@@ -1,40 +1,54 @@
 <template>
   <mdb-container class="createQuestionContainer">
-    <form>
-      <label for="defaultFormRegisterNameEx" class="grey-text">Title</label>
-      <input
-        v-model="title"
-        type="text"
-        id="defaultFormRegisterNameEx"
-        class="form-control"
-        autocomplete="off"
-      />
-    </form>
-    <div class="multiSelectContainer">
-      <multiselect
-        v-model="selected"
-        :multiple="false"
-        :options="options"
-        placeholder="Pick a category"
-      >
-      </multiselect>
-    </div>
-    <mdb-input
-      type="textarea"
-      outline
-      inputClass="z-depth-1 p-3"
-      placeholder="(Optional) Describe your question in more detail..."
-      v-model="textArea"
-    />
-    <div class="error" v-html="error" />
+    <mdb-card>
+      <mdb-card-body>
+        <mdb-card-title class="mb-4">Ask a Question</mdb-card-title>
+        <form>
+          <input
+            v-model="title"
+            type="text"
+            id="titleInput"
+            class="form-control"
+            autocomplete="off"
+            placeholder="Enter a title..."
+          />
+        </form>
+        <div class="multiSelectContainer">
+          <multiselect
+            v-model="selected"
+            :multiple="false"
+            :options="options"
+            placeholder="Pick a category"
+          >
+          </multiselect>
+        </div>
+        <mdb-input
+          type="textarea"
+          outline
+          inputClass="z-depth-1 p-3"
+          placeholder="(Optional) Describe your question in more detail..."
+          v-model="textArea"
+        />
+        <div class="error" v-html="error" />
 
-    <SuccessButton buttonText="Send" :btnClickHandler="this.createQuestion" />
+        <SuccessButton
+          buttonText="Send"
+          :btnClickHandler="this.createQuestion"
+        />
+      </mdb-card-body>
+    </mdb-card>
   </mdb-container>
 </template>
 
 <script>
 import Multiselect from "vue-multiselect";
-import { mdbInput, mdbContainer } from "mdbvue";
+import {
+  mdbInput,
+  mdbContainer,
+  mdbCard,
+  mdbCardBody,
+  mdbCardTitle,
+} from "mdbvue";
 
 import SuccessButton from "../components/SuccessButton";
 import categories from "../categories";
@@ -44,6 +58,10 @@ export default {
   components: {
     mdbInput,
     mdbContainer,
+    mdbCard,
+    mdbCardBody,
+    mdbCardTitle,
+
     SuccessButton,
     Multiselect,
   },
