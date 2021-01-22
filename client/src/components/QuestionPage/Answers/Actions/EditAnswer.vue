@@ -7,9 +7,6 @@
       :show="modal"
       @close="modal = false"
     >
-      <mdb-modal-header>
-        <mdb-modal-title>Title goes here</mdb-modal-title>
-      </mdb-modal-header>
       <mdb-modal-body>
         <mdb-input
           label="Edit Answer"
@@ -43,8 +40,6 @@ import AnswerService from "../../../../services/AnswerService";
 import {
   mdbBtn,
   mdbModal,
-  mdbModalHeader,
-  mdbModalTitle,
   mdbModalBody,
   mdbModalFooter,
   mdbInput,
@@ -55,8 +50,6 @@ export default {
   components: {
     mdbBtn,
     mdbModal,
-    mdbModalHeader,
-    mdbModalTitle,
     mdbModalBody,
     mdbModalFooter,
     mdbInput,

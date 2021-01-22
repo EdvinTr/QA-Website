@@ -97,6 +97,11 @@ export default {
   display: inline-block;
   text-align: left;
   margin-right: 0.5rem;
+  color: black;
+  transition: all 0.15s ease;
+}
+.titleText:hover {
+  color: rgb(42, 42, 42);
 }
 
 .isDuplicate {
@@ -105,6 +110,7 @@ export default {
   font-size: 13px;
   background-color: rgba(246, 246, 181, 0.87);
   padding: 0.2rem 0.2rem 0.2rem 0.2rem;
+  color: black;
 }
 .category-container {
   float: right;

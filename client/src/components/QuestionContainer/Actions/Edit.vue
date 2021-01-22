@@ -133,4 +133,6 @@ export default {
 </script>
 
 <style scoped>
+.btn-edit {
+}
 </style>

@@ -4,8 +4,8 @@
     class="btn-duplicate"
     @click="() => markAsDuplicate(question.id, question.duplicate)"
   >
-    <div v-if="!question.duplicate">Mark Duplicate</div>
-    <div v-if="question.duplicate">Unmark Duplicate</div>
+    <div v-if="!question.duplicate"><i class="fas fa-copy fa-lg"></i></div>
+    <div v-if="question.duplicate"><i class="fas fa-copy fa-lg"></i></div>
   </mdb-btn>
 </template>
 

@@ -7,11 +7,13 @@
   >
     <mdb-card class="mt-4">
       <mdb-card-body>
-        <CardHeader
-          :title="question.title"
-          :category="question.category"
-          :duplicate="question.duplicate"
-        />
+        <router-link :to="{ path: '/questions/' + question.id }">
+          <CardHeader
+            :title="question.title"
+            :category="question.category"
+            :duplicate="question.duplicate"
+          />
+        </router-link>
         <CardText :textContent="question.textContent" />
         <Actions :question="question" />
         <CardFooter :question="question" />
