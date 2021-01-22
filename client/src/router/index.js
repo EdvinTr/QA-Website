@@ -4,7 +4,7 @@ import Login from '@/components/Login';
 import Register from '@/components/Register';
 import QuestionPage from '@/components/QuestionPage/Index';
 import CreateQuestion from '@/components/CreateQuestion';
-import UserTable from '@/components/UserTable';
+import AdminPage from '@/components/AdminPage/Index';
 import UserPage from "@/components/User/Index"
 import QuestionContainer from "@/components/QuestionContainer/Index"
 import store from "../store"
@@ -47,7 +47,7 @@ const router = new Router({
     {
       path: '/users',
       name: 'users',
-      component: UserTable,
+      component: AdminPage,
       meta: {
         requiresAuth: true
       }

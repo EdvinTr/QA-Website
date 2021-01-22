@@ -310,7 +310,6 @@ export default {
 
     modalEditUpdatePassword(value) {
       this.isPasswordChanged = true;
-      console.log(this.isPasswordChanged);
       this.modalEditPassword = value;
     },
 
