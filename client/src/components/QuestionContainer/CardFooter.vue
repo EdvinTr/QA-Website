@@ -2,7 +2,9 @@
   <div v-if="dataReady">
     <mdb-card-footer class="text-muted mt-4">
       <div>
-        <b>{{ username }}</b>
+        <router-link :to="{ path: '/users/' + username }">
+          <b class="username-text">{{ username }}</b>
+        </router-link>
       </div>
       {{ formatGMTDate(question.createdAt) }}
     </mdb-card-footer>
@@ -43,4 +45,7 @@ export default {
 </script>
 
 <style scoped>
+.username-text {
+  color: #3086e3;
+}
 </style>

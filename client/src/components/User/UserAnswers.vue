@@ -1,11 +1,12 @@
 <template>
-  <div
-    v-if="this.answers.length > 0 && this.$store.state.userPrivilegeLevel == 2"
-  >
-    <h3 class="mt-5">Your Answers</h3>
+  <div v-if="this.answers.length > 0">
+    <h3 class="mt-5">Answers</h3>
     <div v-for="answer in answers" :key="answer.id">
       <router-link
-        :to="{ name: 'question', params: { questionId: answer.questionId } }"
+        :to="{
+          name: 'questionpage',
+          params: { questionId: answer.questionId },
+        }"
       >
         <mdb-card class="questionCardContainer">
           <mdb-card-body>

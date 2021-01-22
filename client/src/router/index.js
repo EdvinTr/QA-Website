@@ -76,6 +76,7 @@ router.beforeEach((to, from, next) => {
   if (requiresAuth && to.path == "/create-question" && currentUser && currentUser.privilegeLevel != 1) {
     next("/");
   }
+
   else {
     next();
   }

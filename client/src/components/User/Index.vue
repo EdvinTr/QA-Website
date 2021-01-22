@@ -40,12 +40,11 @@ export default {
       const questions = await QuestionService.findQuestionsMappedToUserId(
         this.user.id
       );
-      if (this.$store.state.userPrivilegeLevel == 2) {
-        const answerData = await AnswerService.findAnswersMappedToUserId(
-          this.$store.state.user.id
-        );
-        this.answers = answerData.data;
-      }
+
+      const answerData = await AnswerService.findAnswersMappedToUserId(
+        this.user.id
+      );
+      this.answers = answerData.data;
       this.questions = questions.data;
     } catch (err) {
       console.log(err);
