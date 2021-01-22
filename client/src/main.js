@@ -10,8 +10,6 @@ import store from './store'
 Vue.config.productionTip = false
 sync(store, router)
 
-
-
 new Vue({
   router,
   store,
