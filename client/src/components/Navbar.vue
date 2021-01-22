@@ -9,13 +9,20 @@
         </router-link>
         <mdb-navbar-toggler>
           <mdb-navbar-nav right>
-            <router-link :to="{ name: 'createquestion' }">
-              <mdb-nav-item class="ask-a-question"
-                ><div class="ask-a-question-text">
-                  Ask A Question
-                </div></mdb-nav-item
-              >
-            </router-link>
+            <div
+              v-if="
+                $store.state.userPrivilegeLevel == 1 ||
+                $store.state.isUserLoggedIn == false
+              "
+            >
+              <router-link :to="{ name: 'createquestion' }">
+                <mdb-nav-item class="ask-a-question"
+                  ><div class="ask-a-question-text">
+                    Ask A Question
+                  </div></mdb-nav-item
+                >
+              </router-link>
+            </div>
             <div v-if="!$store.state.isUserLoggedIn">
               <router-link to="/register">
                 <mdb-nav-item>{{ "Membership" }}</mdb-nav-item>
