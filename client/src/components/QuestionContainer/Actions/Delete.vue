@@ -52,7 +52,7 @@ export default {
             this.$store.dispatch("setQuestionCreators", newQuestionCreators);
           }
           this.$store.dispatch("setQuestions", newQuestions);
-          if (!this.$router.currentRoute.name == "questions")
+          if (!this.$router.currentRoute.name != "questions")
             this.$router.push({ name: "questions" });
         }
       } catch (err) {

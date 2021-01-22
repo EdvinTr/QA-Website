@@ -16,6 +16,7 @@
 
 <script>
 import { mdbCardTitle } from "mdbvue";
+import categories from "../../categories";
 export default {
   name: "CardHeader",
   props: ["title", "category", "duplicate"],
@@ -39,47 +40,11 @@ export default {
     },
   },
   methods: {
-    colorCategory(category) {
-      switch (category) {
-        case "Psychology":
-          this.bgc.background = "#8e54e9";
-          break;
-
-        case "Health & Wellbeing":
-          this.bgc.background = "#dd5e89";
-          break;
-
-        case "Animals":
-          this.bgc.background = "#94716b";
-          break;
-
-        case "World":
-          this.bgc.background = "#4286f4";
-          break;
-
-        case "Gardening":
-          this.bgc.background = "#3bb61d";
-          break;
-
-        case "Science":
-          this.bgc.background = "#4e54c8";
-          break;
-
-        case "Music":
-          this.bgc.background = "#fc4a1a";
-          break;
-
-        case "IT":
-          this.bgc.background = "#009fac";
-          break;
-
-        case "Sport":
-          this.bgc.background = "#000";
-          break;
-
-        case "Other":
-          this.bgc.background = "#8b8b8b";
-          break;
+    colorCategory(categoryName) {
+      for (let i in categories) {
+        if (categories[i].name == categoryName) {
+          this.bgc.background = categories[i].background;
+        }
       }
     },
   },

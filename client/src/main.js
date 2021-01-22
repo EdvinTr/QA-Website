@@ -10,23 +10,7 @@ import store from './store'
 Vue.config.productionTip = false
 sync(store, router)
 
-router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    // this route requires auth, check if logged in
-    // if not, redirect to login page.
-    if (to.fullPath == "/users" && store.state.userPrivilegeLevel == 3) {
-      next()
-    }
-    if (store.state.userPrivilegeLevel == 2 || store.state.user == null) {
 
-      next({ name: 'login' })
-    } else {
-      next() // go to wherever I'm going
-    }
-  } else {
-    next() // does not require auth, make sure to always call next()!
-  }
-})
 
 new Vue({
   router,

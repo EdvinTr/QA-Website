@@ -33,6 +33,8 @@
         />
       </mdb-modal-body>
       <mdb-modal-footer>
+        <div class="error" v-html="error" />
+
         <mdb-btn color="secondary" size="sm" @click.native="modal = false"
           >Close</mdb-btn
         >
@@ -85,11 +87,17 @@ export default {
     return {
       modalData: null,
       modal: false,
-      options: categories,
+      options: [],
       selected: null,
       editTitle: "",
       editTextArea: "",
+      error: null,
     };
+  },
+  mounted() {
+    for (let i in categories) {
+      this.options = [...this.options, categories[i].name];
+    }
   },
   methods: {
     updateEditTitle(value) {
@@ -114,6 +122,7 @@ export default {
         textContent,
         category,
       };
+
       try {
         await QuestionService.editQuestion(id, question);
         this.$store.state.questions.forEach((question) => {
@@ -123,16 +132,18 @@ export default {
             question.category = category;
           }
         });
+        this.modal = false;
+        this.error = null;
       } catch (err) {
-        console.log(err);
+        this.error = err.response.data.error;
       }
-      this.modal = false;
     },
   },
 };
 </script>
 
 <style scoped>
-.btn-edit {
+.error {
+  color: red;
 }
 </style>

@@ -1,5 +1,4 @@
 const { Question } = require("../models")
-
 const { Sequelize } = require("sequelize")
 const Op = Sequelize.Op
 
@@ -81,7 +80,7 @@ module.exports = {
         } catch (err) {
             console.log(err);
             res.status(400).send({
-                error: "Could not find questions by that category name"
+                error: "Something went wrong trying to search for questions"
             })
         }
     },
@@ -138,7 +137,6 @@ module.exports = {
 
     async findQuestionById(req, res) {
         try {
-            // TODO place line 55 further down
             const questionId = req.params.id;
             const question = await Question.findOne({
                 where: {
@@ -170,6 +168,11 @@ module.exports = {
             if (!question) {
                 res.status(400).send()
             } else {
+                if (req.body.title == "" || req.body.category == null || req.body.category == "") {
+                    res.status(400).send({
+                        error: "The question must include a title and a category"
+                    })
+                }
                 const updatedQuestion = await Question.update({
                     title: req.body.title,
                     category: req.body.category,

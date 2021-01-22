@@ -16,12 +16,11 @@
                 </div></mdb-nav-item
               >
             </router-link>
-
-            <router-link to="/register">
-              <mdb-nav-item>{{
-                $store.state.isUserLoggedIn ? "" : "Membership"
-              }}</mdb-nav-item>
-            </router-link>
+            <div v-if="!$store.state.isUserLoggedIn">
+              <router-link to="/register">
+                <mdb-nav-item>{{ "Membership" }}</mdb-nav-item>
+              </router-link>
+            </div>
 
             <mdb-nav-item v-if="$store.state.isUserLoggedIn">
               <mdb-icon far icon="envelope" />

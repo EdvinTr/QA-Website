@@ -53,8 +53,14 @@ export default {
       textArea: "",
       selected: null,
       title: "",
-      options: categories,
+      options: [],
     };
+  },
+
+  mounted() {
+    for (let i in categories) {
+      this.options = [...this.options, categories[i].name];
+    }
   },
 
   methods: {
@@ -102,6 +108,7 @@ export default {
         console.log("Fields not filled in");
       }
     },
+
     firstLetterToUpperCase(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
     },
