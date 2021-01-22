@@ -5,7 +5,11 @@
         <UserRow :user="user" />
       </div>
     </div>
-    <EditUser :showModal="showModal" :userData="currentlyViewedUser" />
+    <EditUser
+      v-if="currentlyViewedUser"
+      :showModal="showModal"
+      :userData="currentlyViewedUser"
+    />
   </div>
 </template>
 
@@ -19,14 +23,12 @@ export default {
   data() {
     return {
       showModal: false,
-      currentlyViewedUser: null,
+      currentlyViewedUser: this.users[0],
     };
   },
   methods: {
     openModal(user) {
       this.currentlyViewedUser = user;
-      console.log(this.currentlyViewedUser);
-
       this.showModal = !this.showModal;
     },
   },
