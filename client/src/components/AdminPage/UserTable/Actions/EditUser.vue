@@ -69,7 +69,7 @@
         </div>
       </mdb-modal-body>
       <mdb-container>
-        <DeleteContributor :user="modalData" />
+        <DeleteContributor :user="modalData" v-on:deletedUser="closeModal" />
       </mdb-container>
       <mdb-modal-footer>
         <mdb-btn color="secondary" size="sm" @click="modal = false"
@@ -127,6 +127,9 @@ export default {
   methods: {
     formatGMT(date) {
       return QuestionService.formatDate(date);
+    },
+    closeModal() {
+      this.modal = false;
     },
   },
 };

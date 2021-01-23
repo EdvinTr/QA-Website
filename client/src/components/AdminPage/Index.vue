@@ -1,5 +1,7 @@
 <template>
-  <mdb-container v-if="users.length > 0">
+  <mdb-container
+    v-if="users.length > 0 && $store.state.userPrivilegeLevel == 3"
+  >
     <mdb-card>
       <mdb-card-body>
         <UsersView :users="users" />
