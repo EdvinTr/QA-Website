@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="card-animation">
     <div v-for="user in $store.state.adminViewUsers" :key="user.id">
       <div @click="() => openModal(user)">
-        <UserRow :user="user" />
+        <UserRow :user="user" class="card-animation" />
       </div>
     </div>
     <EditUser

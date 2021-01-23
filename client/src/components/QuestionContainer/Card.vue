@@ -5,7 +5,7 @@
       $store.state.questionCreators.length > 0
     "
   >
-    <mdb-card class="mt-4">
+    <mdb-card class="mt-4 card-animation">
       <mdb-card-body>
         <router-link :to="{ path: '/questions/' + question.id }">
           <CardHeader

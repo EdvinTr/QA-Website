@@ -9,7 +9,7 @@
     />
     <div
       v-if="$store.state.questions.length == 0 && searchField != ''"
-      class="no-search-results-container"
+      class="no-search-results-container card-animation"
     >
       <h2 class="nothing-found">Nothing Found</h2>
       <img

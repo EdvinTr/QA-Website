@@ -23,6 +23,13 @@
                 >
               </router-link>
             </div>
+            <router-link to="/faq">
+              <mdb-nav-item>
+                <div class="faq-text">
+                  {{ "FAQ" }}
+                </div>
+              </mdb-nav-item>
+            </router-link>
             <div v-if="!$store.state.isUserLoggedIn">
               <router-link to="/register">
                 <mdb-nav-item>{{ "Membership" }}</mdb-nav-item>
@@ -151,6 +158,10 @@ mdb-navbar-toggler {
 
 .navOuterColor {
   background-color: #1d1f20;
+}
+
+.faq-text {
+  margin-left: 5px;
 }
 
 @media (max-width: 991px) {
