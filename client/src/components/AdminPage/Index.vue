@@ -30,10 +30,11 @@ export default {
       users: [],
     };
   },
-  async beforeCreate() {
+  async mounted() {
     try {
       const { data } = await UserService.findAll();
       this.users = data;
+      this.$store.dispatch("setAdminViewUsers", data);
     } catch (err) {
       console.log(err);
     }

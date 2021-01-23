@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="user in users" :key="user.id">
+    <div v-for="user in $store.state.adminViewUsers" :key="user.id">
       <div @click="() => openModal(user)">
         <UserRow :user="user" />
       </div>
@@ -18,12 +18,11 @@ import UserRow from "./UserRow";
 import EditUser from "./Actions/EditUser";
 export default {
   name: "UsersView",
-  props: ["users"],
   components: { UserRow, EditUser },
   data() {
     return {
       showModal: false,
-      currentlyViewedUser: this.users[0],
+      currentlyViewedUser: this.$store.state.adminViewUsers[0],
     };
   },
   methods: {

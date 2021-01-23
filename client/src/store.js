@@ -12,7 +12,8 @@ export default new Vuex.Store({
     userPrivilegeLevel: 0,
     questions: [],
     questionCreators: [],
-    answers: []
+    answers: [],
+    adminViewUsers: [],
   },
   mutations: {
     setToken(state, token) {
@@ -37,6 +38,9 @@ export default new Vuex.Store({
     },
     setAnswers(state, answers) {
       state.answers = answers
+    },
+    setAdminViewUsers(state, adminViewUsers) {
+      state.adminViewUsers = adminViewUsers;
     }
 
   },
@@ -58,6 +62,9 @@ export default new Vuex.Store({
     },
     setAnswers({ commit }, answers) {
       commit("setAnswers", answers)
+    },
+    setAdminViewUsers({ commit }, adminViewUsers) {
+      commit("setAdminViewUsers", adminViewUsers)
     }
   },
   plugins: [createPersistedState()]

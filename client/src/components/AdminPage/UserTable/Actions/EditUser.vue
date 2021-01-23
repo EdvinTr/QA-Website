@@ -45,13 +45,6 @@
             :value="modalData.lastname"
           />
           <mdb-input
-            label="Register Date"
-            outline
-            :disabled="isDisabled"
-            inputClass="z-depth-1 p-3"
-            :value="modalData.createdAt"
-          />
-          <mdb-input
             label="Privilege Level"
             outline
             :disabled="isDisabled"
@@ -59,11 +52,19 @@
             :value="modalData.privilegeLevel"
           />
           <mdb-input
-            label="Register Date"
+            label="Created At"
             outline
             :disabled="isDisabled"
             inputClass="z-depth-1 p-3"
-            :value="modalData.updatedAt"
+            :value="formatGMT(modalData.createdAt)"
+          />
+
+          <mdb-input
+            label="Updated At"
+            outline
+            :disabled="isDisabled"
+            inputClass="z-depth-1 p-3"
+            :value="formatGMT(modalData.updatedAt)"
           />
         </div>
       </mdb-modal-body>
@@ -91,6 +92,7 @@ import {
   mdbInput,
   mdbContainer,
 } from "mdbvue";
+import QuestionService from "../../../../services/QuestionService";
 import DeleteContributor from "../Actions/DeleteContributor";
 export default {
   name: "EditUser",
@@ -122,6 +124,10 @@ export default {
       this.modalData = newVal;
     },
   },
-  methods: {},
+  methods: {
+    formatGMT(date) {
+      return QuestionService.formatDate(date);
+    },
+  },
 };
 </script>

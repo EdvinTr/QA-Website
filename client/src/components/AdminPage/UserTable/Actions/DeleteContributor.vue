@@ -25,10 +25,12 @@ export default {
           for (let i = 0; i < data.length; i++) {
             await AnswerService.deleteAnswerById(data[i].id);
           }
-
           await UserService.deleteById(id);
-          const userData = await UserService.findAll();
-          this.users = userData.data;
+          let newUsers = this.$store.state.adminViewUsers.filter(
+            (user) => user.id != id
+          );
+          this.$store.dispatch("setAdminViewUsers", newUsers);
+          // Gather users again for the store
         }
       } catch (err) {
         console.log(err);
