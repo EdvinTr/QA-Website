@@ -5,15 +5,71 @@
         <mdb-modal-title>{{ modalData.username }}</mdb-modal-title>
       </mdb-modal-header>
       <mdb-modal-body>
-        <div v-for="(name, value) of Object.entries(userData)" :key="value">
+        <div>
           <mdb-input
-            :label="name[0]"
+            label="ID"
+            outline
+            :disabled="isDisabled"
+            inputClass="z-depth-1 p-3"
+            :value="modalData.id"
+          />
+          <mdb-input
+            label="Username"
             outline
             inputClass="z-depth-1 p-3"
-            :value="name[1]"
+            :value="modalData.username"
+          />
+          <mdb-input
+            label="Email"
+            outline
+            inputClass="z-depth-1 p-3"
+            :value="modalData.email"
+          />
+          <mdb-input
+            label="Password"
+            type="password"
+            outline
+            inputClass="z-depth-1 p-3"
+            :value="modalData.password"
+          />
+          <mdb-input
+            label="First Name"
+            outline
+            inputClass="z-depth-1 p-3"
+            :value="modalData.firstname"
+          />
+          <mdb-input
+            label="Last Name"
+            outline
+            inputClass="z-depth-1 p-3"
+            :value="modalData.lastname"
+          />
+          <mdb-input
+            label="Register Date"
+            outline
+            :disabled="isDisabled"
+            inputClass="z-depth-1 p-3"
+            :value="modalData.createdAt"
+          />
+          <mdb-input
+            label="Privilege Level"
+            outline
+            :disabled="isDisabled"
+            inputClass="z-depth-1 p-3"
+            :value="modalData.privilegeLevel"
+          />
+          <mdb-input
+            label="Register Date"
+            outline
+            :disabled="isDisabled"
+            inputClass="z-depth-1 p-3"
+            :value="modalData.updatedAt"
           />
         </div>
       </mdb-modal-body>
+      <mdb-container>
+        <DeleteContributor :user="modalData" />
+      </mdb-container>
       <mdb-modal-footer>
         <mdb-btn color="secondary" size="sm" @click="modal = false"
           >Close</mdb-btn
@@ -33,7 +89,9 @@ import {
   mdbModalFooter,
   mdbBtn,
   mdbInput,
+  mdbContainer,
 } from "mdbvue";
+import DeleteContributor from "../Actions/DeleteContributor";
 export default {
   name: "EditUser",
   props: ["showModal", "userData"],
@@ -45,23 +103,16 @@ export default {
     mdbModalFooter,
     mdbBtn,
     mdbInput,
+    mdbContainer,
+
+    DeleteContributor,
   },
   data() {
     return {
       modal: this.showModal,
       modalData: this.userData,
-      dataKeys: [],
+      isDisabled: true,
     };
-  },
-  mounted() {
-    for (const [key, value] of Object.entries(this.modalData)) {
-      this.dataKeys = [...this.dataKeys, key];
-      console.log(key, value);
-    }
-    console.log(this.dataKeys);
-    for (const item of this.dataKeys) {
-      console.log(item);
-    }
   },
   watch: {
     showModal: function () {
