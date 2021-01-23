@@ -24,6 +24,8 @@ export default {
         const answer = confirm(
           "Are you sure you want to delete this question?"
         );
+        const x = prompt("Enter something");
+        console.log(x);
         if (answer) {
           // Delete Question by ID
           await QuestionService.deleteQuestionById(id);

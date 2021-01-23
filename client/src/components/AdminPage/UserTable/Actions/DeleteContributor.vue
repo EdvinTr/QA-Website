@@ -24,8 +24,10 @@ export default {
   methods: {
     async deleteUser(id) {
       try {
-        const answer = confirm("Are you sure you want to delete the user?");
-        if (answer) {
+        const input = prompt(
+          `Type "DELETE ${this.user.username}" to delete this user`
+        );
+        if (input == `DELETE ${this.user.username}`) {
           // Get all answers
           const { data } = await AnswerService.findAnswersMappedToUserId(id);
           for (let i = 0; i < data.length; i++) {
@@ -43,6 +45,8 @@ export default {
           );
           this.$emit("deletedUser");
           this.$store.dispatch("setAdminViewUsers", newUsers);
+        } else {
+          alert("The text did not meet the criteria");
         }
       } catch (err) {
         console.log(err);
