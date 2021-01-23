@@ -8,7 +8,7 @@
 
         <UsersView :users="users" />
       </mdb-card-body>
-      <mdb-container>
+      <mdb-container class="table-end">
         <AddContributor />
       </mdb-container>
     </mdb-card>
@@ -49,4 +49,7 @@ export default {
 </script>
 
 <style scoped>
+.table-end {
+  padding-bottom: 10px;
+}
 </style>
