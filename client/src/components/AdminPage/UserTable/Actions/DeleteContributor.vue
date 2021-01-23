@@ -32,6 +32,7 @@ export default {
           const { data } = await AnswerService.findAnswersMappedToUserId(id);
           for (let i = 0; i < data.length; i++) {
             await AnswerService.deleteAnswerById(data[i].id);
+            await QuestionService.decrementAnswerCount(data[i].questionId);
           }
           const questions = await QuestionService.findQuestionsMappedToUserId(
             id
