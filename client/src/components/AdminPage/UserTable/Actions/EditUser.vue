@@ -1,6 +1,6 @@
 <template>
   <div>
-    <mdb-modal size="lg" :data="modalData" :show="modal" @close="hideModal">
+    <mdb-modal size="lg" :data="modalData" :show="editModal" @close="hideModal">
       <mdb-modal-header>
         <mdb-modal-title>{{ modalData.username }}</mdb-modal-title>
       </mdb-modal-header>
@@ -54,7 +54,11 @@
             outline
             :disabled="isDisabled"
             inputClass="z-depth-1 p-3"
-            :value="modalData.privilegeLevel"
+            :value="
+              modalData.privilegeLevel == 0
+                ? 'BLOCKED'
+                : modalData.privilegeLevel
+            "
             @input="updateEditPrivilegeLevel"
           />
           <mdb-input
@@ -75,7 +79,10 @@
         </div>
       </mdb-modal-body>
       <mdb-container>
-        <DeleteContributor :user="modalData" v-on:deletedUser="closeModal" />
+        <div class="btn-group">
+          <DeleteContributor :user="modalData" v-on:deletedUser="hideModal" />
+          <BlockUser :user="modalData" v-on:closeModal="hideModal" />
+        </div>
       </mdb-container>
       <mdb-modal-footer>
         <div class="error" v-html="error" />
@@ -103,9 +110,10 @@ import {
 import QuestionService from "../../../../services/QuestionService";
 import UserService from "../../../../services/UserService";
 import DeleteContributor from "../Actions/DeleteContributor";
+import BlockUser from "../Actions/BlockUser";
 export default {
   name: "EditUser",
-  props: ["showEditModal", "userData"],
+  props: ["showeditModal", "userData"],
   components: {
     mdbModal,
     mdbModalHeader,
@@ -116,12 +124,13 @@ export default {
     mdbInput,
     mdbContainer,
 
+    BlockUser,
     DeleteContributor,
   },
   data() {
     return {
       error: null,
-      modal: this.showEditModal,
+      editModal: this.showeditModal,
       modalData: this.userData,
       editUsername: "",
       editPassword: "",
@@ -134,12 +143,12 @@ export default {
     };
   },
   watch: {
-    showEditModal: function () {
+    showeditModal: function () {
       this.error = "";
       this.modalData = this.userData;
       this.clearInputs();
       this.loadModalVariableData();
-      this.modal = true;
+      this.editModal = true;
     },
     userData: function (newVal) {
       this.clearInputs();
@@ -153,7 +162,6 @@ export default {
   methods: {
     async saveUser() {
       let user = null;
-      this.modal = false;
 
       if (this.isPasswordChanged) {
         user = {
@@ -187,12 +195,12 @@ export default {
         );
         newUsers = [...newUsers, data];
         this.$store.dispatch("setAdminViewUsers", newUsers);
+        this.$emit("close");
       } catch (err) {
         console.log(err);
       }
     },
     clearInputs() {
-      this.modal = false;
       this.isPasswordChanged = false;
       this.editUsername = "";
       this.editPassword = "";
@@ -238,9 +246,6 @@ export default {
     formatGMT(date) {
       return QuestionService.formatDate(date);
     },
-    closeModal() {
-      this.modal = false;
-    },
     hideModal() {
       this.$emit("close");
     },
@@ -251,5 +256,8 @@ export default {
 <style scoped>
 .error {
   color: red;
+}
+.btn-group {
+  display: flex;
 }
 </style>

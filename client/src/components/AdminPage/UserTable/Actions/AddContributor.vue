@@ -1,7 +1,7 @@
 <template>
   <!---- ADD CONTRIBUTOR MODAL START --->
   <div>
-    <mdb-modal size="lg" :show="modal" @close="modal = false">
+    <mdb-modal size="lg" :show="modalAdd" @close="modalAdd = false">
       <mdb-modal-header>
         <mdb-modal-title>Add Contributor</mdb-modal-title>
       </mdb-modal-header>
@@ -44,7 +44,7 @@
       </mdb-modal-body>
 
       <mdb-modal-footer>
-        <mdb-btn color="secondary" size="sm" @click="modal = false"
+        <mdb-btn color="secondary" size="sm" @click="modalAdd = false"
           >Close</mdb-btn
         >
         <mdb-btn
@@ -88,7 +88,7 @@ export default {
   data() {
     return {
       error: null,
-      modal: false,
+      modalAdd: false,
       modalAddUsername: "",
       modalAddPassword: "",
       modalAddEmail: "",
@@ -106,7 +106,7 @@ export default {
     },
     openAddModal() {
       this.error = "";
-      this.modal = true;
+      this.modalAdd = true;
     },
     async addContributor() {
       // TODO, clean this up a lot
@@ -129,21 +129,10 @@ export default {
         this.clearInputFields();
         const newUsers = [...this.$store.state.adminViewUsers, data];
         this.$store.dispatch("setAdminViewUsers", newUsers);
-        this.modal = false;
+        this.modalAdd = false;
       } catch (err) {
         console.log(err);
       }
-
-      // this.clearAddInputFields();
-      // try {
-      //   await UserService.createContributor(contributor);
-      //   const { data } = await UserService.findAll();
-      //   this.users = data;
-      // } catch (err) {
-      //   console.log(err);
-      // }
-
-      // this.modalAdd = false;
     },
   },
 };

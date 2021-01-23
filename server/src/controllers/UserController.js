@@ -157,18 +157,12 @@ module.exports = {
                     }
                 }
             )
-            const user = User.findOne({
+            const user = await User.findOne({
                 where: {
                     id: userId
                 }
             })
-            if (!user) {
-                return res.status(400).send({
-                    error: `Could not block user`
-                })
-            } else {
-                res.send(user);
-            }
+            res.send(user)
         } catch (err) {
             console.log(err);
             res.status(424).send({
@@ -190,18 +184,12 @@ module.exports = {
                     }
                 }
             )
-            const user = User.findOne({
+            const user = await User.findOne({
                 where: {
                     id: userId
                 }
             })
-            if (!user) {
-                return res.status(400).send({
-                    error: `Could not unblock user`
-                })
-            } else {
-                res.send(user);
-            }
+            res.send(user)
         } catch (err) {
             console.log(err);
             res.status(424).send({

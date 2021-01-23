@@ -5,11 +5,13 @@
         <mdb-row>
           <mdb-col md="1">{{ user.id }}</mdb-col>
           <mdb-col md="2">{{ user.username }}</mdb-col>
-          <mdb-col md="3">{{ user.email }}</mdb-col>
-          <mdb-col md="1">{{ user.firstname }}</mdb-col>
-          <mdb-col md="2">{{ user.lastname }}</mdb-col>
-          <mdb-col md="1">{{ user.privilegeLevel }}</mdb-col>
-          <mdb-col md="2">{{ formatGMT(user.createdAt) }}</mdb-col>
+          <mdb-col md="5"></mdb-col>
+          <mdb-col md="4" v-if="user.privilegeLevel > 0">{{
+            determineRole(user.privilegeLevel)
+          }}</mdb-col>
+          <mdb-col md="4" class="blocked-text" v-if="user.privilegeLevel == 0"
+            >BLOCKED</mdb-col
+          >
         </mdb-row>
       </mdb-card-body>
     </mdb-card>
@@ -35,6 +37,18 @@ export default {
     formatGMT(date) {
       return QuestionService.formatDate(date);
     },
+    determineRole(n) {
+      switch (n) {
+        case "0":
+          return "BLOCKED";
+        case "1":
+          return "CONSUMER";
+        case "2":
+          return "CONTRIBUTOR";
+        case "3":
+          return "ADMIN";
+      }
+    },
   },
 };
 </script>
@@ -48,5 +62,8 @@ export default {
 .user-row:hover {
   background: rgb(240, 240, 240);
   transform: scale(1.03);
+}
+.blocked-text {
+  color: red;
 }
 </style>

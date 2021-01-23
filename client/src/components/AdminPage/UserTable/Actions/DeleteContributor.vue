@@ -1,7 +1,12 @@
 <template>
-  <mdb-btn color="primary" class="btn-danger" @click="() => deleteUser(user.id)"
-    >Delete</mdb-btn
-  >
+  <div>
+    <mdb-btn
+      color="primary"
+      class="btn-danger"
+      @click="() => deleteUser(user.id)"
+      >Delete</mdb-btn
+    >
+  </div>
 </template>
 
 <script>
