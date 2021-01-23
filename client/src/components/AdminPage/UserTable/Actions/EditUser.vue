@@ -80,6 +80,7 @@
       </mdb-modal-body>
       <mdb-container>
         <div class="btn-group">
+          <ViewUserPage :username="modalData.username" />
           <DeleteContributor :user="modalData" v-on:deletedUser="hideModal" />
           <BlockUser :user="modalData" v-on:closeModal="hideModal" />
         </div>
@@ -107,6 +108,7 @@ import {
   mdbInput,
   mdbContainer,
 } from "mdbvue";
+import ViewUserPage from "./ViewUserPage";
 import QuestionService from "../../../../services/QuestionService";
 import UserService from "../../../../services/UserService";
 import DeleteContributor from "../Actions/DeleteContributor";
@@ -125,6 +127,7 @@ export default {
     mdbContainer,
 
     BlockUser,
+    ViewUserPage,
     DeleteContributor,
   },
   data() {
@@ -187,7 +190,6 @@ export default {
           return;
         }
       }
-      console.log(user);
       try {
         const { data } = await UserService.updateUser(this.modalData.id, user);
         let newUsers = this.$store.state.adminViewUsers.filter(

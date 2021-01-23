@@ -71,11 +71,15 @@ export default {
         await AnswerService.editAnswer(id, answer);
 
         const { data } = await AnswerService.findOneById(id);
-        const newAnswers = this.$store.state.answers.filter(
-          (answer) => answer.id != id
-        );
-        const updatedAnswers = [...newAnswers, data];
-        this.$store.dispatch("setAnswers", updatedAnswers);
+        let newAnswers = [];
+        this.$store.state.answers.forEach((answer) => {
+          if (answer.id == id) {
+            answer = data;
+          }
+          newAnswers = [...newAnswers, answer];
+        });
+
+        this.$store.dispatch("setAnswers", newAnswers);
       } catch (err) {
         console.log(err);
       }

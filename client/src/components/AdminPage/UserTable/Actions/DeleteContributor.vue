@@ -13,6 +13,7 @@
 import { mdbBtn } from "mdbvue";
 import AnswerService from "../../../../services/AnswerService";
 import UserService from "../../../../services/UserService";
+import QuestionService from "../../../../services/QuestionService";
 export default {
   props: ["user"],
   name: "DeleteContributor",
@@ -29,6 +30,12 @@ export default {
           const { data } = await AnswerService.findAnswersMappedToUserId(id);
           for (let i = 0; i < data.length; i++) {
             await AnswerService.deleteAnswerById(data[i].id);
+          }
+          const questions = await QuestionService.findQuestionsMappedToUserId(
+            id
+          );
+          for (let i = 0; i < questions.data.length; i++) {
+            await QuestionService.deleteQuestionById(questions.data[i].id);
           }
           await UserService.deleteById(id);
           let newUsers = this.$store.state.adminViewUsers.filter(
