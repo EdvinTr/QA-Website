@@ -35,11 +35,11 @@
                 <mdb-nav-item>{{ "Membership" }}</mdb-nav-item>
               </router-link>
             </div>
-
-            <mdb-nav-item v-if="$store.state.isUserLoggedIn">
-              <mdb-icon far icon="envelope" />
-            </mdb-nav-item>
-
+            <router-link to="/inbox">
+              <mdb-nav-item v-if="$store.state.isUserLoggedIn">
+                <mdb-icon far icon="envelope" />
+              </mdb-nav-item>
+            </router-link>
             <mdb-dropdown tag="li" class="nav-item">
               <mdb-dropdown-toggle tag="a" navLink slot="toggle" waves-fixed>{{
                 $store.state.isUserLoggedIn

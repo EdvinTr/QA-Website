@@ -7,6 +7,7 @@ import CreateQuestion from '@/components/CreateQuestion';
 import AdminPage from '@/components/AdminPage/Index';
 import UserPage from "@/components/User/Index"
 import FAQ from "@/components/FAQ/Index"
+import Inbox from "@/components/Inbox/Index"
 import QuestionContainer from "@/components/QuestionContainer/Index"
 import store from "../store"
 
@@ -40,6 +41,11 @@ const router = new Router({
       path: '/faq',
       name: 'FAQ',
       component: FAQ
+    },
+    {
+      path: '/inbox',
+      name: 'Inbox',
+      component: Inbox
     },
 
     {

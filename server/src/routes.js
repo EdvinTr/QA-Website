@@ -3,6 +3,7 @@ const AuthenticationControllerPolicy = require("../src/policies/AuthenticationCo
 const UserController = require("../src/controllers/UserController")
 const QuestionController = require("../src/controllers/QuestionController")
 const AnswerController = require("../src/controllers/AnswerController")
+const MessageController = require("../src/controllers/MessageController")
 
 module.exports = (app) => {
     app.post("/register",
@@ -29,6 +30,14 @@ module.exports = (app) => {
     app.delete("/users/:id", UserController.deleteUserById)
     /* ------------------------ User Routes END ------------------------------------ */
 
+
+    /* ------------------------ Message Routes START ------------------------------------ */
+    app.post("/get/messages", MessageController.getMessages)
+
+    app.post("/messages", MessageController.postMessage)
+
+    app.delete("/messages/:id", MessageController.deleteMessage)
+    /* ------------------------ Message Routes END -------------------------------------- */
 
     /* ------------------------ Question Routes START ------------------------------ */
     app.get("/questions", QuestionController.getAllQuestion);

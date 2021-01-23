@@ -4,17 +4,19 @@
       <mdb-card-body>
         <mdb-card-title>FAQ</mdb-card-title>
         <div v-for="category in categories" :key="category.id">
-          <mdb-card class="mt-4 card-animation" v-bind:style="category">
-            <mdb-card-body>
-              <mdb-row>
-                <mdb-col col="12" class="category-text">{{
-                  category.name
-                }}</mdb-col>
-              </mdb-row>
-            </mdb-card-body>
-          </mdb-card>
-          <div v-cloak>
-            <QuestionLink :categoryName="category.name" />
+          <div class="category-row-wrapper">
+            <mdb-card class="mt-4 card-animation" v-bind:style="category">
+              <mdb-card-body>
+                <mdb-row>
+                  <mdb-col col="12" class="category-text">{{
+                    category.name
+                  }}</mdb-col>
+                </mdb-row>
+              </mdb-card-body>
+            </mdb-card>
+            <div v-cloak>
+              <QuestionLink :categoryName="category.name" />
+            </div>
           </div>
         </div>
       </mdb-card-body>
@@ -56,11 +58,13 @@ export default {
 </script>
 
 <style scoped>
+.category-row-wrapper {
+  margin-bottom: 3rem;
+}
 .category-text {
   color: white;
 }
 .faq-wrapper {
-  margin-top: 2rem;
 }
 [v-cloak] {
   display: none;

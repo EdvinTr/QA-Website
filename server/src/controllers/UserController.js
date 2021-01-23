@@ -1,6 +1,8 @@
 const { User } = require("../models")
 const bcrypt = require("bcrypt");
 const _ = require("lodash")
+const { Sequelize } = require("sequelize")
+const Op = Sequelize.Op
 module.exports = {
     /* ---------------------------- GET methods START ------------------------------------ */
     async findUserById(req, res) {
@@ -33,7 +35,10 @@ module.exports = {
                     exclude: ["password"]
                 },
                 where: {
-                    username: req.params.username
+                    username: {
+                        [Op.like]: '%' + req.params.username + '%'
+
+                    }
                 }
             })
             if (!user) {
