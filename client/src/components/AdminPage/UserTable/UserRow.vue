@@ -42,5 +42,11 @@ export default {
 <style scoped>
 .user-row {
   cursor: pointer;
+  transition: all 0.14s ease-in;
+}
+
+.user-row:hover {
+  background: rgb(240, 240, 240);
+  transform: scale(1.03);
 }
 </style>

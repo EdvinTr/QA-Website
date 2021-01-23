@@ -4,6 +4,8 @@
   >
     <mdb-card>
       <mdb-card-body>
+        <mdb-card-title>All Users</mdb-card-title>
+
         <UsersView :users="users" />
       </mdb-card-body>
       <mdb-container>
@@ -17,13 +19,15 @@
 import UserService from "../../services/UserService";
 import UsersView from "./UserTable/UsersView";
 import AddContributor from "./UserTable/Actions/AddContributor";
-import { mdbContainer, mdbCard, mdbCardBody } from "mdbvue";
+import { mdbContainer, mdbCard, mdbCardBody, mdbCardTitle } from "mdbvue";
 export default {
   name: "AdminPage",
   components: {
     mdbContainer,
     mdbCard,
     mdbCardBody,
+    mdbCardTitle,
+
     UsersView,
     AddContributor,
   },

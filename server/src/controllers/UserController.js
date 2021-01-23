@@ -1,6 +1,6 @@
 const { User } = require("../models")
 const bcrypt = require("bcrypt");
-
+const _ = require("lodash")
 module.exports = {
     /* ---------------------------- GET methods START ------------------------------------ */
     async findUserById(req, res) {
@@ -103,15 +103,22 @@ module.exports = {
                 }
             })
             const password = req.body.password != undefined ? bcrypt.hashSync(req.body.password, salt) : user.password
+
+            let bodyData = {
+                username: req.body.username,
+                password: password,
+                email: req.body.email,
+                firstname: req.body.firstname,
+                lastname: req.body.lastname,
+                privilegeLevel: req.body.privilegeLevel
+            }
+            if (bodyData.email == user.email) {
+                console.log("---------TRUE");
+                _.omit(bodyData, "email")
+            }
+            console.log(bodyData);
             await User.update(
-                {
-                    username: req.body.username,
-                    password: password,
-                    email: req.body.email,
-                    firstname: req.body.firstname,
-                    lastname: req.body.lastname,
-                    privilegeLevel: req.body.privilegeLevel
-                }
+                bodyData
                 , {
                     where: {
                         id: userId
@@ -123,13 +130,8 @@ module.exports = {
                     id: userId
                 }
             })
-            if (updatedUser) {
-                res.send(updatedUser)
-            } else {
-                res.send({
-                    error: `Could not find user with ID ${userId} after updating`
-                })
-            }
+            res.send(updatedUser)
+
 
         } catch (err) {
             console.log(err);

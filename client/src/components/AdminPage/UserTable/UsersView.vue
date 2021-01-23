@@ -6,9 +6,10 @@
       </div>
     </div>
     <EditUser
-      v-if="currentlyViewedUser"
-      :showModal="showModal"
+      v-if="showEditModal"
+      :showEditModal="showEditModal"
       :userData="currentlyViewedUser"
+      v-on:close="hideModal"
     />
   </div>
 </template>
@@ -21,14 +22,18 @@ export default {
   components: { UserRow, EditUser },
   data() {
     return {
-      showModal: false,
-      currentlyViewedUser: this.$store.state.adminViewUsers[0],
+      showEditModal: false,
+      currentlyViewedUser: null,
     };
   },
   methods: {
     openModal(user) {
       this.currentlyViewedUser = user;
-      this.showModal = !this.showModal;
+      this.showEditModal = true;
+    },
+    hideModal() {
+      this.showEditModal = false;
+      this.currentlyViewedUser = null;
     },
   },
 };
