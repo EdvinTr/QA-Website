@@ -112,11 +112,11 @@ export default {
       // TODO, clean this up a lot
       const contributor = {
         privilegeLevel: "2",
-        username: this.modalAddUsername,
+        username: this.firstLetterToUpperCase(this.modalAddUsername),
         password: this.modalAddPassword,
         email: this.modalAddEmail,
-        firstname: this.modalAddFirstName,
-        lastname: this.modalAddLastName,
+        firstname: this.firstLetterToUpperCase(this.modalAddFirstName),
+        lastname: this.firstLetterToUpperCase(this.modalAddLastName),
       };
       for (const [key, value] of Object.entries(contributor)) {
         if (value == "" && key) {
@@ -133,6 +133,9 @@ export default {
       } catch (err) {
         console.log(err);
       }
+    },
+    firstLetterToUpperCase(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
     },
   },
 };
