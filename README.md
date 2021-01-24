@@ -42,6 +42,9 @@ When a user searches for something it makes a GET request to the backend and wil
 The search bar is using a timeout function which gets triggered each time the user types, so after half a second or so of no more typing the GET request is executed.
 ![](https://i.gyazo.com/b36ebb674cdd4f1a813663e53c9dedff.png)
 
+### FAQ 
+![](https://i.gyazo.com/94d35e4659ee0543cf5da28ab870932b.png)
+
 ### Individual question (not logged in)
 ![](https://i.gyazo.com/1ce188d462286a501d19582da0668914.png)
 
