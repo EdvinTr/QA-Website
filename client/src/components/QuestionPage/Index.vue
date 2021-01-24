@@ -1,5 +1,5 @@
 <template>
-  <mdb-container v-if="question">
+  <mdb-container v-if="question" class="card-animation">
     <Card :question="question" />
     <div v-if="dataReady">
       <AnswerGroup :question="question" />
