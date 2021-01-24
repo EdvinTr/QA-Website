@@ -1,17 +1,6 @@
 # QA-Website
-Final project for my Dynamic Web course. We received the project instructions a day before christmas so this was something that had to be worked on during the christmas break.
-My previous knowledge of Vue was very limited as we only had 1 assignment using it (we used a cdn link for that assignment).
-
-### The project core features in miniature that had to be implemented
-The core assignment was to create a Fullstack website with SQL as database together with node/express for server and Vue JS for front end. There had to be 3 different types of accounts: consumers, contributors and admin.
-
-The **consumer** can consume information and ask questions, but cannot reply to other questions submitted by other consumers. The consumer can also edit/delete their questions, which in turn deletes all answers associated with that question.
-
-The **contributor** accounts are able to answer to questions but not create their own. They can also edit/delete their answers.
-
-The **admin** has full privilege, meaning they are able to alter answers and questions as well as block users or delete contributor accounts.
-
-Feel free to use this project for whatever you may like, just note that a lot of the things that I have implemented have been very rushed as the deadline was so short. In other words, it's a bit of a mess. I might go back and refactor things in the future.
+Final project for my Dynamic Web course. 
+I had around 1½ months of experience with Vue JS at the time I finished this assigment.
 
 ## How to install
 1. Open two terminal windows
@@ -28,6 +17,7 @@ Feel free to use this project for whatever you may like, just note that a lot of
 * axios
 * mdbvue
 * vue-multiselect
+* vuex-persistedstate
 
 **Backend:**
 * node
@@ -40,31 +30,41 @@ Feel free to use this project for whatever you may like, just note that a lot of
 * morgan
 * joi
 * jsonwebtoken
+* lodash
 
 # Images of the project
 
 ### Front page (not logged in)
-![](https://i.gyazo.com/42a7a30a0582df2fe917750ae39651e3.png)
+![](https://i.gyazo.com/c7105b0f8d50b9d5b851e57b4409d177.png)
 
 ### Search bar
 When a user searches for something it makes a GET request to the backend and will try to match WHERE the category or title of any question is LIKE the query.
 The search bar is using a timeout function which gets triggered each time the user types, so after half a second or so of no more typing the GET request is executed.
-![](https://i.gyazo.com/e083865c9d9ee00e63d9baf3453afd3a.png)
+![](https://i.gyazo.com/b36ebb674cdd4f1a813663e53c9dedff.png)
 
 ### Individual question (not logged in)
-![](https://i.gyazo.com/6f502d888507913b559f2fdba3ba43c4.png)
+![](https://i.gyazo.com/1ce188d462286a501d19582da0668914.png)
 
 ### Individual question (logged in as contributor)
-![](https://i.gyazo.com/f0b0cbb7aa31bb9d6c08282531cc883a.png)
+![](https://i.gyazo.com/8b3bad8bc234b647457c157e0e0c9ee9.png)
 
 ### Front page (logged in as consumer)
-![](https://i.gyazo.com/be275882e62d0b68299e254aa363cfec.png)
+![](https://i.gyazo.com/4778f372ce28ef74331687a36a3d84e0.png)
 
 ### Edit question (logged in as consumer)
-![](https://i.gyazo.com/e1e5c8953fd48c54e38dee65a392d39b.png)
+![](https://i.gyazo.com/70e06293c66d51f7800a33bb131bd37e.png)
 
 ### Create question (logged in as consumer)
-![](https://i.gyazo.com/3ed560f75fdfbf4539af37dbd8f54209.png)
+![](https://i.gyazo.com/38ea405fae89b37f84dfc34ffd9b0f46.png)
+
+### User profile (logged in as consumer)
+![](https://i.gyazo.com/9e6cc75efd1fb4231bb6015c7d2f2bc8.png)
+
+### Inbox
+![](https://i.gyazo.com/8495b387ad168d66e3ee7ba3d3d8b5ce.png)
 
 ### Manage users (logged in as admin)
-![](https://i.gyazo.com/9ed634dbf25ac9c635c22f951a258833.png)
+![](https://i.gyazo.com/5e63aacdec90c5cbd616d43489e52695.png)
+
+### Edit user (logged in as admin)
+![](https://i.gyazo.com/6b0a34d1f2cd4de7e74617adc954e9a5.png)
