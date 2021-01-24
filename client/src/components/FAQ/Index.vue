@@ -64,8 +64,6 @@ export default {
 .category-text {
   color: white;
 }
-.faq-wrapper {
-}
 [v-cloak] {
   display: none;
 }

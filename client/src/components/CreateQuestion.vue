@@ -1,5 +1,5 @@
 <template>
-  <mdb-container class="createQuestionContainer">
+  <mdb-container class="createQuestionContainer card-animation">
     <mdb-card>
       <mdb-card-body>
         <mdb-card-title class="mb-4">Ask a Question</mdb-card-title>

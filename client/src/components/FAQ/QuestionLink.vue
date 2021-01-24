@@ -1,14 +1,14 @@
 <template>
   <div v-if="question" class="container">
-    <mdb-card class="card-animation mt-2">
-      <mdb-card-body class="question-link-card-body">
-        <router-link :to="{ path: '/questions/' + question.id }">
+    <router-link :to="{ path: '/questions/' + question.id }">
+      <mdb-card class="card-animation mt-2">
+        <mdb-card-body class="question-link-card-body hover-card">
           <mdb-card-title class="faq-question-text">{{
             question.title
           }}</mdb-card-title>
-        </router-link>
-      </mdb-card-body>
-    </mdb-card>
+        </mdb-card-body>
+      </mdb-card>
+    </router-link>
   </div>
 </template>
 <script>
@@ -45,14 +45,19 @@ export default {
 .question-link-card-body {
   padding: 1rem 1rem 0.3rem 1rem;
   text-align: left;
+  transition: all 0.14s ease-in;
+}
+.hover-card:hover {
+  background: rgb(240, 240, 240);
+  transform: scale(1.03);
 }
 
 .card-animation {
-  -webkit-animation: fadein 0.4s; /* Safari, Chrome and Opera > 12.1 */
-  -moz-animation: fadein 0.4s; /* Firefox < 16 */
-  -ms-animation: fadein 0.4s; /* Internet Explorer */
-  -o-animation: fadein 0.4s; /* Opera < 12.1 */
-  animation: fadein 0.4s;
+  -webkit-animation: fadein 0.3s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 0.3s; /* Firefox < 16 */
+  -ms-animation: fadein 0.3s; /* Internet Explorer */
+  -o-animation: fadein 0.3s; /* Opera < 12.1 */
+  animation: fadein 0.3s;
 }
 @keyframes fadein {
   from {

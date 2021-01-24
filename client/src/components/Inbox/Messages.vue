@@ -1,21 +1,23 @@
 <template>
   <mdb-container>
-    <div v-for="message in messages" :key="message.id">
-      <mdb-card class="card-animation mt-2">
-        <mdb-card-body>
-          <mdb-card-title
-            >{{ message.subject }}
-            <DeleteMessage
-              :message="message"
-              v-on:deletedMessage="deleteMessage"
-            />
-          </mdb-card-title>
-          <mdb-card-text>{{ message.textContent }}</mdb-card-text>
-          <mdb-card-footer class="text-muted mt-4">
-            {{ mapSenderToMessage() }}
-          </mdb-card-footer>
-        </mdb-card-body>
-      </mdb-card>
+    <div v-if="messages.length > 0">
+      <div v-for="message in messages" :key="message.id">
+        <mdb-card class="card-animation mt-2">
+          <mdb-card-body>
+            <mdb-card-title
+              >{{ message.subject }}
+              <DeleteMessage
+                :message="message"
+                v-on:deletedMessage="deleteMessage"
+              />
+            </mdb-card-title>
+            <mdb-card-text>{{ message.textContent }}</mdb-card-text>
+            <mdb-card-footer class="text-muted mt-4">
+              {{ mapSenderToMessage() }}
+            </mdb-card-footer>
+          </mdb-card-body>
+        </mdb-card>
+      </div>
     </div>
   </mdb-container>
 </template>

@@ -27,6 +27,7 @@
         v-model="message"
       />
       <SuccessButton buttonText="Send" :btnClickHandler="this.postMessage" />
+      <div class="error" v-html="error" />
     </mdb-card-body>
   </mdb-card>
 </template>
@@ -45,6 +46,7 @@ export default {
   },
   data() {
     return {
+      error: null,
       receiverUsername: "",
       subject: "",
       message: "",
@@ -70,12 +72,20 @@ export default {
             this.$emit("messageSent");
           } catch (err) {
             console.log(err);
+            this.error = "That user does not exist";
           }
         }
       } catch (err) {
         console.log(err);
+        this.error = "Something went wrong trying to send the message";
       }
     },
   },
 };
 </script>
+
+<style scoped>
+.error {
+  color: red;
+}
+</style>

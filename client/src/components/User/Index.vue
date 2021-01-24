@@ -1,5 +1,5 @@
 <template>
-  <mdb-container v-if="user" class="userProfileContainer">
+  <mdb-container v-if="user" class="userProfileContainer card-animation">
     <h3>{{ user.username }}s Profile</h3>
     <UserProfile :user="user" />
     <UserQuestions :questions="questions" :user="user" />

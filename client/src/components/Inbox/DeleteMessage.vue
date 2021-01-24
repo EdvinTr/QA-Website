@@ -19,7 +19,7 @@ export default {
   methods: {
     async deleteMessage(id) {
       try {
-        let answer = confirm("Are you sure you want to delete this question?");
+        let answer = confirm("Are you sure you want to delete this message?");
         if (answer) {
           await MessageService.deleteMessage(id);
           this.$emit("deletedMessage", id);

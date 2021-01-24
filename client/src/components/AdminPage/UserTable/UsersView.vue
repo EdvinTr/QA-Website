@@ -2,7 +2,7 @@
   <div class="card-animation">
     <div v-for="user in $store.state.adminViewUsers" :key="user.id">
       <div @click="() => openModal(user)">
-        <UserRow :user="user" class="card-animation" />
+        <UserRow :user="user" />
       </div>
     </div>
     <EditUser

@@ -1,6 +1,7 @@
 <template>
   <mdb-container
     v-if="users.length > 0 && $store.state.userPrivilegeLevel == 3"
+    class="card-animation"
   >
     <mdb-card>
       <mdb-card-body>

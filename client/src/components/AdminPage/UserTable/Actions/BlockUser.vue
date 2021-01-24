@@ -31,12 +31,14 @@ export default {
     async blockUser(id) {
       try {
         const { data } = await UserService.blockUser(id);
-        let users = this.$store.state.adminViewUsers.filter(
-          (user) => user.id != id
-        );
+        let currentUsers = this.$store.state.adminViewUsers;
 
-        const newUsers = [...users, data];
-        this.$store.dispatch("setAdminViewUsers", newUsers);
+        currentUsers.forEach(function (part, index) {
+          if (this[index].id == id) {
+            this[index] = data;
+          }
+        }, currentUsers);
+
         this.$emit("closeModal");
       } catch (err) {
         console.log(err);
@@ -45,11 +47,13 @@ export default {
     async unblockUser(id) {
       try {
         const { data } = await UserService.unblockUser(id);
-        let users = this.$store.state.adminViewUsers.filter(
-          (user) => user.id != id
-        );
-        const newUsers = [...users, data];
-        this.$store.dispatch("setAdminViewUsers", newUsers);
+        let currentUsers = this.$store.state.adminViewUsers;
+
+        currentUsers.forEach(function (part, index) {
+          if (this[index].id == id) {
+            this[index] = data;
+          }
+        }, currentUsers);
         this.$emit("closeModal");
       } catch (err) {
         console.log(err);

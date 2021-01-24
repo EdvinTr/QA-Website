@@ -1,6 +1,6 @@
 <template>
   <!-- Card -->
-  <div class="container">
+  <div class="container card-animation">
     <mdb-card>
       <mdb-card-body>
         <form>
