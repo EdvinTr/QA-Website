@@ -49,7 +49,7 @@ The search bar is using a timeout function which gets triggered each time the us
 ![](https://i.gyazo.com/1ce188d462286a501d19582da0668914.png)
 
 ### Individual question (logged in as contributor)
-![](https://i.gyazo.com/8b3bad8bc234b647457c157e0e0c9ee9.png)
+![](https://i.gyazo.com/2fa6d9ac12666f14424bb1d518ab82a1.png)
 
 ### Front page (logged in as consumer)
 ![](https://i.gyazo.com/4778f372ce28ef74331687a36a3d84e0.png)
