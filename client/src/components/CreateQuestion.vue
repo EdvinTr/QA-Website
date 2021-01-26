@@ -91,37 +91,22 @@ export default {
           textContent: this.firstLetterToUpperCase(this.textArea),
           category: this.selected,
         };
+        const questionCreators = this.$store.state.questionCreators;
 
-        /* questionCreators is a global state array */
-        let questionCreators = this.$store.state.questionCreators;
-        let foundUser = false;
-
-        questionCreators.map((user) => {
-          if (user.id == this.$store.state.user.id) {
-            return (foundUser = true);
-          }
-        });
-
-        /* If this is true, it means a user, not currently stored as
-       a question creator has just submitted a question */
-        if (!foundUser) {
+        /* If this is NOT true, it means a user, not currently stored as a question creator has just submitted a question */
+        if (!this.userAlreadyExists()) {
           const newUsers = [...questionCreators, this.$store.state.user];
           this.$store.dispatch("setQuestionCreators", newUsers);
         }
 
-        /* Create Question */
+        /* Send POST request */
         try {
-          const returnedQuestion = await QuestionService.createQuestion(
-            question
-          );
+          const { data } = await QuestionService.createQuestion(question);
+          const newQuestions = [...this.$store.state.questions, data];
 
-          const newQuestions = [
-            ...this.$store.state.questions,
-            returnedQuestion.data,
-          ];
           // Update VUEX Store with the newly added question and navigate to the question page
           this.$store.dispatch("setQuestions", newQuestions);
-          this.$router.push(`/questions/${returnedQuestion.data.id}`);
+          this.$router.push(`/questions/${data.id}`);
         } catch (err) {
           console.log(err);
         }
@@ -145,6 +130,14 @@ export default {
         this.error = "";
         return true;
       }
+    },
+    userAlreadyExists() {
+      let questionCreators = this.$store.state.questionCreators;
+      questionCreators.map((user) => {
+        if (user.id == this.$store.state.user.id) {
+          return true;
+        }
+      });
     },
   },
 };
