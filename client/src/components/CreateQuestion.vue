@@ -84,6 +84,7 @@ export default {
   methods: {
     async createQuestion() {
       if (this.checkFieldsNotEmpty()) {
+        // Question Object
         let question = {
           userId: this.$store.state.user.id,
           title: this.firstLetterToUpperCase(this.title),
@@ -91,32 +92,34 @@ export default {
           category: this.selected,
         };
 
+        /* questionCreators is a global state array */
+        let questionCreators = this.$store.state.questionCreators;
         let foundUser = false;
-        for (let i = 0; i < this.$store.state.questionCreators.length; i++) {
-          if (
-            this.$store.state.questionCreators[i].id ==
-            this.$store.state.user.id
-          ) {
-            foundUser = true;
-            break;
+
+        questionCreators.map((user) => {
+          if (user.id == this.$store.state.user.id) {
+            return (foundUser = true);
           }
-        }
+        });
+
+        /* If this is true, it means a user, not currently stored as
+       a question creator has just submitted a question */
         if (!foundUser) {
-          const newUsers = [
-            ...this.$store.state.questionCreators,
-            this.$store.state.user,
-          ];
+          const newUsers = [...questionCreators, this.$store.state.user];
           this.$store.dispatch("setQuestionCreators", newUsers);
         }
 
+        /* Create Question */
         try {
           const returnedQuestion = await QuestionService.createQuestion(
             question
           );
+
           const newQuestions = [
             ...this.$store.state.questions,
             returnedQuestion.data,
           ];
+          // Update VUEX Store with the newly added question and navigate to the question page
           this.$store.dispatch("setQuestions", newQuestions);
           this.$router.push(`/questions/${returnedQuestion.data.id}`);
         } catch (err) {

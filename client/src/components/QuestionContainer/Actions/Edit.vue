@@ -125,6 +125,8 @@ export default {
 
       try {
         await QuestionService.editQuestion(id, question);
+
+        // Update questions in VUEX store with the new question
         this.$store.state.questions.forEach((question) => {
           if (question.id == id) {
             question.title = title;
