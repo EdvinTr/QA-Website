@@ -35,10 +35,10 @@ export default {
       }
     });
     try {
-      const answerData = await AnswerService.findAnswersMappedToQuestionId(
+      const { data } = await AnswerService.findAnswersMappedToQuestionId(
         this.question.id
       );
-      this.$store.dispatch("setAnswers", answerData.data);
+      this.$store.dispatch("setAnswers", data);
 
       this.dataReady = true;
     } catch (err) {
